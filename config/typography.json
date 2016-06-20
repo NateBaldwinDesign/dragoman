@@ -1,0 +1,22 @@
+{
+	"base": {
+		"font-size": "16px;",
+		"line-height": "24px;",
+		"vertical-unit": "6px;",
+		"line-multi": "4;",
+		"scale": "1.414;"
+	},
+	"font": {
+		"primary": "Times New Roman, Georgia, serif;",
+		"secondary": "Helvetica, Arial, sans-serif;",
+		"monospace": "'Lucida Console', Monaco, monospace;"
+	},
+	"paragraph": {
+		"indent": "true;",
+		"justify": "true;"
+	},
+	"whitespace": {
+		"margin": "1.5;",
+		"padding": "1.5;"
+	}
+}

@@ -1,0 +1,25 @@
+{
+  "name": "aggregator",
+  "version": "0.1.0",
+  "description": "Translate core design variables across web and mobile platforms",
+  "main": "gulpfile.js",
+  "author": "Nate Baldwin <natebaldwindesign@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/NateBaldwinDesign/aggregator.git"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-cheerio": "^0.6.2",
+    "gulp-concat": "^2.6.0",
+    "gulp-json-sass": "0.0.2",
+    "gulp-rename": "^1.2.2",
+    "gulp-replace": "^0.5.4",
+    "gulp-rimraf": "^0.2.0",
+    "gulp-sass": "^2.3.2",
+    "node-sass": "^3.8.0",
+    "normalize-scss": "^5.0.3",
+    "semver": "^5.1.0",
+  }
+}

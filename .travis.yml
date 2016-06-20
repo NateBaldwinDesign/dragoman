@@ -1,0 +1,10 @@
+language: node_js
+node_js:
+- "4.0"
+install:
+- npm install
+before_script:
+  - npm install -g gulp
+script: gulp
+notifications:
+  slack: aggregatordevops:UUiFolRCiY5JuwOU6l7TjPoY

@@ -1,0 +1,4 @@
+.npm
+*.log
+node_modules
+dest
