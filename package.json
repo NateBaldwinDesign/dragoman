@@ -10,6 +10,7 @@
     "url": "https://github.com/NateBaldwinDesign/aggregator.git"
   },
   "devDependencies": {
+    "event-stream": "^3.3.3",
     "gulp": "^3.9.1",
     "gulp-cheerio": "^0.6.2",
     "gulp-concat": "^2.6.0",
