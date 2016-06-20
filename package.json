@@ -20,6 +20,6 @@
     "gulp-sass": "^2.3.2",
     "node-sass": "^3.8.0",
     "normalize-scss": "^5.0.3",
-    "semver": "^5.1.0",
+    "semver": "^5.1.0"
   }
 }
