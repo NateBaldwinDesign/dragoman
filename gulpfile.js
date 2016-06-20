@@ -6,16 +6,25 @@ var jsonSass = require('gulp-json-sass'),
     clean = require('gulp-rimraf'),
     rename = require('gulp-rename'),
     replace = require('gulp-replace'),
-    wrapper = require('gulp-wrapper');
+    wrapper = require('gulp-wrapper')
 
+    //===========================================//
+    // SET THE PATH TO YOUR SOURCE & DESTINATION
+    // FOR BUILD PROCESSES.
+    //===========================================//
+    pathToSource = 'config/',
+    pathToDest = 'dest/';
+
+//===========================================//
 // Clean Build
 gulp.task('clean-build', function() {
-  gulp.src('dest/**/*.*').pipe(clean());
+  gulp.src( pathToDest + '**/*.*').pipe(clean());
 });
+//===========================================//
 // Convert JSON to SCSS variables
 gulp.task('json-scss', ['clean-build'], function() {
   return gulp
-    .src('config/*.json')
+    .src( pathToSource + '*.json')
     .pipe(jsonCss({
       targetPre: "scss",
       delim: "-"
@@ -23,12 +32,13 @@ gulp.task('json-scss', ['clean-build'], function() {
     .pipe(rename({
       prefix: "_"
     }))
-    .pipe(gulp.dest('dest/'));
+    .pipe(gulp.dest( pathToDest ));
 });
+//===========================================//
 // Convert JSON to SASS variables
 gulp.task('json-sass', ['json-scss'], function() {
   return gulp
-    .src('config/*.json')
+    .src( pathToSource + '*.json')
     .pipe(jsonCss({
       targetPre: "sass",
       delim: "-"
@@ -36,12 +46,13 @@ gulp.task('json-sass', ['json-scss'], function() {
     .pipe(rename({
       prefix: "_"
     }))
-    .pipe(gulp.dest('dest/'));
+    .pipe(gulp.dest( pathToDest ));
 });
+//===========================================//
 // Convert JSON to Less variables
 gulp.task('json-less', ['json-sass'], function() {
   return gulp
-    .src('config/*.json')
+    .src( pathToSource + '*.json')
     .pipe(jsonCss({
       targetPre: "less",
       delim: "-"
@@ -49,12 +60,13 @@ gulp.task('json-less', ['json-sass'], function() {
     .pipe(rename({
       prefix: "_"
     }))
-    .pipe(gulp.dest('dest/'));
+    .pipe(gulp.dest( pathToDest ));
 });
+//===========================================//
 // Convert JSON to Stylus variables
 gulp.task('json-stylus', ['json-less'], function() {
   return gulp
-    .src('config/*.json')
+    .src( pathToSource + '*.json')
     .pipe(jsonCss({
       targetPre: "sass",
       delim: "-"
@@ -65,12 +77,13 @@ gulp.task('json-stylus', ['json-less'], function() {
       prefix: "_",
       extname: ".styl"
     }))
-    .pipe(gulp.dest('dest/'));
+    .pipe(gulp.dest( pathToDest ));
 });
+//===========================================//
 // Convert JSON to Android XML
 gulp.task('json-xml', ['json-stylus'], function() {
   return gulp
-    .src('config/typography.json')
+    .src( pathToSource + 'typography.json')
     .pipe(jsonCss({
       targetPre: "scss",
       delim: "-"
@@ -83,9 +96,9 @@ gulp.task('json-xml', ['json-stylus'], function() {
     .pipe(replace(': ', '">'))
     .pipe(replace(';', '</dimen>'))
     .pipe(rename('dimens.xml'))
-    .pipe(gulp.dest('dest/'));
+    .pipe(gulp.dest( pathToDest ));
 });
-
+//===========================================//
 // Convert JSON to iOS JSON format
 
 gulp.task('default', ['json-xml']);
