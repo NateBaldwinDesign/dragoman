@@ -1,65 +1,91 @@
 var jsonSass = require('gulp-json-sass'),
+    jsonCss = require('gulp-json-css'),
     gulp = require('gulp'),
     concat = require('gulp-concat'),
     sass = require('gulp-sass'),
     clean = require('gulp-rimraf'),
     rename = require('gulp-rename'),
-    replace = require('gulp-replace');
+    replace = require('gulp-replace'),
+    wrapper = require('gulp-wrapper');
 
+// Clean Build
+gulp.task('clean-build', function() {
+  gulp.src('dest/**/*.*').pipe(clean());
+});
 // Convert JSON to SCSS variables
-gulp.task('json-scss', function() {
+gulp.task('json-scss', ['clean-build'], function() {
   return gulp
     .src('config/*.json')
-    .pipe(jsonSass({
-      sass: true,
-      ignoreJsonErrors: false
+    .pipe(jsonCss({
+      targetPre: "scss",
+      delim: "-"
     }))
-    // .pipe(concat('_typography.scss'))
+    .pipe(rename({
+      prefix: "_"
+    }))
     .pipe(gulp.dest('dest/'));
 });
 // Convert JSON to SASS variables
-gulp.task('json-sass', function() {
+gulp.task('json-sass', ['json-scss'], function() {
   return gulp
     .src('config/*.json')
-    .pipe(jsonSass({
-      sass: true,
-      ignoreJsonErrors: false
+    .pipe(jsonCss({
+      targetPre: "sass",
+      delim: "-"
     }))
-    // .pipe(concat('_principles.scss'))
-    .pipe(replace(';', ''))
-    .pipe(rename('_principles.sass'))
+    .pipe(rename({
+      prefix: "_"
+    }))
     .pipe(gulp.dest('dest/'));
 });
 // Convert JSON to Less variables
-gulp.task('json-less', function() {
+gulp.task('json-less', ['json-sass'], function() {
   return gulp
     .src('config/*.json')
-    .pipe(jsonSass({
-      sass: true,
-      ignoreJsonErrors: false
+    .pipe(jsonCss({
+      targetPre: "less",
+      delim: "-"
     }))
-    // .pipe(concat('_principles.scss'))    
-    .pipe(replace('$', '@'))
-    .pipe(rename('_principles.less'))
+    .pipe(rename({
+      prefix: "_"
+    }))
     .pipe(gulp.dest('dest/'));
 });
 // Convert JSON to Stylus variables
-gulp.task('json-stylus', function() {
+gulp.task('json-stylus', ['json-less'], function() {
   return gulp
     .src('config/*.json')
-    .pipe(jsonSass({
-      sass: true,
-      ignoreJsonErrors: false
+    .pipe(jsonCss({
+      targetPre: "sass",
+      delim: "-"
     }))
-    // .pipe(concat('_principles.scss'))    
     .pipe(replace('$', ''))
-    .pipe(replace(':', '='))
-    .pipe(replace(';', ''))
-    .pipe(rename('_principles.styl'))
+    .pipe(replace(':', ' ='))
+    .pipe(rename({
+      prefix: "_",
+      extname: ".styl"
+    }))
     .pipe(gulp.dest('dest/'));
 });
 // Convert JSON to Android XML
+gulp.task('json-xml', ['json-stylus'], function() {
+  return gulp
+    .src('config/typography.json')
+    .pipe(jsonCss({
+      targetPre: "scss",
+      delim: "-"
+    }))
+    .pipe(wrapper({
+      header: '<?xml version="1.0" encoding="utf-8"?><resources> \n',
+      footer: '</resources> \n'
+    }))
+    .pipe(replace('$', '    <dimen name="'))
+    .pipe(replace(': ', '">'))
+    .pipe(replace(';', '</dimen>'))
+    .pipe(rename('dimens.xml'))
+    .pipe(gulp.dest('dest/'));
+});
 
 // Convert JSON to iOS JSON format
 
-gulp.task('default', ['json-scss', 'json-sass', 'json-less', 'json-stylus']);
+gulp.task('default', ['json-xml']);
