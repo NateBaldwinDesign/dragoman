@@ -88,7 +88,8 @@ gulp.task('json-android-dimensions', ['json-stylus'], function() {
     .src( pathToSource + '*.json')
     .pipe(jsonTransform(function(data) {
       return {
-        base: data.base
+        base: data.base,
+        whitespace: data.whitespace
       };
     }))
     .pipe(jsonCss({
@@ -102,7 +103,7 @@ gulp.task('json-android-dimensions', ['json-stylus'], function() {
     .pipe(replace('$', '    <dimen name="'))
     .pipe(replace(': ', '">'))
     .pipe(replace(';', '</dimen>'))
-    .pipe(rename('dimens.xml'))
+    .pipe(rename('dimens-android.xml'))
     .pipe(gulp.dest( pathToDest ));
 });
 gulp.task('json-android-color', ['json-android-dimensions'], function() {
@@ -116,13 +117,12 @@ gulp.task('json-android-color', ['json-android-dimensions'], function() {
       header: '<?xml version="1.0" encoding="utf-8"?><resources> \n',
       footer: '</resources> \n'
     }))
-    .pipe(replace('$', '    <item type="color" name="'))
+    .pipe(replace('$', '    <color name="'))
     .pipe(replace(': ', '">'))
-    .pipe(replace(';', '</item>'))
-    .pipe(rename('colors.xml'))
+    .pipe(replace(';', '</color>'))
+    .pipe(rename('colors-android.xml'))
     .pipe(gulp.dest( pathToDest ));
 });
-
 
 //===========================================//
 // Convert JSON to iOS JSON format
