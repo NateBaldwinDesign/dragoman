@@ -3,7 +3,6 @@ var jsonSass = require('gulp-json-sass'),
     concat = require('gulp-concat'),
     sass = require('gulp-sass'),
     clean = require('gulp-rimraf'),
-    sourcemaps = require('gulp-sourcemaps'),
     rename = require('gulp-rename'),
     replace = require('gulp-replace'),
     designProperties = require('./config.json');
