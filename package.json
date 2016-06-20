@@ -16,6 +16,7 @@
     "gulp-data": "^1.2.1",
     "gulp-json-css": "^0.2.3",
     "gulp-json-sass": "0.0.2",
+    "gulp-json-transform": "^0.3.2",
     "gulp-rename": "^1.2.2",
     "gulp-replace": "^0.5.4",
     "gulp-rimraf": "^0.2.0",

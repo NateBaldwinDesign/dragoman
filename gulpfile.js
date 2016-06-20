@@ -6,7 +6,9 @@ var jsonSass = require('gulp-json-sass'),
     clean = require('gulp-rimraf'),
     rename = require('gulp-rename'),
     replace = require('gulp-replace'),
-    wrapper = require('gulp-wrapper')
+    wrapper = require('gulp-wrapper'),
+    data = require('gulp-data'),
+    jsonTransform = require('gulp-json-transform'),
 
     //===========================================//
     // SET THE PATH TO YOUR SOURCE & DESTINATION
@@ -81,9 +83,14 @@ gulp.task('json-stylus', ['json-less'], function() {
 });
 //===========================================//
 // Convert JSON to Android XML
-gulp.task('json-xml', ['json-stylus'], function() {
+gulp.task('json-android-dimensions', ['json-stylus'], function() {
   return gulp
-    .src( pathToSource + 'typography.json')
+    .src( pathToSource + '*.json')
+    .pipe(jsonTransform(function(data) {
+      return {
+        base: data.base
+      };
+    }))
     .pipe(jsonCss({
       targetPre: "scss",
       delim: "-"
@@ -98,7 +105,26 @@ gulp.task('json-xml', ['json-stylus'], function() {
     .pipe(rename('dimens.xml'))
     .pipe(gulp.dest( pathToDest ));
 });
+gulp.task('json-android-color', ['json-android-dimensions'], function() {
+  return gulp
+    .src( pathToSource + 'color.json')
+    .pipe(jsonCss({
+      targetPre: "scss",
+      delim: "-"
+    }))
+    .pipe(wrapper({
+      header: '<?xml version="1.0" encoding="utf-8"?><resources> \n',
+      footer: '</resources> \n'
+    }))
+    .pipe(replace('$', '    <item type="color" name="'))
+    .pipe(replace(': ', '">'))
+    .pipe(replace(';', '</item>'))
+    .pipe(rename('colors.xml'))
+    .pipe(gulp.dest( pathToDest ));
+});
+
+
 //===========================================//
 // Convert JSON to iOS JSON format
 
-gulp.task('default', ['json-xml']);
+gulp.task('default', ['json-android-color']);
