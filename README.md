@@ -13,6 +13,15 @@ This toolkit is a starter kit for creating applications from a design-systems ap
 * Global margins
 * Global padding
 
+##### Targeted Languages & Platforms
+* Web / Less
+* Web / Sass
+* Web / Scss
+* Web / Stylus
+* Android / XML
+* iOS / Swift (not yet started)
+
+
 ### Contribute
 This type of tool would be rad to have and is greatly benefitial to software development. Please take a look and feel free to contribute to making this tool better than it is.
 
