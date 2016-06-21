@@ -9,11 +9,12 @@ var jsonSass = require('gulp-json-sass'),
     wrapper = require('gulp-wrapper'),
     data = require('gulp-data'),
     jsonTransform = require('gulp-json-transform'),
-    eventStream = require('event-stream'),
 
     //===========================================//
     // SET THE PATH TO YOUR SOURCE & DESTINATION
     // FOR BUILD PROCESSES.
+    // [1] Path to your source JSON files
+    // [2] Path to distribute variable files
     //===========================================//
     pathToSource = 'config/',
     pathToDest = 'dest/';
@@ -98,8 +99,8 @@ gulp.task('json-android-dimensions', ['json-stylus'], function() {
       delim: "-"
     }))
     .pipe(wrapper({
-      header: '<?xml version="1.0" encoding="utf-8"?><resources> \n',
-      footer: '</resources> \n'
+      header: '<?xml version="1.0" encoding="utf-8"?> \n<resources> \n',
+      footer: '\n</resources> \n'
     }))
     .pipe(replace('$', '    <dimen name="'))
     .pipe(replace(': ', '">'))
@@ -115,8 +116,8 @@ gulp.task('json-android-color', ['json-android-dimensions'], function() {
       delim: "-"
     }))
     .pipe(wrapper({
-      header: '<?xml version="1.0" encoding="utf-8"?><resources> \n',
-      footer: '</resources> \n'
+      header: '<?xml version="1.0" encoding="utf-8"?> \n<resources> \n',
+      footer: '\n</resources> \n'
     }))
     .pipe(replace('$', '    <color name="'))
     .pipe(replace(': ', '">'))
@@ -127,30 +128,6 @@ gulp.task('json-android-color', ['json-android-dimensions'], function() {
 
 //===========================================//
 // Convert JSON to iOS JSON format
-function convertHex(hex,opacity){
-    var hex = hex.replace('#',''),
-        r = parseInt(hex.substring(0,2), 16),
-        g = parseInt(hex.substring(2,4), 16),
-        b = parseInt(hex.substring(4,6), 16);
 
-    result = 'rgba('+r+','+g+','+b+','+opacity/100+')';
-  return eventStream.map(convertHex);
-}
-
-gulp.task('color-to-rgba', function() {
-  return gulp
-    .src( pathToSource + 'color.json')
-    .pipe(jsonTransform(function(data) {
-      return {
-        'color': data.color
-      };
-    }))
-    .pipe(convertHex())
-    .pipe(rename('colors-ios.xml'))
-    .pipe(gulp.dest( pathToDest ));
-})
-
-
-// $('h1').html(convertHex('#A7D136',50));
 
 gulp.task('default', ['json-android-color']);
