@@ -19,7 +19,7 @@ This toolkit is a starter kit for creating applications from a design-systems ap
 * Web / Scss
 * Web / Stylus
 * Android / XML
-* iOS / Swift (not yet started)
+* iOS / Swift 
 
 
 ### Contribute
