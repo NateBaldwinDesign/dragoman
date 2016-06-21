@@ -1,0 +1,73 @@
+@charset "UTF-8";
+
+// Import your design principle variables
+@import '_principles';
+
+$text-color: #000;
+$base-vertical-unit: 6px;
+$base-line-multi: 4;
+$load-typesetted: true;
+
+// ==============================================================================
+// Typesettings
+// ==============================================================================
+// A toolkit that sets type in Ems based on modular scale, vertical rhythm,
+// and responsive ratio based headlines. Oh, and pixel borders that maintain
+// rhythm.
+//
+// Release Versions: https://github.com/ianrose/typesettings/releases
+// Github: https://github.com/ianrose/typesettings
+// License: The MIT License (MIT)
+//
+// Inspired by and used stuff from:
+// https://github.com/typeplate/typeplate.github.io
+// https://github.com/csswizardry/typecsset
+
+
+//==============================================================================
+// Config Variables
+//==============================================================================
+
+// The vertical grid unit. Margin, padding, and line-height are set to multiples
+// of this value. This is the value that determines the baseline for our vertical
+// rhythm. The default value of 6px allows more fine tuned designs that still
+// obey vertical rhythm.
+// $base-vertical-unit: 6px !default;
+
+// The value that multiplies the $base-vertical-unit to get the $base-line-height.
+// This gives type an ideal line-height.
+// $base-line-multi: 4 !default;
+
+//==============================================================================
+// Internal Variables
+//==============================================================================
+// It's Best not to adjust the internal variables directly.[Note]
+
+// Creates a handy variable for the 1em
+$base-em-font-size: 1em;
+
+// Generates modular scale values in Ems. [Note]If you need more size up and/or down
+// then add more sizes.
+// [1] One step down in the modular scale in EMs
+// [2] One step up in the modular scale in EMs
+$ms-down1: $base-em-font-size / $base-scale; // [1]
+$ms-down2: $ms-down1 /$base-scale;
+$ms-down3: $ms-down2 / $base-scale;
+$ms-down4: $ms-down3 / $base-scale;
+$ms-up1: $base-em-font-size * $base-scale; // [2]
+$ms-up2: $ms-up1 * $base-scale;
+$ms-up3: $ms-up2 * $base-scale;
+$ms-up4: $ms-up3 * $base-scale;
+$ms-up5: $ms-up4 * $base-scale;
+$ms-up6: $ms-up5 * $base-scale;
+$ms-up7: $ms-up6 * $base-scale;
+$ms-up8: $ms-up7 * $base-scale;
+$ms-up9: $ms-up8 * $base-scale;
+$ms-up10: $ms-up9 * $base-scale;
+
+// Warning text for when an integer is not used in rhythm functions
+$not-integer-txt: ' value breaks vertical rhythm. Use an integer (whole number) for $lines.';
+
+//==============================================================================
+// Whitespace margins & padding based on type
+$global-margin: ($base-font-size * $whitespace-margin);
