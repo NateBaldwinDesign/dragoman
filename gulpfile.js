@@ -128,6 +128,37 @@ gulp.task('json-android-color', ['json-android-dimensions'], function() {
 
 //===========================================//
 // Convert JSON to iOS JSON format
+gulp.task('json-ios-color', ['json-android-color'], function() {
+  return gulp
+    // Convert JSON to Scss
+    .src( pathToSource + 'color.json')
+    .pipe(jsonCss({
+      targetPre: "scss",
+      delim: "-"
+    }))
+    // Replace characters to allow compiling 
+    // valid CSS in order to convert HEX to RGBA
+    .pipe(replace('$', 'div#'))
+    .pipe(replace(': #', ' { background-color: rgba(#'))
+    .pipe(replace(';', ', 0.999999999); }'))
+    // Convert to CSS
+    .pipe(sass())
+    // Replace temporaty characters with strings
+    // that will produce valid swift declarations
+    .pipe(replace('div#', '  class func '))
+    .pipe(replace(' {', '() -> UIColor {'))
+    .pipe(replace('}', '\n  }'))
+    .pipe(replace('  background-color: rgba(', '    return UIColor('))
+    .pipe(replace('1)', 'alpha: 1'))
+    .pipe(replace(',', '.0/255.0,'))
+    .pipe(replace('; }', ');\n}'))
+    // Add wrapper with UIKit declarations
+    .pipe(wrapper({
+      header: 'import UIKit\nextension UIColor {\n',
+      footer: '}\n'
+    }))
+    .pipe(rename('colors-ios.xml'))
+    .pipe(gulp.dest( pathToDest ));
+});
 
-
-gulp.task('default', ['json-android-color']);
+gulp.task('default', ['json-ios-color']);
