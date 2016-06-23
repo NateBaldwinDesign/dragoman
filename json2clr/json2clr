@@ -1,0 +1,173 @@
+#!/usr/bin/env xcrun swift
+// vim: ft=swift
+
+import Foundation
+import AppKit
+
+// MARK: - usage
+
+let usage = "json2clr [-n <string>] [-i <path>] [-o <path>]"
+
+let options = [
+    "-n": "palette name",
+    "-i": "input json file path",
+    "-o": "output clr file path",
+]
+
+// MARK: - functions
+
+func printUsage() {
+    print("Usage: \(usage)\n")
+    print("Options:")
+    for (option, description) in options {
+        print("\t\(option)\t\(description)")
+    }
+}
+
+// MARK: - classes
+
+class Color {
+    
+    var name: String?
+    var color: NSColor?
+    
+    init?(dictionary: NSDictionary) {
+        var name: String?
+        var color: NSColor?
+        
+        name = dictionary["name"] as? String
+        
+        if let hex = dictionary["hex"] as? String {
+            color = Color.colorFromHexString(hex)
+        } else {
+            let red = dictionary["r"] as? String
+            let green = dictionary["g"] as? String
+            let blue = dictionary["b"] as? String
+            let alpha = dictionary["a"] as? String
+            color = Color.colorFromStrings(red: red, green: green, blue: blue, alpha: alpha)
+        }
+        
+        if nil == name || nil == color {
+            return nil
+        } else {
+            self.name = name
+            self.color = color
+        }
+    }
+    
+    class func colorFromHexString(value: String) -> NSColor? {
+        var cString: String = value.stringByTrimmingCharactersInSet(.whitespaceAndNewlineCharacterSet()).uppercaseString
+        
+        if cString.hasPrefix("#") {
+            cString = (cString as NSString).substringFromIndex(1)
+        }
+        
+        if cString.characters.count != 6 {
+            return nil
+        }
+        
+        var rgbValue : UInt32 = 0
+        NSScanner(string: cString).scanHexInt(&rgbValue)
+        
+        return NSColor(
+            red: CGFloat((rgbValue & 0xFF0000) >> 16) / 255.0,
+            green: CGFloat((rgbValue & 0x00FF00) >> 8) / 255.0,
+            blue: CGFloat(rgbValue & 0x0000FF) / 255.0,
+            alpha: CGFloat(1.0)
+        )
+    }
+    
+    class func colorFromStrings(red red: String?, green: String?, blue: String?, alpha: String?) -> NSColor? {
+        let r = Color.floatValueFromString(red) ?? 0.0
+        let g = Color.floatValueFromString(green) ?? 0.0
+        let b = Color.floatValueFromString(blue) ?? 0.0
+        let a = Color.floatValueFromString(alpha) ?? 1.0
+        
+        return NSColor(deviceRed: r, green: g, blue: b, alpha: a)
+    }
+    
+    class func floatValueFromString(value: String?) -> CGFloat? {
+        if let string = value {
+            if let integer = Int(string) {
+                return CGFloat(integer) / 255.0
+            } else {
+                return CGFloat((string as NSString).doubleValue)
+            }
+        }
+        return nil
+    }
+    
+}
+
+// MARK: - options
+
+var paletteName: String!
+var inputPath: String!
+var outputPath: String!
+
+let arguments = Process.arguments
+for i in 0..<arguments.count {
+    let argument = arguments[i]
+    switch argument {
+    case "-n":
+        paletteName = (i + 1 < arguments.count) ? arguments[i + 1] : nil
+    case "-i":
+        inputPath = (i + 1 < arguments.count) ? arguments[i + 1] : nil
+    case "-o":
+        outputPath = (i + 1 < arguments.count) ? arguments[i + 1] : nil
+    default:
+        break
+    }
+}
+
+if nil == inputPath {
+    printUsage()
+    exit(0)
+}
+
+if nil == paletteName {
+    paletteName = "New"
+}
+
+// MARK: - main
+
+guard let fileData = try? NSData.dataWithContentsOfMappedFile(inputPath),
+    let jsonData = fileData as? NSData else  {
+        
+        print("\(inputPath) was not found.")
+        exit(-1)
+}
+
+guard let colorsJSON = try? NSJSONSerialization.JSONObjectWithData(jsonData, options: .AllowFragments),
+    let colorDicts = colorsJSON as? NSArray else {
+    // print("Error: \(error)")
+    print("Error: JSON error")
+    exit(-1)
+}
+
+var colors = [Color]()
+for dict in colorDicts as! [NSDictionary] {
+    if let color = Color(dictionary: dict) {
+        colors.append(color)
+    }
+}
+
+let colorList = NSColorList(name: paletteName)
+
+for color in colors {
+    if let clr = color.color {
+        colorList.setColor(clr, forKey: color.name ?? "New")
+    }
+}
+print("# \(colorList)")
+
+if nil == outputPath {
+    outputPath = "~/Library/Colors/\(paletteName).clr"
+}
+
+let filePath = (outputPath as NSString).stringByExpandingTildeInPath
+if colorList.writeToFile(filePath) {
+    print("SUCCESS: saved to \(filePath)")
+} else {
+    print("FAILED: failed to save to \(filePath)")
+}

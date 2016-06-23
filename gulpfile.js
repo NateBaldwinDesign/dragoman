@@ -9,6 +9,21 @@ var jsonSass = require('gulp-json-sass'),
     wrapper = require('gulp-wrapper'),
     data = require('gulp-data'),
     jsonTransform = require('gulp-json-transform'),
+    ase = require('ase-util'),
+    run = require('gulp-run'),
+    pngquant = require('imagemin-pngquant'),
+    svg2png = require('gulp-svg2png'),
+    imagemin = require('gulp-imagemin'),
+    svgstore = require('gulp-svgstore'),
+    svgmin = require('gulp-svgmin'),
+    cheerio = require('gulp-cheerio'),
+    fs = require('fs'),
+
+    //===========================================//
+    // Use Tokens in process
+    //===========================================//
+    iconography = fs.readFileSync('./config/iconography.json'),
+    
 
     //===========================================//
     // SET THE PATH TO YOUR SOURCE & DESTINATION
@@ -127,7 +142,7 @@ gulp.task('json-android-color', ['json-android-dimensions'], function() {
 });
 
 //===========================================//
-// Convert JSON to iOS JSON format
+// Convert JSON to ios JSON format
 gulp.task('json-ios-color', ['json-android-color'], function() {
   return gulp
     // Convert JSON to Scss
@@ -160,5 +175,113 @@ gulp.task('json-ios-color', ['json-android-color'], function() {
     .pipe(rename('colors-ios.xml'))
     .pipe(gulp.dest( pathToDest ));
 });
+//===========================================//
+// Transform .clr file into JSON ?
 
-gulp.task('default', ['json-ios-color']);
+//===========================================//
+// Create SVG symbol sprite
+
+gulp.task('svg-optimize', function() {
+  return gulp
+    .src( pathToSource + '/**/*.svg')
+    .pipe(svgmin({
+        plugins: [{
+          removeXMLProcInst: false
+        }, {
+          removeViewBox: false
+        }, {
+          removeStyleElement: true
+        }, {
+          removeAttrs: {
+            attrs: ['id', 'path:fill', 'class']
+          }
+        }, {
+          removeDimensions: true
+        }, {
+          removeTitle: true
+        }]
+      }))
+    .pipe(gulp.dest( pathToDest + '/icons'))
+});
+
+gulp.task('svg-sprite', function() {
+  return gulp
+    .src([ pathToDest + '/icons/**/*.svg'], {
+      base: '.'
+    })
+    .pipe(rename({
+      prefix: 'icon-'
+    }))
+    .pipe(svgstore({
+      inlineSvg: true
+    }))
+    .pipe(cheerio({
+      run: function($) {
+        $('svg').attr('style', 'display:none');
+      },
+      parserOptions: {
+        xmlMode: true
+      }
+    }))
+    .pipe(rename('sprite.svg'))
+    .pipe(gulp.dest( pathToDest + '/icons'))
+});
+
+//===========================================//
+// Create PNG images at ios sizes
+
+// resize original svg to control 1x scale
+gulp.task('ios-resize', function() {
+  return gulp.src( pathToDest + 'icons/svg/*.svg')
+    // Use Gulp replace to add styles to SVG
+    .pipe(replace('<svg ', '<svg fill="#ffffff" width="' + iconBaseSize + '" height="' + iconBaseSize +'" '))
+    .pipe(gulp.dest('temp/18px'));
+});
+// convert at 1x
+gulp.task('svg2png-1x', ['ios-resize'], function() {
+  return gulp.src('temp/18px/**/*.svg')
+    .pipe(svg2png(1, false, 20))
+    .pipe(gulp.dest( pathToDest + '/icons/ios-1x'));
+});
+// convert at 2x
+gulp.task('svg2png-2x', ['ios-resize'], function() {
+  return gulp.src('temp/18px/**/*.svg')
+    .pipe(svg2png(2, false, 20))
+    .pipe(gulp.dest( pathToDest + '/icons/ios-2x'));
+});
+// convert at 3x
+gulp.task('svg2png-3x', ['ios-resize'], function() {
+  return gulp.src('temp/18px/**/*.svg')
+    .pipe(svg2png(3, false, 20))
+    .pipe(gulp.dest( pathToDest + '/icons/ios-3x'));
+});
+// Clean Build directory
+gulp.task('ios-icons-resize', ['svg2png-1x', 'svg2png-2x', 'svg2png-3x'], function() {
+  gulp.src(['temp']).pipe(clean());
+});
+gulp.task('ios-icons', ['ios-icons-resize'], function() {
+  return gulp
+    .src([ 
+      pathToDest + '/icons/ios-1x',  
+      pathToDest + '/icons/ios-2x',
+      pathToDest + '/icons/ios-3x'])
+    .pipe(imagemin({
+      optimizationLevel: 6,
+      use: [pngquant()]
+    }))
+    .pipe(gulp.dest( pathToDest + '/icons/ios-1x'));
+});
+
+/////// TEST
+gulp.task('test', function () {
+  return gulp
+    .src( iconography )
+    .pipe(cheerio(function($, file) {
+      var baseIconSize = $('base-size').text();
+      var $ = cheerio.load(iconography, { xmlMode: true });
+      // var baseIconSize = $('icon')[0].attribs.size;
+    }))
+    console.log( baseIconSize );
+});
+
+gulp.task('default', ['json-ios-color', 'ios-icons']);
