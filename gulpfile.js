@@ -277,11 +277,7 @@ gulp.task('ios-icons', ['ios-icons-resize'], function() {
 gulp.task('test', function () {
   return gulp
     .src( iconography )
-    .pipe(cheerio(function($, iconography) {
-      $('base-size').each(function() {
 
-      });
-    }))
     .pipe(gulp.dest('temp'));
 });
 ////// End test
