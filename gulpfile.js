@@ -22,7 +22,8 @@ var jsonSass = require('gulp-json-sass'),
     //===========================================//
     // Use Tokens in process
     //===========================================//
-    iconography = fs.readFileSync('./config/iconography.json'),
+    // iconography = fs.readFileSync('./config/iconography.json'),
+    iconography = './config/iconography.json',
     
 
     //===========================================//
@@ -234,7 +235,7 @@ gulp.task('svg-sprite', function() {
 gulp.task('ios-resize', function() {
   return gulp.src( pathToDest + 'icons/svg/*.svg')
     // Use Gulp replace to add styles to SVG
-    .pipe(replace('<svg ', '<svg fill="#ffffff" width="' + iconBaseSize + '" height="' + iconBaseSize +'" '))
+    .pipe(replace('<svg ', '<svg fill="#ffffff" width="18px" height="" '))
     .pipe(gulp.dest('temp/18px'));
 });
 // convert at 1x
@@ -272,16 +273,17 @@ gulp.task('ios-icons', ['ios-icons-resize'], function() {
     .pipe(gulp.dest( pathToDest + '/icons/ios-1x'));
 });
 
-/////// TEST
+/////// TEST to read JSON and pull key value
 gulp.task('test', function () {
   return gulp
     .src( iconography )
-    .pipe(cheerio(function($, file) {
-      var baseIconSize = $('base-size').text();
-      var $ = cheerio.load(iconography, { xmlMode: true });
-      // var baseIconSize = $('icon')[0].attribs.size;
+    .pipe(cheerio(function($, iconography) {
+      $('base-size').each(function() {
+
+      });
     }))
-    console.log( baseIconSize );
+    .pipe(gulp.dest('temp'));
 });
+////// End test
 
 gulp.task('default', ['json-ios-color', 'ios-icons']);
