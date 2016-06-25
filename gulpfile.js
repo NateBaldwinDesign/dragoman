@@ -282,17 +282,8 @@ gulp.task('json-test', function() {
     // Convert JSON to Scss
     .src('*.library/*.color/*.json')
     .pipe(jsoncombine("colors-ios-test.swift",function(data){
-      // some stuff here?
+
     }))
-    // .pipe(concat('colors-ios-test.swift'))
-    .pipe(data(function(data) {
-      data.color = data.color + data.name
-    }))
-    // .pipe(jsonCss({
-    //   targetPre: "scss",
-    //   delim: "-"
-    // }))
-    .pipe(replace('color', data.color))
 
     .pipe(replace('"r"', 'red'))
     .pipe(replace('"g"', 'green'))

@@ -71,10 +71,8 @@ extension UIColor {
 }
 ```
 
-### Contribute
-This type of tool would be rad to have and is greatly benefitial to software development. Please take a look and feel free to contribute to making this tool better than it is.
-
-* Fork it
-* Make it awesome
-* Merge it
-* <3
+### Future Goals
+Ultimately, I would like this tool to be able to read shareable design sourcefiles and perform the translations from those. For example, this input could be:
+* Craft (by InVision) Libraries
+* Adobe Libraries
+* System color palettes (.clr files)
