@@ -1,7 +1,7 @@
-# ![AggreGator Logo](/assets/AggreGator.png) AggreGator 
+# Aggregator 
 [![Build Status](https://travis-ci.org/NateBaldwinDesign/aggregator.svg?branch=development)](https://travis-ci.org/NateBaldwinDesign/aggregator) [![GitHub version](https://badge.fury.io/gh/NateBaldwinDesign%2Faggregator.svg)](https://badge.fury.io/gh/NateBaldwinDesign%2Faggregator) [![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)]()
 
-Translate core design variables across web and mobile platforms using JSON & Gulp.
+Aggregate your web & mobile product suite into a consistent experience with universally translated design tokens.
 
 ## What is it?
 Aggregator is a starter toolkit for creating applications from a design-systems approach. Using JSON configuration files, Aggregator uses gulp to generate multi-platform assets for core design attributes.
@@ -17,8 +17,6 @@ This allows you to aggregate disperate cross-platform applications to follow con
 * Font-stacks
 * Global margins
 * Global padding
-
-Yet to come:
 * Iconography
 
 ##### Targeted Languages & Platforms

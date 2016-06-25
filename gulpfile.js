@@ -18,12 +18,15 @@ var jsonSass = require('gulp-json-sass'),
     svgmin = require('gulp-svgmin'),
     cheerio = require('gulp-cheerio'),
     fs = require('fs'),
+    concat = require('gulp-concat-util'),
+    jsoncombine = require("gulp-jsoncombine"),
+    beautify = require('gulp-beautify'),
 
     //===========================================//
     // Use Tokens in process
     //===========================================//
-    // iconography = fs.readFileSync('./config/iconography.json'),
-    iconography = './config/iconography.json',
+    // iconography = fs.readFileSync('./tokens/iconography.json'),
+    iconography = './tokens/iconography.json',
     
 
     //===========================================//
@@ -32,7 +35,7 @@ var jsonSass = require('gulp-json-sass'),
     // [1] Path to your source JSON files
     // [2] Path to distribute variable files
     //===========================================//
-    pathToSource = 'config/',
+    pathToSource = 'tokens/',
     pathToDest = 'dest/';
 
 //===========================================//
@@ -165,7 +168,7 @@ gulp.task('json-ios-color', ['json-android-color'], function() {
     .pipe(replace(' {', '() -> UIColor {'))
     .pipe(replace('}', '\n  }'))
     .pipe(replace('  background-color: rgba(', '    return UIColor('))
-    .pipe(replace('1)', 'alpha: 1'))
+    .pipe(replace('1)', 'alpha: 1)'))
     .pipe(replace(',', '.0/255.0,'))
     .pipe(replace('; }', ');\n}'))
     // Add wrapper with UIKit declarations
@@ -173,7 +176,7 @@ gulp.task('json-ios-color', ['json-android-color'], function() {
       header: 'import UIKit\nextension UIColor {\n',
       footer: '}\n'
     }))
-    .pipe(rename('colors-ios.xml'))
+    .pipe(rename('colors-ios.swift'))
     .pipe(gulp.dest( pathToDest ));
 });
 //===========================================//
@@ -205,7 +208,7 @@ gulp.task('svg-optimize', function() {
     .pipe(gulp.dest( pathToDest + '/icons'))
 });
 
-gulp.task('svg-sprite', function() {
+gulp.task('svg-sprite', ['svg-optimize'], function() {
   return gulp
     .src([ pathToDest + '/icons/**/*.svg'], {
       base: '.'
@@ -218,7 +221,7 @@ gulp.task('svg-sprite', function() {
     }))
     .pipe(cheerio({
       run: function($) {
-        $('svg').attr('style', 'display:none');
+        $('svg').attr('style', 'display: none');
       },
       parserOptions: {
         xmlMode: true
@@ -272,14 +275,41 @@ gulp.task('ios-icons', ['ios-icons-resize'], function() {
     }))
     .pipe(gulp.dest( pathToDest + '/icons/ios-1x'));
 });
-
-/////// TEST to read JSON and pull key value
-gulp.task('test', function () {
+//===========================================//
+// Read JSON from .library
+gulp.task('json-test', function() {
   return gulp
-    .src( iconography )
+    // Convert JSON to Scss
+    .src('*.library/*.color/*.json')
+    .pipe(jsoncombine("colors-ios-test.swift",function(data){
+      // some stuff here?
+    }))
+    // .pipe(concat('colors-ios-test.swift'))
+    .pipe(data(function(data) {
+      data.color = data.color + data.name
+    }))
+    // .pipe(jsonCss({
+    //   targetPre: "scss",
+    //   delim: "-"
+    // }))
+    .pipe(replace('color', data.color))
 
-    .pipe(gulp.dest('temp'));
+    .pipe(replace('"r"', 'red'))
+    .pipe(replace('"g"', 'green'))
+    .pipe(replace('"b"', 'blue'))
+    .pipe(replace('"a"', 'alpha'))
+    .pipe(replace('{"', '  class func '))
+    .pipe(replace('":{', '-temp() -> UIColor {\n    return UIColor('))
+    .pipe(replace('},', ')'))
+    // .pipe(beautify({indentSize: 2}))
+    // .pipe(replace("{", ""))
+    // .pipe(replace("}", ""))
+    .pipe(wrapper({
+      header: 'import UIKit\nextension UIColor {\n',
+      footer: '\n}\n'
+    }))
+    .pipe(gulp.dest( pathToDest ));
 });
-////// End test
+///////////
 
-gulp.task('default', ['json-ios-color', 'ios-icons']);
+gulp.task('default', ['json-ios-color', 'svg-sprite', 'ios-icons']);
