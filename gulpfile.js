@@ -35,7 +35,7 @@ var jsonSass = require('gulp-json-sass'),
     // [1] Path to your source JSON files
     // [2] Path to distribute variable files
     //===========================================//
-    pathToSource = 'tokens/',
+    pathToTokens = 'tokens/',
     pathToDest = 'dest/';
 
 //===========================================//
@@ -47,7 +47,7 @@ gulp.task('clean-build', function() {
 // Convert JSON to SCSS variables
 gulp.task('json-scss', ['clean-build'], function() {
   return gulp
-    .src( pathToSource + '*.json')
+    .src( pathToTokens + '*.json')
     .pipe(jsonCss({
       targetPre: "scss",
       delim: "-"
@@ -61,7 +61,7 @@ gulp.task('json-scss', ['clean-build'], function() {
 // Convert JSON to SASS variables
 gulp.task('json-sass', ['json-scss'], function() {
   return gulp
-    .src( pathToSource + '*.json')
+    .src( pathToTokens + '*.json')
     .pipe(jsonCss({
       targetPre: "sass",
       delim: "-"
@@ -75,7 +75,7 @@ gulp.task('json-sass', ['json-scss'], function() {
 // Convert JSON to Less variables
 gulp.task('json-less', ['json-sass'], function() {
   return gulp
-    .src( pathToSource + '*.json')
+    .src( pathToTokens + '*.json')
     .pipe(jsonCss({
       targetPre: "less",
       delim: "-"
@@ -89,7 +89,7 @@ gulp.task('json-less', ['json-sass'], function() {
 // Convert JSON to Stylus variables
 gulp.task('json-stylus', ['json-less'], function() {
   return gulp
-    .src( pathToSource + '*.json')
+    .src( pathToTokens + '*.json')
     .pipe(jsonCss({
       targetPre: "sass",
       delim: "-"
@@ -106,7 +106,7 @@ gulp.task('json-stylus', ['json-less'], function() {
 // Convert JSON to Android XML
 gulp.task('json-android-dimensions', ['json-stylus'], function() {
   return gulp
-    .src( pathToSource + '*.json')
+    .src( pathToTokens + '*.json')
     .pipe(jsonTransform(function(data) {
       return {
         base: data.base,
@@ -129,7 +129,7 @@ gulp.task('json-android-dimensions', ['json-stylus'], function() {
 });
 gulp.task('json-android-color', ['json-android-dimensions'], function() {
   return gulp
-    .src( pathToSource + 'color.json')
+    .src( pathToTokens + 'color.json')
     .pipe(jsonCss({
       targetPre: "scss",
       delim: "-"
@@ -150,7 +150,7 @@ gulp.task('json-android-color', ['json-android-dimensions'], function() {
 // gulp.task('json-ios-color', ['json-android-color'], function() {
 //   return gulp
 //     // Convert JSON to Scss
-//     .src( pathToSource + 'color.json')
+//     .src( pathToTokens + 'color.json')
 //     .pipe(jsonCss({
 //       targetPre: "scss",
 //       delim: "-"
@@ -184,7 +184,7 @@ gulp.task('json-android-color', ['json-android-dimensions'], function() {
 // Create SVG symbol sprite
 gulp.task('svg-optimize', function() {
   return gulp
-    .src( pathToSource + '/**/*.svg')
+    .src( pathToTokens + '/**/*.svg')
     .pipe(svgmin({
         plugins: [{
           removeXMLProcInst: false
@@ -273,6 +273,28 @@ gulp.task('ios-icons', ['ios-icons-resize'], function() {
     }))
     .pipe(gulp.dest( pathToDest + '/icons'));
 });
+//===========================================//
+//===========================================//
+//       CRAFT LIBRARY TRANSLATIONS
+//===========================================//
+//===========================================//
+// Generate Colors Token from .library
+gulp.task('craft-sass', function() {
+  return gulp
+    .src('*.library/*.color/*.json')
+    .pipe(concat_json('colors-craft.json'))  // pull all color metadata json into one
+
+    .pipe(beautify())
+    .pipe(replace("[", ""))
+    .pipe(replace("]", "")) 
+    // .pipe(jsonCss({
+    //   targetPre: "scss",
+    //   delim: "-"
+    // }))
+    // .pipe(rename('_colors-craft.scss'))
+    .pipe(gulp.dest( 'temp' ));
+});
+
 //===========================================//
 // Read JSON from Craft .library files
 gulp.task('json-test', function() {
