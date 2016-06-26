@@ -260,6 +260,7 @@ gulp.task('svg2png-3x', ['ios-resize'], function() {
 gulp.task('ios-icons-resize', ['svg2png-1x', 'svg2png-2x', 'svg2png-3x'], function() {
   gulp.src(['temp']).pipe(clean());
 });
+
 gulp.task('ios-icons', ['ios-icons-resize'], function() {
   return gulp
     .src([ 
@@ -277,7 +278,10 @@ gulp.task('ios-icons', ['ios-icons-resize'], function() {
 gulp.task('test', function () {
   return gulp
     .src( iconography )
-
+    .pipe(run(function() {
+      $.each($.parseJSON(iconography), function(k, v) {
+      alert(k + ' is ' + v)
+    })
     .pipe(gulp.dest('temp'));
 });
 ////// End test
