@@ -146,45 +146,42 @@ gulp.task('json-android-color', ['json-android-dimensions'], function() {
 });
 
 //===========================================//
-// Convert JSON to ios JSON format
-gulp.task('json-ios-color', ['json-android-color'], function() {
-  return gulp
-    // Convert JSON to Scss
-    .src( pathToSource + 'color.json')
-    .pipe(jsonCss({
-      targetPre: "scss",
-      delim: "-"
-    }))
-    // Replace characters to allow compiling 
-    // valid CSS in order to convert HEX to RGBA
-    .pipe(replace('$', 'div#'))
-    .pipe(replace(': #', ' { background-color: rgba(#'))
-    .pipe(replace(';', ', 0.999999999); }'))
-    // Convert to CSS
-    .pipe(sass())
-    // Replace temporaty characters with strings
-    // that will produce valid swift declarations
-    .pipe(replace('div#', '  class func '))
-    .pipe(replace(' {', '() -> UIColor {'))
-    .pipe(replace('}', '\n  }'))
-    .pipe(replace('  background-color: rgba(', '    return UIColor('))
-    .pipe(replace('1)', 'alpha: 1)'))
-    .pipe(replace(',', '.0/255.0,'))
-    .pipe(replace('; }', ');\n}'))
-    // Add wrapper with UIKit declarations
-    .pipe(wrapper({
-      header: 'import UIKit\nextension UIColor {\n',
-      footer: '}\n'
-    }))
-    .pipe(rename('colors-ios.swift'))
-    .pipe(gulp.dest( pathToDest ));
-});
-//===========================================//
-// Transform .clr file into JSON ?
+// Convert custom written JSON to ios JSON format
+// gulp.task('json-ios-color', ['json-android-color'], function() {
+//   return gulp
+//     // Convert JSON to Scss
+//     .src( pathToSource + 'color.json')
+//     .pipe(jsonCss({
+//       targetPre: "scss",
+//       delim: "-"
+//     }))
+//     // Replace characters to allow compiling 
+//     // valid CSS in order to convert HEX to RGBA
+//     .pipe(replace('$', 'div#'))
+//     .pipe(replace(': #', ' { background-color: rgba(#'))
+//     .pipe(replace(';', ', 0.999999999); }'))
+//     // Convert to CSS
+//     .pipe(sass())
+//     // Replace temporaty characters with strings
+//     // that will produce valid swift declarations
+//     .pipe(replace('div#', '  class func '))
+//     .pipe(replace(' {', '() -> UIColor {'))
+//     .pipe(replace('}', '\n  }'))
+//     .pipe(replace('  background-color: rgba(', '    return UIColor('))
+//     .pipe(replace('1)', 'alpha: 1)'))
+//     .pipe(replace(',', '.0/255.0,'))
+//     .pipe(replace('; }', ');\n}'))
+//     // Add wrapper with UIKit declarations
+//     .pipe(wrapper({
+//       header: 'import UIKit\nextension UIColor {\n',
+//       footer: '}\n'
+//     }))
+//     .pipe(rename('colors-ios.swift'))
+//     .pipe(gulp.dest( pathToDest ));
+// });
 
 //===========================================//
 // Create SVG symbol sprite
-
 gulp.task('svg-optimize', function() {
   return gulp
     .src( pathToSource + '/**/*.svg')
@@ -277,67 +274,30 @@ gulp.task('ios-icons', ['ios-icons-resize'], function() {
     .pipe(gulp.dest( pathToDest + '/icons'));
 });
 //===========================================//
-// Read JSON from .library
-// function prefixScss() {
-//   function transform(file, cb) {
-//     var contents = file.contents.toString();
-//     var lines = contents.split('\n');
-//     for (var index in lines) {
-//       var line = lines[index];
-//       var regex = /\.(?!esg-)[a-z]+([_-]{1,2}[a-z]+)?/g //Checks if line contains class format
-//       if (regex.test(line)) {
-//         if (/^[ ]*(content|src)?:[ ]*url/.test(line)) break;
-//         if (/^(input|fieldset|select|button|text-area|a|label|li|ol|p|ul|code|pre|xmp|h[1-6]|[&@>.\s#])/.test(line)) {
-//           line = line.replace(regex, '.esg-$&'); //Replaces the class with .esg-{class}
-//           line = line.replace(/\.esg-\./g, '.esg-'); //Removes the period from the beginning of the class
-//           lines[index] = line;
-//         }
-//       }
-//     }
-//     contents = lines.join('\n');
-//     file.contents = new Buffer(contents);
-//     cb(null, file);
-//   }
-//   return eventStream.map(transform);
-// }
-// function removeMeta() {
-//   function transform (file, cb) {
-//     var contents = file.contents.toString();
-//     var lines = contents.split('\n');
-//     for (var index in lines) {
-//       var line = lines[index];
-//       line = line.replace(/\^"name"*)$/g, '');
-//       lines[index] = line;
-//     }
-//   }
-// }
-
+// Read JSON from Craft .library files
 gulp.task('json-test', function() {
   return gulp
-    // Convert JSON to Scss
     .src('*.library/*.color/*.json')
-    .pipe(concat_json('colors.js'))
-
-    .pipe(replace('"r"', 'red'))
-    .pipe(replace('"g"', 'green'))
-    .pipe(replace('"b"', 'blue'))
-    .pipe(replace('"a"', 'alpha'))
-    .pipe(replace('{"', '\nclass func '))
-    .pipe(replace('":{', '-temp() -> UIColor {\nreturn UIColor('))
+    .pipe(concat_json('colors.js'))   // pull all color metadata json into one
+    .pipe(replace('"r"', 'red'))      // spell out RGBA name
+    .pipe(replace('"g"', 'green'))    // spell out RGBA name
+    .pipe(replace('"b"', 'blue'))     // spell out RGBA name
+    .pipe(replace('"a"', 'alpha'))    // spell out RGBA name
+    // Strategically replace to inject iOS declarations
+    .pipe(replace('{"', '\n  class func '))
+    .pipe(replace('":{', '-temp() -> UIColor {\n    return UIColor('))
     .pipe(replace('},', ')'))
-    .pipe(beautify({indentSize: 2}))
-    .pipe(replace(/"name"[^\n]*/g, '')) // removes all lines beginning with "name"
-
+    .pipe(replace(/"name"[^\n]*/g, '}')) // removes all lines beginning with "name"
+    .pipe(replace('}', '\n  }'))
     .pipe(replace("[", ""))
     .pipe(replace("]", ""))
-
+    // Wrap document with iOS declaration for UI color extension
     .pipe(wrapper({
       header: 'import UIKit\nextension UIColor {',
-      footer: '}\n'
+      footer: '\n}\n'
     }))
-    .pipe(rename('colors-ios-test.swift'))
+    .pipe(rename('colors-ios-test.swift'))  // Name as swift file
     .pipe(gulp.dest( pathToDest ));
 });
-///////////
 
 gulp.task('default', ['json-ios-color', 'svg-sprite', 'ios-icons']);
