@@ -19,7 +19,7 @@ var jsonSass = require('gulp-json-sass'),
     cheerio = require('gulp-cheerio'),
     fs = require('fs'),
     concat = require('gulp-concat-util'),
-    jsoncombine = require("gulp-jsoncombine"),
+    concat_json = require("gulp-concat-json"),
     beautify = require('gulp-beautify'),
 
     //===========================================//
@@ -274,32 +274,68 @@ gulp.task('ios-icons', ['ios-icons-resize'], function() {
       optimizationLevel: 6,
       use: [pngquant()]
     }))
-    .pipe(gulp.dest( pathToDest + '/icons/ios-1x'));
+    .pipe(gulp.dest( pathToDest + '/icons'));
 });
 //===========================================//
 // Read JSON from .library
+// function prefixScss() {
+//   function transform(file, cb) {
+//     var contents = file.contents.toString();
+//     var lines = contents.split('\n');
+//     for (var index in lines) {
+//       var line = lines[index];
+//       var regex = /\.(?!esg-)[a-z]+([_-]{1,2}[a-z]+)?/g //Checks if line contains class format
+//       if (regex.test(line)) {
+//         if (/^[ ]*(content|src)?:[ ]*url/.test(line)) break;
+//         if (/^(input|fieldset|select|button|text-area|a|label|li|ol|p|ul|code|pre|xmp|h[1-6]|[&@>.\s#])/.test(line)) {
+//           line = line.replace(regex, '.esg-$&'); //Replaces the class with .esg-{class}
+//           line = line.replace(/\.esg-\./g, '.esg-'); //Removes the period from the beginning of the class
+//           lines[index] = line;
+//         }
+//       }
+//     }
+//     contents = lines.join('\n');
+//     file.contents = new Buffer(contents);
+//     cb(null, file);
+//   }
+//   return eventStream.map(transform);
+// }
+// function removeMeta() {
+//   function transform (file, cb) {
+//     var contents = file.contents.toString();
+//     var lines = contents.split('\n');
+//     for (var index in lines) {
+//       var line = lines[index];
+//       line = line.replace(/\^"name"*)$/g, '');
+//       lines[index] = line;
+//     }
+//   }
+// }
+
 gulp.task('json-test', function() {
   return gulp
     // Convert JSON to Scss
     .src('*.library/*.color/*.json')
-    .pipe(jsoncombine("colors-ios-test.swift",function(data){
-
-    }))
+    .pipe(concat_json('colors.js'))
 
     .pipe(replace('"r"', 'red'))
     .pipe(replace('"g"', 'green'))
     .pipe(replace('"b"', 'blue'))
     .pipe(replace('"a"', 'alpha'))
-    .pipe(replace('{"', '  class func '))
-    .pipe(replace('":{', '-temp() -> UIColor {\n    return UIColor('))
+    .pipe(replace('{"', '\nclass func '))
+    .pipe(replace('":{', '-temp() -> UIColor {\nreturn UIColor('))
     .pipe(replace('},', ')'))
-    // .pipe(beautify({indentSize: 2}))
-    // .pipe(replace("{", ""))
-    // .pipe(replace("}", ""))
+    .pipe(beautify({indentSize: 2}))
+    .pipe(replace(/"name"[^\n]*/g, '')) // removes all lines beginning with "name"
+
+    .pipe(replace("[", ""))
+    .pipe(replace("]", ""))
+
     .pipe(wrapper({
-      header: 'import UIKit\nextension UIColor {\n',
-      footer: '\n}\n'
+      header: 'import UIKit\nextension UIColor {',
+      footer: '}\n'
     }))
+    .pipe(rename('colors-ios-test.swift'))
     .pipe(gulp.dest( pathToDest ));
 });
 ///////////
