@@ -9,6 +9,19 @@ var jsonSass = require('gulp-json-sass'),
     wrapper = require('gulp-wrapper'),
     data = require('gulp-data'),
     jsonTransform = require('gulp-json-transform'),
+    ase = require('ase-util'),
+    run = require('gulp-run'),
+    pngquant = require('imagemin-pngquant'),
+    svg2png = require('gulp-svg2png'),
+    imagemin = require('gulp-imagemin'),
+    svgstore = require('gulp-svgstore'),
+    svgmin = require('gulp-svgmin'),
+    cheerio = require('gulp-cheerio'),
+    fs = require('fs'),
+    concat = require('gulp-concat-util'),
+    concat_json = require("gulp-concat-json"),
+    beautify = require('gulp-beautify'),
+    chug = require('gulp-chug'),
 
     //===========================================//
     // SET THE PATH TO YOUR SOURCE & DESTINATION
@@ -16,7 +29,7 @@ var jsonSass = require('gulp-json-sass'),
     // [1] Path to your source JSON files
     // [2] Path to distribute variable files
     //===========================================//
-    pathToSource = 'config/',
+    pathToTokens = 'tokens/',
     pathToDest = 'dest/';
 
 //===========================================//
@@ -28,7 +41,7 @@ gulp.task('clean-build', function() {
 // Convert JSON to SCSS variables
 gulp.task('json-scss', ['clean-build'], function() {
   return gulp
-    .src( pathToSource + '*.json')
+    .src( pathToTokens + '*.json')
     .pipe(jsonCss({
       targetPre: "scss",
       delim: "-"
@@ -40,9 +53,9 @@ gulp.task('json-scss', ['clean-build'], function() {
 });
 //===========================================//
 // Convert JSON to SASS variables
-gulp.task('json-sass', ['json-scss'], function() {
+gulp.task('json-sass', ['json-scss', 'clean-build'], function() {
   return gulp
-    .src( pathToSource + '*.json')
+    .src( pathToTokens + '*.json')
     .pipe(jsonCss({
       targetPre: "sass",
       delim: "-"
@@ -54,9 +67,9 @@ gulp.task('json-sass', ['json-scss'], function() {
 });
 //===========================================//
 // Convert JSON to Less variables
-gulp.task('json-less', ['json-sass'], function() {
+gulp.task('json-less', ['json-sass', 'clean-build'], function() {
   return gulp
-    .src( pathToSource + '*.json')
+    .src( pathToTokens + '*.json')
     .pipe(jsonCss({
       targetPre: "less",
       delim: "-"
@@ -68,9 +81,9 @@ gulp.task('json-less', ['json-sass'], function() {
 });
 //===========================================//
 // Convert JSON to Stylus variables
-gulp.task('json-stylus', ['json-less'], function() {
+gulp.task('json-stylus', ['json-less', 'clean-build'], function() {
   return gulp
-    .src( pathToSource + '*.json')
+    .src( pathToTokens + '*.json')
     .pipe(jsonCss({
       targetPre: "sass",
       delim: "-"
@@ -85,9 +98,9 @@ gulp.task('json-stylus', ['json-less'], function() {
 });
 //===========================================//
 // Convert JSON to Android XML
-gulp.task('json-android-dimensions', ['json-stylus'], function() {
+gulp.task('json-android-dimensions', ['json-stylus', 'clean-build'], function() {
   return gulp
-    .src( pathToSource + '*.json')
+    .src( pathToTokens + '*.json')
     .pipe(jsonTransform(function(data) {
       return {
         base: data.base,
@@ -108,9 +121,9 @@ gulp.task('json-android-dimensions', ['json-stylus'], function() {
     .pipe(rename('dimens-android.xml'))
     .pipe(gulp.dest( pathToDest ));
 });
-gulp.task('json-android-color', ['json-android-dimensions'], function() {
+gulp.task('json-android-color', ['json-android-dimensions', 'clean-build'], function() {
   return gulp
-    .src( pathToSource + 'color.json')
+    .src( pathToTokens + 'color.json')
     .pipe(jsonCss({
       targetPre: "scss",
       delim: "-"
@@ -127,11 +140,11 @@ gulp.task('json-android-color', ['json-android-dimensions'], function() {
 });
 
 //===========================================//
-// Convert JSON to iOS JSON format
-gulp.task('json-ios-color', ['json-android-color'], function() {
+// Convert custom written JSON to ios JSON format
+gulp.task('json-ios-color', ['json-android-color', 'clean-build'], function() {
   return gulp
     // Convert JSON to Scss
-    .src( pathToSource + 'color.json')
+    .src( pathToTokens + 'color.json')
     .pipe(jsonCss({
       targetPre: "scss",
       delim: "-"
@@ -149,7 +162,7 @@ gulp.task('json-ios-color', ['json-android-color'], function() {
     .pipe(replace(' {', '() -> UIColor {'))
     .pipe(replace('}', '\n  }'))
     .pipe(replace('  background-color: rgba(', '    return UIColor('))
-    .pipe(replace('1)', 'alpha: 1'))
+    .pipe(replace('1)', 'alpha: 1)'))
     .pipe(replace(',', '.0/255.0,'))
     .pipe(replace('; }', ');\n}'))
     // Add wrapper with UIKit declarations
@@ -157,8 +170,152 @@ gulp.task('json-ios-color', ['json-android-color'], function() {
       header: 'import UIKit\nextension UIColor {\n',
       footer: '}\n'
     }))
-    .pipe(rename('colors-ios.xml'))
+    .pipe(rename('colors-ios.swift'))
+    .pipe(gulp.dest( pathToDest ));
+});
+//===========================================//
+// Create SVG symbol sprite
+gulp.task('svg-optimize', function() {
+  return gulp
+    .src( pathToTokens + '/**/*.svg')
+    .pipe(svgmin({
+        plugins: [{
+          removeXMLProcInst: false
+        }, {
+          removeViewBox: false
+        }, {
+          removeStyleElement: true
+        }, {
+          removeAttrs: {
+            attrs: ['id', 'path:fill', 'class']
+          }
+        }, {
+          removeDimensions: true
+        }, {
+          removeTitle: true
+        }]
+      }))
+    .pipe(gulp.dest( pathToDest + '/icons'))
+});
+
+gulp.task('svg-sprite', ['svg-optimize'], function() {
+  return gulp
+    .src([ pathToDest + '/icons/**/*.svg'], {
+      base: '.'
+    })
+    .pipe(rename({
+      prefix: 'icon-'
+    }))
+    .pipe(svgstore({
+      inlineSvg: true
+    }))
+    .pipe(cheerio({
+      run: function($) {
+        $('svg').attr('style', 'display: none');
+      },
+      parserOptions: {
+        xmlMode: true
+      }
+    }))
+    .pipe(rename('sprite.svg'))
+    .pipe(gulp.dest( pathToDest + '/icons'))
+});
+
+//===========================================//
+// Create PNG images at ios sizes
+
+// resize original svg to control 1x scale
+gulp.task('ios-resize', function() {
+  return gulp.src( pathToDest + 'icons/svg/*.svg')
+    // Use Gulp replace to add styles to SVG
+    .pipe(replace('<svg ', '<svg fill="#ffffff" width="18px" height="" '))
+    .pipe(gulp.dest('temp/18px'));
+});
+// convert at 1x
+gulp.task('svg2png-1x', ['ios-resize'], function() {
+  return gulp.src('temp/18px/**/*.svg')
+    .pipe(svg2png(1, false, 20))
+    .pipe(gulp.dest( pathToDest + '/icons/ios-1x'));
+});
+// convert at 2x
+gulp.task('svg2png-2x', ['ios-resize'], function() {
+  return gulp.src('temp/18px/**/*.svg')
+    .pipe(svg2png(2, false, 20))
+    .pipe(gulp.dest( pathToDest + '/icons/ios-2x'));
+});
+// convert at 3x
+gulp.task('svg2png-3x', ['ios-resize'], function() {
+  return gulp.src('temp/18px/**/*.svg')
+    .pipe(svg2png(3, false, 20))
+    .pipe(gulp.dest( pathToDest + '/icons/ios-3x'));
+});
+// Clean Build directory
+gulp.task('ios-icons-resize', ['svg2png-1x', 'svg2png-2x', 'svg2png-3x'], function() {
+  gulp.src(['temp']).pipe(clean());
+});
+
+gulp.task('ios-icons', ['ios-icons-resize'], function() {
+  return gulp
+    .src([ 
+      pathToDest + '/icons/ios-1x',  
+      pathToDest + '/icons/ios-2x',
+      pathToDest + '/icons/ios-3x'])
+    .pipe(imagemin({
+      optimizationLevel: 6,
+      use: [pngquant()]
+    }))
+    .pipe(gulp.dest( pathToDest + '/icons'));
+});
+gulp.task('iconography', ['ios-icons', 'svg-sprite']);
+
+//===========================================//
+//===========================================//
+//       CRAFT LIBRARY TRANSLATIONS
+//===========================================//
+//===========================================//
+// Generate Colors Token from .library
+// These craft gulp tasks are not properly converting colors. Needs lots of work
+gulp.task('craft-sass', function() {
+  return gulp
+    .src('*.library/*.color/*.json')
+    .pipe(concat_json('colors-craft.json'))  // pull all color metadata json into one
+
+    .pipe(beautify())
+    .pipe(replace("[", ""))
+    .pipe(replace("]", "")) 
+    // .pipe(jsonCss({
+    //   targetPre: "scss",
+    //   delim: "-"
+    // }))
+    // .pipe(rename('_colors-craft.scss'))
+    .pipe(gulp.dest( 'temp' ));
+});
+
+//===========================================//
+// Read JSON from Craft .library files
+gulp.task('craft-color-ios', function() {
+  return gulp
+    .src('*.library/*.color/*.json')
+    .pipe(concat_json('colors.js'))   // pull all color metadata json into one
+    .pipe(replace('"r"', 'red'))      // spell out RGBA name
+    .pipe(replace('"g"', 'green'))    // spell out RGBA name
+    .pipe(replace('"b"', 'blue'))     // spell out RGBA name
+    .pipe(replace('"a"', 'alpha'))    // spell out RGBA name
+    // Strategically replace to inject iOS declarations
+    .pipe(replace('{"', '\n  class func '))
+    .pipe(replace('":{', '-temp() -> UIColor {\n    return UIColor('))
+    .pipe(replace('},', ')'))
+    .pipe(replace(/"name"[^\n]*/g, '}')) // removes all lines beginning with "name"
+    .pipe(replace('}', '\n  }'))
+    .pipe(replace("[", ""))
+    .pipe(replace("]", ""))
+    // Wrap document with iOS declaration for UI color extension
+    .pipe(wrapper({
+      header: 'import UIKit\nextension UIColor {',
+      footer: '\n}\n'
+    }))
+    .pipe(rename('colors-ios.swift'))  // Name as swift file
     .pipe(gulp.dest( pathToDest ));
 });
 
-gulp.task('default', ['json-ios-color']);
+gulp.task('default', ['json-ios-color', 'iconography']);
