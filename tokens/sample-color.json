@@ -1,6 +1,0 @@
-[
-  { "name": "color-black", "hex": "191919" },
-  { "name": "color-black-alpha", "hex": "191919FF" },
-  { "name": "color-red", "r": "255", "g": "0", "b": "100" },
-  { "name": "color-red-alpha", "r": "1.0", "g": "0.0", "b": "0.5", "a": "0.8" }
-]
