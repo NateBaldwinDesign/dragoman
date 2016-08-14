@@ -223,6 +223,7 @@ gulp.task('svg-sprite', ['svg-optimize'], function() {
 
 //===========================================//
 // Create PNG images at ios sizes
+
 // resize original svg to control 1x scale
 gulp.task('ios-resize', function() {
   return gulp.src( pathToDest + 'icons/svg/*.svg')
