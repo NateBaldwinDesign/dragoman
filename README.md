@@ -4,7 +4,7 @@
 Aggregate your web & mobile product suite into a consistent experience with universally translated design tokens.
 
 ## What is it?
-Aggregator is a starter toolkit for creating applications from a design-systems approach. Using JSON configuration files, Aggregator uses gulp to generate multi-platform assets for core design attributes.
+Aggregator is a starter toolkit for creating applications from a token-based design systems approach. Using gulp and JSON "tokens", Aggregator generates multi-platform assets for core design attributes.
 
 This allows you to aggregate disperate cross-platform applications to follow consistent design specifications.
 
