@@ -1,7 +1,7 @@
 {
 	"font": {
-		"primary": "'Helvetica'",
-		"secondary": "'Times'",
-		"monospace": "'Courier New'"
+		"primary": "Times New Roman, Georgia, serif",
+		"secondary": "Helvetica, Arial, sans-serif",
+		"monospace": "'Lucida Console', Monaco, monospace"
 	}
 }

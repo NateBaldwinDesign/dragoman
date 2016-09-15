@@ -40,9 +40,11 @@ gulp.task('clean-build', function() {
 });
 //===========================================//
 // Convert JSON to SCSS variables
-gulp.task('json-scss', ['clean-build'], function() {
+gulp.task('json-scss-global', ['clean-build'], function() {
   return gulp
-    .src( pathToTokens + '/**/*.json')
+    .src([
+      pathToTokens + '/global/**/*.json'
+    ])
     .pipe(jsonCss({
       targetPre: "scss",
       delim: "-"
@@ -50,13 +52,49 @@ gulp.task('json-scss', ['clean-build'], function() {
     .pipe(rename({
       prefix: "_"
     }))
-    .pipe(gulp.dest( pathToDest ));
+    .pipe(replace('%', '$'))
+    .pipe(gulp.dest( pathToDest + '/global'));
+});
+gulp.task('json-scss', ['json-scss-global', 'clean-build'], function() {
+  return gulp
+    .src([
+      pathToTokens + '/components/**/theme-*.json',
+      pathToTokens + '/components/**/variables.json'
+    ])
+    .pipe(jsonCss({
+      targetPre: "scss",
+      delim: "-"
+    }))
+    .pipe(rename({
+      prefix: "_"
+    }))
+    .pipe(replace('%', '$'))
+    .pipe(gulp.dest( pathToDest + '/components'));
+});
+gulp.task('json-scss-component', ['json-scss', 'clean-build'], function() {
+  return gulp
+    .src([pathToTokens + '/components/**/*.json', 
+      '!' + pathToTokens + '/components/**/theme-*.json',
+      '!' + pathToTokens + '/components/**/variables.json'
+      ])
+    .pipe(jsonCss({
+      targetPre: "scss",
+      delim: "-"
+    }))
+    .pipe(rename({
+      prefix: "_"
+    }))
+    .pipe(replace('$', '.'))
+    .pipe(replace('%', '$'))
+    .pipe(gulp.dest( pathToDest + '/components'));
 });
 //===========================================//
 // Convert JSON to SASS variables
-gulp.task('json-sass', ['json-scss', 'clean-build'], function() {
+gulp.task('json-sass-global', ['json-scss-component', 'clean-build'], function() {
   return gulp
-    .src( pathToTokens + '/**/*.json')
+    .src([
+      pathToTokens + '/global/**/*.json'
+    ])
     .pipe(jsonCss({
       targetPre: "sass",
       delim: "-"
@@ -64,13 +102,49 @@ gulp.task('json-sass', ['json-scss', 'clean-build'], function() {
     .pipe(rename({
       prefix: "_"
     }))
-    .pipe(gulp.dest( pathToDest ));
+    .pipe(replace('%', '$'))
+    .pipe(gulp.dest( pathToDest + '/global'));
+});
+gulp.task('json-sass', ['json-sass-global', 'clean-build'], function() {
+  return gulp
+    .src([
+      pathToTokens + '/components/**/theme-*.json',
+      pathToTokens + '/components/**/variables.json'
+    ])
+    .pipe(jsonCss({
+      targetPre: "sass",
+      delim: "-"
+    }))
+    .pipe(rename({
+      prefix: "_"
+    }))
+    .pipe(replace('%', '$'))
+    .pipe(gulp.dest( pathToDest + '/components'));
+});
+gulp.task('json-sass-component', ['json-sass', 'clean-build'], function() {
+  return gulp
+    .src([pathToTokens + '/components/**/*.json', 
+      '!' + pathToTokens + '/components/**/theme-*.json',
+      '!' + pathToTokens + '/components/**/variables.json'
+      ])
+    .pipe(jsonCss({
+      targetPre: "sass",
+      delim: "-"
+    }))
+    .pipe(rename({
+      prefix: "_"
+    }))
+    .pipe(replace('$', '.'))
+    .pipe(replace('%', '$'))
+    .pipe(gulp.dest( pathToDest + '/components'));
 });
 //===========================================//
 // Convert JSON to Less variables
-gulp.task('json-less', ['json-sass', 'clean-build'], function() {
+gulp.task('json-less-global', ['json-sass-component', 'clean-build'], function() {
   return gulp
-    .src( pathToTokens + '/**/*.json')
+    .src([
+      pathToTokens + '/global/**/*.json'
+    ])
     .pipe(jsonCss({
       targetPre: "less",
       delim: "-"
@@ -78,13 +152,49 @@ gulp.task('json-less', ['json-sass', 'clean-build'], function() {
     .pipe(rename({
       prefix: "_"
     }))
-    .pipe(gulp.dest( pathToDest ));
+    .pipe(replace('%', '@'))
+    .pipe(gulp.dest( pathToDest + '/global'));
+});
+gulp.task('json-less', ['json-less-global', 'clean-build'], function() {
+  return gulp
+    .src([
+      pathToTokens + '/components/**/theme-*.json',
+      pathToTokens + '/components/**/variables.json'
+    ])
+    .pipe(jsonCss({
+      targetPre: "less",
+      delim: "-"
+    }))
+    .pipe(rename({
+      prefix: "_"
+    }))
+    .pipe(replace('%', '@'))
+    .pipe(gulp.dest( pathToDest + '/components'));
+});
+gulp.task('json-less-component', ['json-less', 'clean-build'], function() {
+  return gulp
+    .src([pathToTokens + '/components/**/*.json', 
+      '!' + pathToTokens + '/components/**/theme-*.json',
+      '!' + pathToTokens + '/components/**/variables.json'
+      ])
+    .pipe(jsonCss({
+      targetPre: "less",
+      delim: "-"
+    }))
+    .pipe(rename({
+      prefix: "_"
+    }))
+    .pipe(replace('@', '.'))
+    .pipe(replace('%', '@'))
+    .pipe(gulp.dest( pathToDest + '/components'));
 });
 //===========================================//
 // Convert JSON to Stylus variables
-gulp.task('json-stylus', ['json-less', 'clean-build'], function() {
+gulp.task('json-stylus-global', ['json-less-component', 'clean-build'], function() {
   return gulp
-    .src( pathToTokens + '/**/*.json')
+    .src([
+      pathToTokens + '/global/**/*.json'
+    ])
     .pipe(jsonCss({
       targetPre: "sass",
       delim: "-"
@@ -95,11 +205,50 @@ gulp.task('json-stylus', ['json-less', 'clean-build'], function() {
       prefix: "_",
       extname: ".styl"
     }))
-    .pipe(gulp.dest( pathToDest ));
+    // .pipe(replace('%', '@'))
+    .pipe(gulp.dest( pathToDest + '/global'));
+});
+gulp.task('json-stylus', ['json-stylus-global', 'clean-build'], function() {
+  return gulp
+    .src([
+      pathToTokens + '/components/**/theme-*.json',
+      pathToTokens + '/components/**/variables.json'
+    ])
+    .pipe(jsonCss({
+      targetPre: "sass",
+      delim: "-"
+    }))
+    .pipe(replace('$', ''))
+    .pipe(replace(':', ' ='))
+    .pipe(rename({
+      prefix: "_",
+      extname: ".styl"
+    }))
+    // .pipe(replace('%', '@'))
+    .pipe(gulp.dest( pathToDest + '/components'));
+});
+gulp.task('json-stylus-component', ['json-stylus', 'clean-build'], function() {
+  return gulp
+    .src([pathToTokens + '/components/**/*.json', 
+      '!' + pathToTokens + '/components/**/theme-*.json',
+      '!' + pathToTokens + '/components/**/variables.json'
+      ])
+    .pipe(jsonCss({
+      targetPre: "sass",
+      delim: "-"
+    }))
+    .pipe(rename({
+      prefix: "_",
+      extname: ".styl"
+    }))
+    .pipe(replace('$', '.'))
+    .pipe(replace(':', ' ='))
+    .pipe(replace('%', ''))
+    .pipe(gulp.dest( pathToDest + '/components'));
 });
 //===========================================//
 // Convert JSON to Android XML
-gulp.task('json-android-dimensions', ['json-stylus', 'clean-build'], function() {
+gulp.task('json-android-dimensions', ['json-stylus-component', 'clean-build'], function() {
   return gulp
     .src( pathToTokens + '/**/*.json')
     .pipe(jsonTransform(function(data) {
