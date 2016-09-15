@@ -1,27 +1,28 @@
-var jsonSass = require('gulp-json-sass'),
-    jsonCss = require('gulp-json-css'),
-    gulp = require('gulp'),
-    concat = require('gulp-concat'),
-    sass = require('gulp-sass'),
-    clean = require('gulp-rimraf'),
-    rename = require('gulp-rename'),
-    replace = require('gulp-replace'),
-    wrapper = require('gulp-wrapper'),
-    data = require('gulp-data'),
+var jsonSass      = require('gulp-json-sass'),
+    jsonCss       = require('gulp-json-css'),
+    gulp          = require('gulp'),
+    concat        = require('gulp-concat'),
+    sass          = require('gulp-sass'),
+    clean         = require('gulp-rimraf'),
+    rename        = require('gulp-rename'),
+    replace       = require('gulp-replace'),
+    wrapper       = require('gulp-wrapper'),
+    data          = require('gulp-data'),
     jsonTransform = require('gulp-json-transform'),
-    ase = require('ase-util'),
-    run = require('gulp-run'),
-    pngquant = require('imagemin-pngquant'),
-    svg2png = require('gulp-svg2png'),
-    imagemin = require('gulp-imagemin'),
-    svgstore = require('gulp-svgstore'),
-    svgmin = require('gulp-svgmin'),
-    cheerio = require('gulp-cheerio'),
-    fs = require('fs'),
-    concat = require('gulp-concat-util'),
-    concat_json = require("gulp-concat-json"),
-    beautify = require('gulp-beautify'),
-    chug = require('gulp-chug'),
+    ase           = require('ase-util'),
+    run           = require('gulp-run'),
+    pngquant      = require('imagemin-pngquant'),
+    svg2png       = require('gulp-svg2png'),
+    imagemin      = require('gulp-imagemin'),
+    svgstore      = require('gulp-svgstore'),
+    svgmin        = require('gulp-svgmin'),
+    cheerio       = require('gulp-cheerio'),
+    fs            = require('fs'),
+    concat        = require('gulp-concat-util'),
+    concat_json   = require("gulp-concat-json"),
+    beautify      = require('gulp-beautify'),
+    chug          = require('gulp-chug'),
+    flatten       = require('gulp-flatten'),
 
     //===========================================//
     // SET THE PATH TO YOUR SOURCE & DESTINATION
@@ -35,13 +36,13 @@ var jsonSass = require('gulp-json-sass'),
 //===========================================//
 // Clean Build
 gulp.task('clean-build', function() {
-  gulp.src( pathToDest + '**/*.*').pipe(clean());
+  gulp.src( pathToDest ).pipe(clean());
 });
 //===========================================//
 // Convert JSON to SCSS variables
 gulp.task('json-scss', ['clean-build'], function() {
   return gulp
-    .src( pathToTokens + '*.json')
+    .src( pathToTokens + '/**/*.json')
     .pipe(jsonCss({
       targetPre: "scss",
       delim: "-"
@@ -55,7 +56,7 @@ gulp.task('json-scss', ['clean-build'], function() {
 // Convert JSON to SASS variables
 gulp.task('json-sass', ['json-scss', 'clean-build'], function() {
   return gulp
-    .src( pathToTokens + '*.json')
+    .src( pathToTokens + '/**/*.json')
     .pipe(jsonCss({
       targetPre: "sass",
       delim: "-"
@@ -69,7 +70,7 @@ gulp.task('json-sass', ['json-scss', 'clean-build'], function() {
 // Convert JSON to Less variables
 gulp.task('json-less', ['json-sass', 'clean-build'], function() {
   return gulp
-    .src( pathToTokens + '*.json')
+    .src( pathToTokens + '/**/*.json')
     .pipe(jsonCss({
       targetPre: "less",
       delim: "-"
@@ -83,7 +84,7 @@ gulp.task('json-less', ['json-sass', 'clean-build'], function() {
 // Convert JSON to Stylus variables
 gulp.task('json-stylus', ['json-less', 'clean-build'], function() {
   return gulp
-    .src( pathToTokens + '*.json')
+    .src( pathToTokens + '/**/*.json')
     .pipe(jsonCss({
       targetPre: "sass",
       delim: "-"
@@ -100,7 +101,7 @@ gulp.task('json-stylus', ['json-less', 'clean-build'], function() {
 // Convert JSON to Android XML
 gulp.task('json-android-dimensions', ['json-stylus', 'clean-build'], function() {
   return gulp
-    .src( pathToTokens + '*.json')
+    .src( pathToTokens + '/**/*.json')
     .pipe(jsonTransform(function(data) {
       return {
         base: data.base,
@@ -144,7 +145,7 @@ gulp.task('json-android-color', ['json-android-dimensions', 'clean-build'], func
 gulp.task('json-ios-color', ['json-android-color', 'clean-build'], function() {
   return gulp
     // Convert JSON to Scss
-    .src( pathToTokens + 'color.json')
+    .src( pathToTokens + '/**/color.json')
     .pipe(jsonCss({
       targetPre: "scss",
       delim: "-"
@@ -171,7 +172,7 @@ gulp.task('json-ios-color', ['json-android-color', 'clean-build'], function() {
       footer: '}\n'
     }))
     .pipe(rename('colors-ios.swift'))
-    .pipe(gulp.dest( pathToDest ));
+    .pipe(gulp.dest( pathToDest + 'global/'));
 });
 //===========================================//
 // Create SVG symbol sprite
@@ -195,12 +196,12 @@ gulp.task('svg-optimize', function() {
           removeTitle: true
         }]
       }))
-    .pipe(gulp.dest( pathToDest + '/icons'))
+    .pipe(gulp.dest( pathToDest ))
 });
 
 gulp.task('svg-sprite', ['svg-optimize'], function() {
   return gulp
-    .src([ pathToDest + '/icons/**/*.svg'], {
+    .src([ pathToDest + '/**/icons/**/*.svg'], {
       base: '.'
     })
     .pipe(rename({
@@ -217,8 +218,8 @@ gulp.task('svg-sprite', ['svg-optimize'], function() {
         xmlMode: true
       }
     }))
-    .pipe(rename('sprite.svg'))
-    .pipe(gulp.dest( pathToDest + '/icons'))
+    .pipe(rename('_icon-sprite.svg'))
+    .pipe(gulp.dest( pathToDest + 'components/icons/svg'))
 });
 
 //===========================================//
@@ -226,28 +227,32 @@ gulp.task('svg-sprite', ['svg-optimize'], function() {
 
 // resize original svg to control 1x scale
 gulp.task('ios-resize', function() {
-  return gulp.src( pathToDest + 'icons/svg/*.svg')
+  return gulp.src( pathToDest + '/**/svg/*.svg')
     // Use Gulp replace to add styles to SVG
     .pipe(replace('<svg ', '<svg fill="#ffffff" width="18px" height="" '))
+    .pipe(flatten())
     .pipe(gulp.dest('temp/18px'));
 });
 // convert at 1x
 gulp.task('svg2png-1x', ['ios-resize'], function() {
   return gulp.src('temp/18px/**/*.svg')
     .pipe(svg2png(1, false, 20))
-    .pipe(gulp.dest( pathToDest + '/icons/ios-1x'));
+    .pipe(flatten())
+    .pipe(gulp.dest( pathToDest + 'components/icons/ios-1x'));
 });
 // convert at 2x
 gulp.task('svg2png-2x', ['ios-resize'], function() {
   return gulp.src('temp/18px/**/*.svg')
     .pipe(svg2png(2, false, 20))
-    .pipe(gulp.dest( pathToDest + '/icons/ios-2x'));
+    .pipe(flatten())
+    .pipe(gulp.dest( pathToDest + 'components/icons/ios-2x'));
 });
 // convert at 3x
 gulp.task('svg2png-3x', ['ios-resize'], function() {
   return gulp.src('temp/18px/**/*.svg')
     .pipe(svg2png(3, false, 20))
-    .pipe(gulp.dest( pathToDest + '/icons/ios-3x'));
+    .pipe(flatten())
+    .pipe(gulp.dest( pathToDest + 'components/icons/ios-3x'));
 });
 // Clean Build directory
 gulp.task('ios-icons-resize', ['svg2png-1x', 'svg2png-2x', 'svg2png-3x'], function() {
@@ -257,9 +262,9 @@ gulp.task('ios-icons-resize', ['svg2png-1x', 'svg2png-2x', 'svg2png-3x'], functi
 gulp.task('ios-icons', ['ios-icons-resize'], function() {
   return gulp
     .src([ 
-      pathToDest + '/icons/ios-1x',  
-      pathToDest + '/icons/ios-2x',
-      pathToDest + '/icons/ios-3x'])
+      pathToDest + 'components/icons/ios-1x',  
+      pathToDest + 'components/icons/ios-2x',
+      pathToDest + 'components/icons/ios-3x'])
     .pipe(imagemin({
       optimizationLevel: 6,
       use: [pngquant()]
