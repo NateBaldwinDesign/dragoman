@@ -23,6 +23,7 @@ var jsonSass      = require('gulp-json-sass'),
     beautify      = require('gulp-beautify'),
     chug          = require('gulp-chug'),
     flatten       = require('gulp-flatten'),
+    regexReplace  = require('gulp-regex-replace')
 
     //===========================================//
     // SET THE PATH TO YOUR SOURCE & DESTINATION
@@ -55,7 +56,29 @@ gulp.task('json-scss-global', ['clean-build'], function() {
     .pipe(replace('%', '$'))
     .pipe(gulp.dest( pathToDest + '/global'));
 });
-gulp.task('json-scss', ['json-scss-global', 'clean-build'], function() {
+gulp.task('json-scss-stylesheet', ['json-scss-global', 'clean-build'], function() {
+  return gulp
+    .src([
+      pathToTokens + 'styles.json'
+    ])
+    .pipe(jsonCss({
+      targetPre: "scss",
+      delim: "/"
+    }))
+    .pipe(rename({
+      prefix: ""
+    }))
+    .pipe(replace('$', '@'))
+    .pipe(replace('@meta', '/'))
+    .pipe(replace('name:', ''))
+    .pipe(replace(': ', '/_'))
+    .pipe(replace(';', '";'))
+    .pipe(replace('import', 'import "'))
+    .pipe(replace('version/_', ' Version: '))
+    .pipe(regexReplace({regex: '/[0-9]/', replace: '/'}))
+    .pipe(gulp.dest( pathToDest ));
+});
+gulp.task('json-scss', ['json-scss-stylesheet', 'clean-build'], function() {
   return gulp
     .src([
       pathToTokens + '/components/**/theme-*.json',
@@ -105,7 +128,28 @@ gulp.task('json-sass-global', ['json-scss-component', 'clean-build'], function()
     .pipe(replace('%', '$'))
     .pipe(gulp.dest( pathToDest + '/global'));
 });
-gulp.task('json-sass', ['json-sass-global', 'clean-build'], function() {
+gulp.task('json-sass-stylesheet', ['json-sass-global', 'clean-build'], function() {
+  return gulp
+    .src([
+      pathToTokens + 'styles.json'
+    ])
+    .pipe(jsonCss({
+      targetPre: "sass",
+      delim: "/"
+    }))
+    .pipe(rename({
+      prefix: ""
+    }))
+    .pipe(replace('$', '@'))
+    .pipe(replace('@meta', '/'))
+    .pipe(replace('name:', ''))
+    .pipe(replace(': ', '/_'))
+    .pipe(replace('import', 'import '))
+    .pipe(replace('version/_', ' Version: '))
+    .pipe(regexReplace({regex: '/[0-9]/', replace: '/'}))
+    .pipe(gulp.dest( pathToDest ));
+});
+gulp.task('json-sass', ['json-sass-stylesheet', 'clean-build'], function() {
   return gulp
     .src([
       pathToTokens + '/components/**/theme-*.json',
@@ -155,7 +199,29 @@ gulp.task('json-less-global', ['json-sass-component', 'clean-build'], function()
     .pipe(replace('%', '@'))
     .pipe(gulp.dest( pathToDest + '/global'));
 });
-gulp.task('json-less', ['json-less-global', 'clean-build'], function() {
+gulp.task('json-less-stylesheet', ['json-less-global', 'clean-build'], function() {
+  return gulp
+    .src([
+      pathToTokens + 'styles.json'
+    ])
+    .pipe(jsonCss({
+      targetPre: "less",
+      delim: "/"
+    }))
+    .pipe(rename({
+      prefix: ""
+    }))
+    .pipe(replace('$', '@'))
+    .pipe(replace('@meta', '/'))
+    .pipe(replace('name:', ''))
+    .pipe(replace(': ', '/_'))
+    .pipe(replace('import', 'import "'))
+    .pipe(replace(';', '";'))
+    .pipe(replace('version/_', ' Version: '))
+    .pipe(regexReplace({regex: '/[0-9]/', replace: '/'}))
+    .pipe(gulp.dest( pathToDest ));
+});
+gulp.task('json-less', ['json-less-stylesheet', 'clean-build'], function() {
   return gulp
     .src([
       pathToTokens + '/components/**/theme-*.json',
@@ -208,7 +274,32 @@ gulp.task('json-stylus-global', ['json-less-component', 'clean-build'], function
     // .pipe(replace('%', '@'))
     .pipe(gulp.dest( pathToDest + '/global'));
 });
-gulp.task('json-stylus', ['json-stylus-global', 'clean-build'], function() {
+gulp.task('json-stylus-stylesheet', ['json-stylus-global', 'clean-build'], function() {
+  return gulp
+    .src([
+      pathToTokens + 'styles.json'
+    ])
+    .pipe(jsonCss({
+      targetPre: "scss",
+      delim: "/"
+    }))
+    .pipe(rename({
+      prefix: ""
+    }))
+    .pipe(replace('$', '@'))
+    .pipe(replace('@meta', '/'))
+    .pipe(replace('name:', ''))
+    .pipe(replace(': ', '/_'))
+    .pipe(replace('import', 'import "'))
+    .pipe(replace(';', '"'))
+    .pipe(replace('version/_', ' Version: '))
+    .pipe(regexReplace({regex: '/[0-9]/', replace: '/'}))
+    .pipe(rename({
+      extname: ".styl"
+    }))
+    .pipe(gulp.dest( pathToDest ));
+});
+gulp.task('json-stylus', ['json-stylus-stylesheet', 'clean-build'], function() {
   return gulp
     .src([
       pathToTokens + '/components/**/theme-*.json',
@@ -246,9 +337,15 @@ gulp.task('json-stylus-component', ['json-stylus', 'clean-build'], function() {
     .pipe(replace('%', ''))
     .pipe(gulp.dest( pathToDest + '/components'));
 });
+
+gulp.task('compile-web', [
+  'clean-build', 
+  'json-stylus-component'
+]);
+
 //===========================================//
 // Convert JSON to Android XML
-gulp.task('json-android-dimensions', ['json-stylus-component', 'clean-build'], function() {
+gulp.task('json-android-dimensions', ['clean-build'], function() {
   return gulp
     .src( pathToTokens + '/**/*.json')
     .pipe(jsonTransform(function(data) {

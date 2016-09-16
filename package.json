@@ -27,6 +27,7 @@
     "gulp-json-transform": "^0.3.2",
     "gulp-jsoncombine": "^1.0.3",
     "gulp-npm-run": "0.0.3",
+    "gulp-regex-replace": "^0.2.3",
     "gulp-rename": "^1.2.2",
     "gulp-replace": "^0.5.4",
     "gulp-rimraf": "^0.2.0",

@@ -1,0 +1,18 @@
+{
+	"meta": {
+		"name": "My Stylesheet",
+		"version": "0.0.1"
+	},
+	"import": {
+		"global": [
+			"color",
+			"fonts",
+			"spacing"
+		],
+		"components": [
+			"icons",
+			"typography",
+			"my-component"
+		]
+	}
+}
