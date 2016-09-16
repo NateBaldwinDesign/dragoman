@@ -4,10 +4,10 @@
 			"padding": "%spacing-medium"
 		},
 		{
-			"text-align": "center"
+			"text-align": "%my-component-text-align"
 		},
 		{
-			"border": "1px solid red"
+			"border": "%my-component-border"
 		}
 	]
 }
