@@ -31,11 +31,11 @@ This allows you to aggregate disparate cross-platform applications to follow con
 Default color.json file
 ```json
 {
-	"color": {
-		"orange": "#f26322",
-		"purple": "#783084",
-		"light-green": "#52ff7a"
-	}
+  "color": {
+    "orange": "#f26322",
+    "purple": "#783084",
+    "light-green": "#52ff7a"
+  }
 }
 ```
 Output as Sass:

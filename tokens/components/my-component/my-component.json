@@ -1,0 +1,13 @@
+{
+	"my-component": [
+		{
+			"padding": "%spacing-medium"
+		},
+		{
+			"text-align": "%my-component-text-align"
+		},
+		{
+			"border": "%my-component-border"
+		}
+	]
+}
