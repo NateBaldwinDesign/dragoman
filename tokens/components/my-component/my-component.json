@@ -1,13 +1,9 @@
 {
-	"my-component": [
-		{
-			"padding": "%spacing-medium"
-		},
-		{
-			"text-align": "%my-component-text-align"
-		},
-		{
-			"border": "%my-component-border"
-		}
-	]
+	"name": "my-component",
+	"properties": {
+		"display": "block",
+		"padding": "%spacing-medium",
+		"text-align": "%my-component-text-align",
+		"border": "%my-component-border"
+	}
 }

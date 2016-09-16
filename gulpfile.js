@@ -100,17 +100,18 @@ gulp.task('json-scss-component', ['json-scss', 'clean-build'], function() {
       '!' + pathToTokens + '/components/**/theme-*.json',
       '!' + pathToTokens + '/components/**/variables.json'
       ])
-    .pipe(jsonCss({
-      targetPre: "scss",
-      delim: "-"
-    }))
     .pipe(rename({
-      prefix: "_"
+      prefix: "_",
+      extname: ".scss"
     }))
-    .pipe(replace('$', '.'))
     .pipe(replace('%', '$'))
-    .pipe(replace(';', ';\r}'))
-    .pipe(regexReplace({regex: '-[0-9]-', replace: ' {\r    '}))
+    .pipe(replace('"', ''))
+    .pipe(replace(',', ';'))
+    .pipe(replace('{\n\tname: ', '.'))
+    .pipe(replace(';\n\tproperties: ', ' '))
+    .pipe(replace('}\n}', '}'))
+    .pipe(replace('\n\t', '\n'))
+    .pipe(replace('\n}', ';\n}'))
     .pipe(gulp.dest( pathToDest + '/components'));
 });
 //===========================================//
@@ -173,16 +174,20 @@ gulp.task('json-sass-component', ['json-sass', 'clean-build'], function() {
       '!' + pathToTokens + '/components/**/theme-*.json',
       '!' + pathToTokens + '/components/**/variables.json'
       ])
-    .pipe(jsonCss({
-      targetPre: "sass",
-      delim: "-"
-    }))
     .pipe(rename({
-      prefix: "_"
+      prefix: "_",
+      extname: ".sass"
     }))
-    .pipe(replace('$', '.'))
     .pipe(replace('%', '$'))
-    .pipe(regexReplace({regex: '-[0-9]-', replace: '\r    '}))
+    .pipe(replace('"', ''))
+    .pipe(replace(',', ';'))
+    .pipe(replace('{\n\tname: ', '.'))
+    .pipe(replace(';\n\tproperties: ', ' '))
+    .pipe(replace('}\n}', ''))
+    .pipe(replace('\n\t', '\n'))
+    .pipe(replace('{', ''))
+    .pipe(replace('}', ''))
+    .pipe(replace(';', ''))
     .pipe(gulp.dest( pathToDest + '/components'));
 });
 //===========================================//
@@ -246,18 +251,18 @@ gulp.task('json-less-component', ['json-less', 'clean-build'], function() {
       '!' + pathToTokens + '/components/**/theme-*.json',
       '!' + pathToTokens + '/components/**/variables.json'
       ])
-    .pipe(jsonCss({
-      targetPre: "scss",
-      delim: "-"
-    }))
     .pipe(rename({
       prefix: "_",
       extname: ".less"
     }))
-    .pipe(replace('$', '.'))
     .pipe(replace('%', '@'))
-    .pipe(replace(';', ';\r}'))
-    .pipe(regexReplace({regex: '-[0-9]-', replace: ' {\r    '}))
+    .pipe(replace('"', ''))
+    .pipe(replace(',', ';'))
+    .pipe(replace('{\n\tname: ', '.'))
+    .pipe(replace(';\n\tproperties: ', ' '))
+    .pipe(replace('}\n}', '}'))
+    .pipe(replace('\n\t', '\n'))
+    .pipe(replace('\n}', ';\n}'))
     .pipe(gulp.dest( pathToDest + '/components'));
 });
 //===========================================//
@@ -331,18 +336,21 @@ gulp.task('json-stylus-component', ['json-stylus', 'clean-build'], function() {
       '!' + pathToTokens + '/components/**/theme-*.json',
       '!' + pathToTokens + '/components/**/variables.json'
       ])
-    .pipe(jsonCss({
-      targetPre: "sass",
-      delim: "-"
-    }))
     .pipe(rename({
       prefix: "_",
       extname: ".styl"
     }))
-    .pipe(replace('$', '.'))
-    .pipe(replace(':', ''))
     .pipe(replace('%', ''))
-    .pipe(regexReplace({regex: '-[0-9]-', replace: '\r    '}))
+    .pipe(replace('"', ''))
+    .pipe(replace(',', ';'))
+    .pipe(replace('{\n\tname: ', '.'))
+    .pipe(replace(';\n\tproperties: ', ' '))
+    .pipe(replace('}\n}', ''))
+    .pipe(replace('\n\t', '\n'))
+    .pipe(replace('{', ''))
+    .pipe(replace('}', ''))
+    .pipe(replace(';', ''))
+    .pipe(replace(':', ''))
     .pipe(gulp.dest( pathToDest + '/components'));
 });
 
