@@ -341,7 +341,7 @@ gulp.task('json-stylus-component', ['json-stylus', 'clean-build'], function() {
 gulp.task('compile-web', [
   'clean-build', 
   'json-stylus-component'
-]);
+  ])
 
 //===========================================//
 // Convert JSON to Android XML
