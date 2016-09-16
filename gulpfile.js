@@ -585,4 +585,4 @@ gulp.task('craft-color-ios', function() {
     .pipe(gulp.dest( pathToDest ));
 });
 
-gulp.task('default', ['json-ios-color', 'iconography']);
+gulp.task('default', ['compile-web', 'json-ios-color', 'iconography']);
