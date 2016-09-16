@@ -10,7 +10,7 @@
     "url": "https://github.com/NateBaldwinDesign/aggregator.git"
   },
   "scripts": {
-    "install": "npm install && npm install -g ase-util",
+    "setup": "npm install && npm install -g ase-util",
     "swatches": "asedump *.ase --format json --export output.json"
   },
   "devDependencies": {
