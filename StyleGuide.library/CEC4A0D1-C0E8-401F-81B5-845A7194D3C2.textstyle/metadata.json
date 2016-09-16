@@ -1,1 +1,16 @@
-{"index":2,"textStyle":{"fontSize":28,"lineHeight":33,"fontPostscriptName":"AppleMyungjo","color":{"r":0.1333333333,"b":0.1333333333,"g":0.1333333333,"a":1}},"category":"Text Styles","name":"Heading h3"}
+{  
+  "index":2,
+  "textStyle":{  
+    "fontSize":28,
+    "lineHeight":33,
+    "fontPostscriptName":"AppleMyungjo",
+    "color":{  
+      "r":0.1333333333,
+      "b":0.1333333333,
+      "g":0.1333333333,
+      "a":1
+    }
+  },
+  "category":"Text Styles",
+  "name":"Heading h3"
+}

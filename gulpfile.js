@@ -1,15 +1,11 @@
-var jsonSass      = require('gulp-json-sass'),
-    jsonCss       = require('gulp-json-css'),
+var jsonCss       = require('gulp-json-css'),
     gulp          = require('gulp'),
-    concat        = require('gulp-concat'),
-    sass          = require('gulp-sass'),
     clean         = require('gulp-rimraf'),
     rename        = require('gulp-rename'),
     replace       = require('gulp-replace'),
     wrapper       = require('gulp-wrapper'),
-    data          = require('gulp-data'),
+    sass          = require('gulp-sass'),
     jsonTransform = require('gulp-json-transform'),
-    ase           = require('ase-util'),
     run           = require('gulp-run'),
     pngquant      = require('imagemin-pngquant'),
     svg2png       = require('gulp-svg2png'),
@@ -17,11 +13,8 @@ var jsonSass      = require('gulp-json-sass'),
     svgstore      = require('gulp-svgstore'),
     svgmin        = require('gulp-svgmin'),
     cheerio       = require('gulp-cheerio'),
-    fs            = require('fs'),
-    concat        = require('gulp-concat-util'),
     concat_json   = require("gulp-concat-json"),
     beautify      = require('gulp-beautify'),
-    chug          = require('gulp-chug'),
     flatten       = require('gulp-flatten'),
     regexReplace  = require('gulp-regex-replace')
 
@@ -361,12 +354,12 @@ gulp.task('compile-web', [
 
 //===========================================//
 // Convert JSON to Android XML
-gulp.task('json-android-dimensions', ['clean-build'], function() {
+gulp.task('json-android-dimensions', ['compile-web', 'clean-build'], function() {
   return gulp
-    .src( pathToTokens + '/**/*.json')
+    .src( pathToTokens + '/global/spacing.json')
     .pipe(jsonTransform(function(data) {
       return {
-        base: data.base,
+        base: data.spacing,
         whitespace: data.whitespace
       };
     }))
@@ -381,12 +374,12 @@ gulp.task('json-android-dimensions', ['clean-build'], function() {
     .pipe(replace('$', '    <dimen name="'))
     .pipe(replace(': ', '">'))
     .pipe(replace(';', '</dimen>'))
-    .pipe(rename('dimens-android.xml'))
-    .pipe(gulp.dest( pathToDest ));
+    .pipe(rename('spacing-android.xml'))
+    .pipe(gulp.dest( pathToDest + '/global'));
 });
 gulp.task('json-android-color', ['json-android-dimensions', 'clean-build'], function() {
   return gulp
-    .src( pathToTokens + 'color.json')
+    .src( pathToTokens + '/global/color.json')
     .pipe(jsonCss({
       targetPre: "scss",
       delim: "-"
@@ -399,15 +392,15 @@ gulp.task('json-android-color', ['json-android-dimensions', 'clean-build'], func
     .pipe(replace(': ', '">'))
     .pipe(replace(';', '</color>'))
     .pipe(rename('colors-android.xml'))
-    .pipe(gulp.dest( pathToDest ));
+    .pipe(gulp.dest( pathToDest + '/global'));
 });
 
 //===========================================//
 // Convert custom written JSON to ios JSON format
-gulp.task('json-ios-color', ['json-android-color', 'clean-build'], function() {
+gulp.task('json-ios-color', ['json-android-color', 'compile-web', 'clean-build'], function() {
   return gulp
     // Convert JSON to Scss
-    .src( pathToTokens + '/**/color.json')
+    .src( pathToTokens + '/global/color.json')
     .pipe(jsonCss({
       targetPre: "scss",
       delim: "-"
@@ -434,7 +427,7 @@ gulp.task('json-ios-color', ['json-android-color', 'clean-build'], function() {
       footer: '}\n'
     }))
     .pipe(rename('colors-ios.swift'))
-    .pipe(gulp.dest( pathToDest + 'global/'));
+    .pipe(gulp.dest( pathToDest + '/global'));
 });
 //===========================================//
 // Create SVG symbol sprite
@@ -585,4 +578,4 @@ gulp.task('craft-color-ios', function() {
     .pipe(gulp.dest( pathToDest ));
 });
 
-gulp.task('default', ['json-ios-color', 'iconography']);
+gulp.task('default', ['compile-web', 'json-ios-color', 'iconography']);
