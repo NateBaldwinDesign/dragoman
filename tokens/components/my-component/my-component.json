@@ -1,7 +1,13 @@
 {
-	"my-component": {
-		"padding": "%spacing-medium",
-		"text-align": "center",
-		"border": "1px solid red"
-	}
+	"my-component": [
+		{
+			"padding": "%spacing-medium"
+		},
+		{
+			"text-align": "center"
+		},
+		{
+			"border": "1px solid red"
+		}
+	]
 }

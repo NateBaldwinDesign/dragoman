@@ -109,6 +109,8 @@ gulp.task('json-scss-component', ['json-scss', 'clean-build'], function() {
     }))
     .pipe(replace('$', '.'))
     .pipe(replace('%', '$'))
+    .pipe(replace(';', ';\r}'))
+    .pipe(regexReplace({regex: '-[0-9]-', replace: ' {\r    '}))
     .pipe(gulp.dest( pathToDest + '/components'));
 });
 //===========================================//
@@ -180,6 +182,7 @@ gulp.task('json-sass-component', ['json-sass', 'clean-build'], function() {
     }))
     .pipe(replace('$', '.'))
     .pipe(replace('%', '$'))
+    .pipe(regexReplace({regex: '-[0-9]-', replace: '\r    '}))
     .pipe(gulp.dest( pathToDest + '/components'));
 });
 //===========================================//
@@ -244,14 +247,17 @@ gulp.task('json-less-component', ['json-less', 'clean-build'], function() {
       '!' + pathToTokens + '/components/**/variables.json'
       ])
     .pipe(jsonCss({
-      targetPre: "less",
+      targetPre: "scss",
       delim: "-"
     }))
     .pipe(rename({
-      prefix: "_"
+      prefix: "_",
+      extname: ".less"
     }))
-    .pipe(replace('@', '.'))
+    .pipe(replace('$', '.'))
     .pipe(replace('%', '@'))
+    .pipe(replace(';', ';\r}'))
+    .pipe(regexReplace({regex: '-[0-9]-', replace: ' {\r    '}))
     .pipe(gulp.dest( pathToDest + '/components'));
 });
 //===========================================//
@@ -310,6 +316,7 @@ gulp.task('json-stylus', ['json-stylus-stylesheet', 'clean-build'], function() {
       delim: "-"
     }))
     .pipe(replace('$', ''))
+    .pipe(replace('%', ''))
     .pipe(replace(':', ' ='))
     .pipe(rename({
       prefix: "_",
@@ -333,8 +340,9 @@ gulp.task('json-stylus-component', ['json-stylus', 'clean-build'], function() {
       extname: ".styl"
     }))
     .pipe(replace('$', '.'))
-    .pipe(replace(':', ' ='))
+    .pipe(replace(':', ''))
     .pipe(replace('%', ''))
+    .pipe(regexReplace({regex: '-[0-9]-', replace: '\r    '}))
     .pipe(gulp.dest( pathToDest + '/components'));
 });
 
