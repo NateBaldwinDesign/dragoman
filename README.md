@@ -12,11 +12,8 @@ This allows you to aggregate disparate cross-platform applications to follow con
 
 ##### Default Design Attributes
 * Colors
-* Font size
-* Line-height
-* Font-stacks
-* Global margins
-* Global padding
+* Fonts
+* Global Spacing
 * Iconography
 
 ##### Targeted Languages & Platforms
@@ -70,6 +67,28 @@ extension UIColor {
   }
 }
 ```
+### Directory Structure
+```
+tokens/
+├── global/
+| ├── _colors
+| ├── _fonts
+├── components/
+| ├── component-1/
+| | ├── _light
+| | ├── _dark
+| | ├── _variables
+| | ├── _component-1
+```
+
+### Component Structure
+#### _(theme)
+Light and Dark themes allow abstraction of color mapping to generate multiple instances of a component based on theme.
+#### _variables
+Component-specific variables are mapped here as an added abstraction layer
+#### _(component-name)
+This file is where the actual CSS will be translated. If using specific properties that do not need to be mapped as a variable, they will be declared here.
+
 
 ### Future Goals
 Ultimately, I would like this tool to be able to read shareable design sourcefiles and perform the translations from those. For example, this input could be:
