@@ -17,6 +17,7 @@
     "gulp-cheerio": "^0.6.2",
     "gulp-concat-json": "^1.0.0",
     "gulp-data": "^1.2.1",
+    "gulp-flatten": "^0.3.1",
     "gulp-imagemin": "^3.0.1",
     "gulp-json-css": "^0.2.3",
     "gulp-json-transform": "^0.3.2",
