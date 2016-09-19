@@ -1,8 +1,9 @@
 language: node_js
 node_js:
 - "4.2.2"
+before_install:
+  - npm config set registry http://registry.npmjs.org/
 install:
-- npm config set registry http://registry.npmjs.org/
 - npm install
 before_script:
   - npm install -g gulp

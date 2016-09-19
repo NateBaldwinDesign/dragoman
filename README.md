@@ -1,5 +1,6 @@
 # Aggregator 
-[![Build Status](https://travis-ci.org/NateBaldwinDesign/aggregator.svg?branch=development)](https://travis-ci.org/NateBaldwinDesign/aggregator) [![GitHub version](https://badge.fury.io/gh/NateBaldwinDesign%2Faggregator.svg)](https://badge.fury.io/gh/NateBaldwinDesign%2Faggregator) [![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)]()
+[![Build Status](https://travis-ci.org/NateBaldwinDesign/aggregator.svg?branch=development)](https://travis-ci.org/NateBaldwinDesign/aggregator) [![GitHub version](https://badge.fury.io/gh/NateBaldwinDesign%2Faggregator.svg)](https://badge.fury.io/gh/NateBaldwinDesign%2Faggregator) [![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)]() [![Dependency Status](https://gemnasium.com/badges/github.com/NateBaldwinDesign/aggregator.svg)](https://gemnasium.com/github.com/NateBaldwinDesign/aggregator)
+
 
 Aggregate your web & mobile product suite into a consistent experience with universally translated design tokens.
 
@@ -7,8 +8,6 @@ Aggregate your web & mobile product suite into a consistent experience with univ
 Aggregator is a starter toolkit for creating applications from a token-based design systems approach. Using gulp and JSON "tokens", Aggregator generates multi-platform assets for core design attributes.
 
 This allows you to aggregate disparate cross-platform applications to follow consistent design specifications.
-
-*Aggregator is still in-progress, so there are still plenty of holes to fix*
 
 ##### Default Design Attributes
 * Colors
@@ -26,6 +25,7 @@ This allows you to aggregate disparate cross-platform applications to follow con
 
 ### Example
 Default color.json file
+
 ```json
 {
   "color": {
@@ -36,12 +36,14 @@ Default color.json file
 }
 ```
 Output as Sass:
+
 ```sass
 $color-orange: #f26322
 $color-purple: #783084
 $color-light-green: #52ff7a
 ```
 Output as Android XML:
+
 ```xml
 <?xml version="1.0" encoding="utf-8"?> 
 <resources> 
@@ -51,6 +53,7 @@ Output as Android XML:
 </resources> 
 ```
 Output as iOS Swift: _(in progress)_
+
 ```swift
 import UIKit
 extension UIColor {
@@ -67,7 +70,9 @@ extension UIColor {
   }
 }
 ```
+
 ### Directory Structure
+
 ```
 tokens/
 ├── global/
@@ -88,7 +93,8 @@ Light and Dark themes allow abstraction of color mapping to generate multiple in
 Component-specific variables are mapped here as an added abstraction layer
 #### _(component-name)
 This file is where the actual CSS will be translated. If using specific properties that do not need to be mapped as a variable, they will be declared here.
-
+#### docs-(component-name).md
+Markdown file for modular documentation. 
 
 ### Future Goals
 Ultimately, I would like this tool to be able to read shareable design sourcefiles and perform the translations from those. For example, this input could be:
