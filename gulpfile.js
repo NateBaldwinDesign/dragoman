@@ -1,5 +1,6 @@
 var jsonCss       = require('gulp-json-css'),
     gulp          = require('gulp'),
+    fs            = require('fs'),
     clean         = require('gulp-rimraf'),
     rename        = require('gulp-rename'),
     replace       = require('gulp-replace'),
@@ -8,7 +9,7 @@ var jsonCss       = require('gulp-json-css'),
     jsonTransform = require('gulp-json-transform'),
     run           = require('gulp-run'),
     pngquant      = require('imagemin-pngquant'),
-    svg2png       = require('gulp-svg2png'),
+    // svg2png       = require('gulp-svg2png'),
     imagemin      = require('gulp-imagemin'),
     svgstore      = require('gulp-svgstore'),
     svgmin        = require('gulp-svgmin'),
@@ -526,7 +527,8 @@ gulp.task('ios-icons', ['ios-icons-resize'], function() {
     }))
     .pipe(gulp.dest( pathToDest + '/icons'));
 });
-gulp.task('iconography', ['ios-icons', 'svg-sprite']);
+// need to add 'ios-icons' to the 'iconography' task, but also need to find out why svg2png is not working properly
+gulp.task('iconography', ['svg-sprite']);
 
 //===========================================//
 //===========================================//
