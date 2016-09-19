@@ -1,5 +1,5 @@
 # Aggregator 
-[![Build Status](https://travis-ci.org/NateBaldwinDesign/aggregator.svg?branch=development)](https://travis-ci.org/NateBaldwinDesign/aggregator) [![GitHub version](https://badge.fury.io/gh/NateBaldwinDesign%2Faggregator.svg)](https://badge.fury.io/gh/NateBaldwinDesign%2Faggregator) [![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)]()[![Dependency Status](https://gemnasium.com/badges/github.com/NateBaldwinDesign/aggregator.svg)](https://gemnasium.com/github.com/NateBaldwinDesign/aggregator)
+[![Build Status](https://travis-ci.org/NateBaldwinDesign/aggregator.svg?branch=development)](https://travis-ci.org/NateBaldwinDesign/aggregator) [![GitHub version](https://badge.fury.io/gh/NateBaldwinDesign%2Faggregator.svg)](https://badge.fury.io/gh/NateBaldwinDesign%2Faggregator) [![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)]() [![Dependency Status](https://gemnasium.com/badges/github.com/NateBaldwinDesign/aggregator.svg)](https://gemnasium.com/github.com/NateBaldwinDesign/aggregator)
 
 
 Aggregate your web & mobile product suite into a consistent experience with universally translated design tokens.
