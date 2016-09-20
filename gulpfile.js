@@ -1,4 +1,4 @@
-// 'use strict';
+'use strict';
 
 var gulp          = require('gulp'),
     clean         = require('gulp-rimraf'),
@@ -10,19 +10,18 @@ var gulp          = require('gulp'),
     concat_json   = require("gulp-concat-json"),
     beautify      = require('gulp-beautify'),
     flatten       = require('gulp-flatten'),
-    regexReplace  = require('gulp-regex-replace');
-
-gulp.paths = {
-  tokens: 'tokens',
-  dist: 'dist',
-  tmp: 'temp'
-};
-
+    regexReplace  = require('gulp-regex-replace'),
+    paths         = {
+      tokens: 'tokens/',
+      dist: 'dist/', 
+      temp: 'temp'
+    };
+    
 require('require-dir')('./gulp');
 
 // Clean Build
 gulp.task('clean-build', function() {
-  gulp.src( paths.dist ).pipe(clean());
+  gulp.src( path.dist ).pipe(clean());
 });
 
 

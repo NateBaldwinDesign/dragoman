@@ -5,8 +5,7 @@ var jsonCss       = require('gulp-json-css'),
     clean         = require('gulp-rimraf'),
     rename        = require('gulp-rename'),
     replace       = require('gulp-replace'),
-    regexReplace  = require('gulp-regex-replace'),
-    paths         = gulp.paths;
+    regexReplace  = require('gulp-regex-replace');
 
 //===========================================//
 // Convert JSON to SCSS variables

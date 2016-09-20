@@ -11,8 +11,7 @@ var gulp          = require('gulp'),
     svgstore      = require('gulp-svgstore'),
     svgmin        = require('gulp-svgmin'),
     cheerio       = require('gulp-cheerio'),
-    flatten       = require('gulp-flatten'),
-    paths         = gulp.paths;
+    flatten       = require('gulp-flatten');
 
 //===========================================//
 // Create SVG symbol sprite
@@ -71,25 +70,25 @@ gulp.task('ios-resize', function() {
     // Use Gulp replace to add styles to SVG
     .pipe(replace('<svg ', '<svg fill="#ffffff" width="18px" height="" '))
     .pipe(flatten())
-    .pipe(gulp.dest(paths.tmp + '18px'));
+    .pipe(gulp.dest(paths.temp + '18px'));
 });
 // convert at 1x
 gulp.task('svg2png-1x', ['ios-resize'], function() {
-  return gulp.src(paths.tmp + '18px/**/*.svg')
+  return gulp.src(paths.temp + '18px/**/*.svg')
     .pipe(svg2png(1, false, 20))
     .pipe(flatten())
     .pipe(gulp.dest( paths.dist + 'components/icons/ios-1x'));
 });
 // convert at 2x
 gulp.task('svg2png-2x', ['ios-resize'], function() {
-  return gulp.src(paths.tmp + '18px/**/*.svg')
+  return gulp.src(paths.temp + '18px/**/*.svg')
     .pipe(svg2png(2, false, 20))
     .pipe(flatten())
     .pipe(gulp.dest( paths.dist + 'components/icons/ios-2x'));
 });
 // convert at 3x
 gulp.task('svg2png-3x', ['ios-resize'], function() {
-  return gulp.src(paths.tmp + '18px/**/*.svg')
+  return gulp.src(paths.temp + '18px/**/*.svg')
     .pipe(svg2png(3, false, 20))
     .pipe(flatten())
     .pipe(gulp.dest( paths.dist + 'components/icons/ios-3x'));
