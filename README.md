@@ -1,8 +1,11 @@
-# Aggregator 
-[![Build Status](https://travis-ci.org/NateBaldwinDesign/aggregator.svg?branch=development)](https://travis-ci.org/NateBaldwinDesign/aggregator) [![GitHub version](https://badge.fury.io/gh/NateBaldwinDesign%2Faggregator.svg)](https://badge.fury.io/gh/NateBaldwinDesign%2Faggregator) [![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)]() [![Dependency Status](https://gemnasium.com/badges/github.com/NateBaldwinDesign/aggregator.svg)](https://gemnasium.com/github.com/NateBaldwinDesign/aggregator)
+# Dragoman 
+[![GitHub version](https://badge.fury.io/gh/NateBaldwinDesign%2Faggregator.svg)](https://badge.fury.io/gh/NateBaldwinDesign%2Faggregator) [![Build Status](https://travis-ci.org/NateBaldwinDesign/aggregator.svg?branch=development)](https://travis-ci.org/NateBaldwinDesign/aggregator) [![Dependency Status](https://gemnasium.com/badges/github.com/NateBaldwinDesign/aggregator.svg)](https://gemnasium.com/github.com/NateBaldwinDesign/aggregator) [![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)]()
 
+_[drag-uh-muh n]_
+noun
+1. a professional interpreter.
 
-Aggregate your web & mobile product suite into a consistent experience with universally translated design tokens.
+Translate your web & mobile product suite into a consistent experience with universal design tokens.
 
 ## What is it?
 Aggregator is a starter toolkit for creating applications from a token-based design systems approach. Using gulp and JSON "tokens", Aggregator generates multi-platform assets for core design attributes.
