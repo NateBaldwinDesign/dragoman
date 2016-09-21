@@ -1,6 +1,6 @@
 {
   "name": "aggregator",
-  "version": "0.3.2",
+  "version": "0.1.0",
   "description": "Translate core design variables across web and mobile platforms",
   "main": "gulpfile.js",
   "author": "Nate Baldwin <natebaldwindesign@gmail.com>",
