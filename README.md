@@ -1,5 +1,5 @@
 # Dragoman 
-[![GitHub version](https://badge.fury.io/gh/NateBaldwinDesign%2Faggregator.svg)](https://badge.fury.io/gh/NateBaldwinDesign%2Faggregator) [![Build Status](https://travis-ci.org/NateBaldwinDesign/aggregator.svg?branch=development)](https://travis-ci.org/NateBaldwinDesign/aggregator) [![Dependency Status](https://gemnasium.com/badges/github.com/NateBaldwinDesign/aggregator.svg)](https://gemnasium.com/github.com/NateBaldwinDesign/aggregator) [![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)]()
+[![GitHub version](https://badge.fury.io/gh/NateBaldwinDesign%2FDragoman.svg)](https://badge.fury.io/gh/NateBaldwinDesign%2FDragoman) [![Build Status](https://travis-ci.org/NateBaldwinDesign/Dragoman.svg?branch=master)](https://travis-ci.org/NateBaldwinDesign/Dragoman) [![Dependency Status](https://gemnasium.com/badges/github.com/NateBaldwinDesign/aggregator.svg)](https://gemnasium.com/github.com/NateBaldwinDesign/aggregator) [![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)]()
 
 _[drag-uh-muh n]_
 noun
