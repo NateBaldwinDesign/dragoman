@@ -22,14 +22,9 @@ gulp.task('clean-build', function() {
   gulp.src( paths.dist ).pipe(clean());
 });
 
-
 gulp.task('default', [
   'clean-build', 
   'json-stylus-component', 
   'json-ios-color', 
   'iconography'
 ]);
-
-gulp.task('test', function(){
-  gutil.log(paths.dist)
-});
