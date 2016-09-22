@@ -6,7 +6,8 @@ var gulp          = require('gulp'),
     replace       = require('gulp-replace'),
     wrapper       = require('gulp-wrapper'),
     concat_json   = require("gulp-concat-json"),
-    beautify      = require('gulp-beautify');
+    beautify      = require('gulp-beautify'),
+    paths         = require('../config.json');
 
 //===========================================//
 //===========================================//

@@ -11,7 +11,8 @@ var gulp          = require('gulp'),
     svgstore      = require('gulp-svgstore'),
     svgmin        = require('gulp-svgmin'),
     cheerio       = require('gulp-cheerio'),
-    flatten       = require('gulp-flatten');
+    flatten       = require('gulp-flatten'),
+    paths         = require('../config.json');
 
 //===========================================//
 // Create SVG symbol sprite

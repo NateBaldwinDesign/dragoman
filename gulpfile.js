@@ -11,17 +11,15 @@ var gulp          = require('gulp'),
     beautify      = require('gulp-beautify'),
     flatten       = require('gulp-flatten'),
     regexReplace  = require('gulp-regex-replace'),
-    paths         = {
-      tokens: 'tokens/',
-      dist: 'dist/', 
-      temp: 'temp'
-    };
-    
+    gutil         = require('gulp-util'),
+    // path          = require('path'),
+    paths         = require('./config.json');
+
 require('require-dir')('./gulp');
 
 // Clean Build
 gulp.task('clean-build', function() {
-  gulp.src( path.dist ).pipe(clean());
+  gulp.src( paths.dist ).pipe(clean());
 });
 
 
@@ -31,3 +29,7 @@ gulp.task('default', [
   'json-ios-color', 
   'iconography'
 ]);
+
+gulp.task('test', function(){
+  gutil.log(paths.dist)
+});

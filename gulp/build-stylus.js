@@ -5,7 +5,8 @@ var jsonCss       = require('gulp-json-css'),
     clean         = require('gulp-rimraf'),
     rename        = require('gulp-rename'),
     replace       = require('gulp-replace'),
-    regexReplace  = require('gulp-regex-replace');
+    regexReplace  = require('gulp-regex-replace'),
+    paths         = require('../config.json');
 
 //===========================================//
 // Convert JSON to Stylus variables

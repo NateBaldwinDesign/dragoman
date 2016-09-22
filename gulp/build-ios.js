@@ -2,14 +2,17 @@
 
 var jsonCss       = require('gulp-json-css'),
     gulp          = require('gulp'),
+    sass          = require('gulp-sass'),
     clean         = require('gulp-rimraf'),
     rename        = require('gulp-rename'),
+    wrapper       = require('gulp-wrapper'),
     replace       = require('gulp-replace'),
-    regexReplace  = require('gulp-regex-replace');
+    regexReplace  = require('gulp-regex-replace'),
+    paths         = require('../config.json');
 
 //===========================================//
 // Convert custom written JSON to ios JSON format
-gulp.task('json-ios-color', ['json-android-color', 'compile-web', 'clean-build'], function() {
+gulp.task('json-ios-color', ['json-stylus-component', 'clean-build'], function() {
   return gulp
     // Convert JSON to Scss
     .src( paths.tokens + '/global/color.json')
