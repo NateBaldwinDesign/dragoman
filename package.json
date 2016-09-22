@@ -1,6 +1,6 @@
 {
   "name": "aggregator",
-  "version": "0.3.2",
+  "version": "0.1.0",
   "description": "Translate core design variables across web and mobile platforms",
   "main": "gulpfile.js",
   "author": "Nate Baldwin <natebaldwindesign@gmail.com>",
@@ -26,17 +26,20 @@
     "gulp-regex-replace": "^0.2.3",
     "gulp-rename": "^1.2.2",
     "gulp-replace": "^0.5.4",
+    "gulp-require-tasks": "^1.0.5",
     "gulp-rimraf": "^0.2.0",
     "gulp-run": "^1.7.1",
     "gulp-sass": "^2.3.2",
     "gulp-svg2png": "^2.0.0",
     "gulp-svgmin": "^1.2.2",
     "gulp-svgstore": "^6.0.0",
+    "gulp-util": "^3.0.7",
     "gulp-wrapper": "^1.0.0",
     "imagemin-pngquant": "^5.0.0",
     "node-sass": "^3.8.0",
     "normalize-scss": "^5.0.3",
     "pn": "^1.0.0",
+    "require-dir": "^0.3.0",
     "semver": "^5.1.0"
   }
 }
