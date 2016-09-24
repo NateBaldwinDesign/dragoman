@@ -1,5 +1,5 @@
 {
-  "name": "aggregator",
+  "name": "Dragoman",
   "version": "0.1.0",
   "description": "Translate core design variables across web and mobile platforms",
   "main": "gulpfile.js",
@@ -7,7 +7,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/NateBaldwinDesign/aggregator.git"
+    "url": "https://github.com/NateBaldwinDesign/dragoman.git"
   },
   "devDependencies": {
     "cssjson": "^2.1.3",

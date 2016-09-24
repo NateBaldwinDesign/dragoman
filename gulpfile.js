@@ -12,7 +12,6 @@ var gulp          = require('gulp'),
     flatten       = require('gulp-flatten'),
     regexReplace  = require('gulp-regex-replace'),
     gutil         = require('gulp-util'),
-    // path          = require('path'),
     paths         = require('./config.json');
 
 require('require-dir')('./gulp');
@@ -24,7 +23,7 @@ gulp.task('clean-build', function() {
 
 gulp.task('default', [
   'clean-build', 
-  'json-stylus-component', 
+  'json-stylus-component',
   'json-ios-color', 
   'iconography'
 ]);
