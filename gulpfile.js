@@ -12,7 +12,8 @@ var gulp          = require('gulp'),
     flatten       = require('gulp-flatten'),
     regexReplace  = require('gulp-regex-replace'),
     gutil         = require('gulp-util'),
-    paths         = require('./config.json');
+    paths         = require('./config.json'),
+    languages     = require('./languages.json');
 
 require('require-dir')('./gulp');
 

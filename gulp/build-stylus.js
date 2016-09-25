@@ -52,5 +52,5 @@ gulp.task('json-stylus-stylesheet', ['json-stylus-global', 'clean-build'], funct
     .pipe(rename({
       extname: ".styl"
     }))
-    .pipe(gulp.dest( paths.dist ));
+    .pipe(gulp.dest( paths.dist + '/stylus'));
 });
