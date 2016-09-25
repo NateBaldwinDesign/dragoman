@@ -23,7 +23,7 @@ gulp.task('clean-build', function() {
 
 gulp.task('default', [
   'clean-build', 
-  'json-stylus-component',
+  'json-stylus-stylesheet',
   'json-ios-color', 
   'iconography'
 ]);

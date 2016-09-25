@@ -6,7 +6,7 @@ var gulp          = require('gulp'),
     replace       = require('gulp-replace'),
     run           = require('gulp-run'),
     pngquant      = require('imagemin-pngquant'),
-    svg2png       = require('gulp-svg2png'),
+    // svg2png       = require('gulp-svg2png'),
     imagemin      = require('gulp-imagemin'),
     svgstore      = require('gulp-svgstore'),
     svgmin        = require('gulp-svgmin'),
@@ -67,10 +67,10 @@ gulp.task('svg-sprite', ['svg-optimize'], function() {
 // Create PNG images at ios sizes
 
 // resize original svg to control 1x scale
-gulp.task('ios-resize', function() {
+gulp.task('ios-resize', ['svg-optimize'], function() {
   return gulp.src( paths.dist + '/**/svg/*.svg')
     // Use Gulp replace to add styles to SVG
-    .pipe(replace('<svg ', '<svg fill="#ffffff" width="18px" height="" '))
+    .pipe(replace('<svg ', '<svg fill="#ffffff" width="18px" height="18px" '))
     .pipe(flatten())
     .pipe(gulp.dest(paths.temp + '18px'));
 });
