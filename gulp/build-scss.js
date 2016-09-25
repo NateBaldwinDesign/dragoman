@@ -2,6 +2,7 @@
 
 var jsonCss       = require('gulp-json-css'),
     gulp          = require('gulp'),
+    sass          = require('gulp-sass'),
     clean         = require('gulp-rimraf'),
     rename        = require('gulp-rename'),
     replace       = require('gulp-replace'),
@@ -82,4 +83,11 @@ gulp.task('json-scss-component', ['json-scss', 'clean-build'], function() {
     .pipe(replace('\n\t', '\n'))
     .pipe(replace('\n}', ';\n}'))
     .pipe(gulp.dest( paths.dist + '/components'));
+});
+
+
+gulp.task('scss', ['json-scss-component', 'json-scss', 'json-scss-stylesheet', 'json-scss-global', 'clean-build'], function () {
+  return gulp.src( paths.dist + '**/*.scss')
+    .pipe(sass().on('error', sass.logError))
+    .pipe(gulp.dest( paths.dist ));
 });
