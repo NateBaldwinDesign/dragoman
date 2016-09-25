@@ -1,6 +1,5 @@
 .npm
 *.log
 node_modules
-dest
-dist
-temp
+_dist
+_temp

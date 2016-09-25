@@ -1,6 +1,7 @@
 'use strict';
 
 var gulp          = require('gulp'),
+    fs            = require('fs'),
     clean         = require('gulp-rimraf'),
     rename        = require('gulp-rename'),
     replace       = require('gulp-replace'),
@@ -12,7 +13,13 @@ var gulp          = require('gulp'),
     flatten       = require('gulp-flatten'),
     regexReplace  = require('gulp-regex-replace'),
     gutil         = require('gulp-util'),
-    paths         = require('./config.json');
+    config        = require('./config.json'),
+    paths         = {
+      tokens: config.path.tokens,
+      dist: config.path.dist,
+      temp: config.path.temp,
+      assets: config.path.assets
+    };
 
 require('require-dir')('./gulp');
 
@@ -23,7 +30,7 @@ gulp.task('clean-build', function() {
 
 gulp.task('default', [
   'clean-build', 
-  'json-stylus-component',
+  'json-stylus-stylesheet',
   'json-ios-color', 
   'iconography'
 ]);
