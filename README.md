@@ -12,6 +12,10 @@ Dragoman is a starter toolkit for creating applications from a token-based desig
 
 This allows you to aggregate disparate cross-platform applications to follow consistent design specifications.
 
+## Getting Started
+
+Define your paths, and the languages you intend to build your applications in the ./config.json file (_language selection in progress_). 
+
 ##### Default Design Tokens
 * Colors
 * Fonts
