@@ -1,6 +1,7 @@
 'use strict';
 
 var gulp          = require('gulp'),
+    fs            = require('fs'),
     clean         = require('gulp-rimraf'),
     rename        = require('gulp-rename'),
     replace       = require('gulp-replace'),
@@ -12,8 +13,16 @@ var gulp          = require('gulp'),
     flatten       = require('gulp-flatten'),
     regexReplace  = require('gulp-regex-replace'),
     gutil         = require('gulp-util'),
-    paths         = require('./config.json'),
-    languages     = require('./languages.json');
+    config        = JSON.parse(fs.readFileSync('./config.json')),
+    paths         = {
+      tokens: config.path.tokens,
+      dist: config.path.dist,
+      temp: config.path.temp,
+      assets: config.path.assets
+    }
+      
+    // paths         = require('./config.json'),
+    // languages     = require('./languages.json');
 
 require('require-dir')('./gulp');
 
@@ -28,3 +37,7 @@ gulp.task('default', [
   'json-ios-color', 
   'iconography'
 ]);
+
+gulp.task('test', function() {
+  console.log(paths.tokens);
+});
