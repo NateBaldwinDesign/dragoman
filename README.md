@@ -3,28 +3,31 @@
 
 _[drag-uh-muh n]_
 noun
-1. a professional interpreter.
+*1. a professional interpreter.*
 
 Translate your web & mobile product suite into a consistent experience with universal design tokens.
 
 ## What is it?
-Aggregator is a starter toolkit for creating applications from a token-based design systems approach. Using gulp and JSON "tokens", Aggregator generates multi-platform assets for core design attributes.
+Dragoman is a starter toolkit for creating applications from a token-based design systems approach. Using gulp and JSON "tokens", Dragoman generates multi-platform assets for core design attributes.
 
 This allows you to aggregate disparate cross-platform applications to follow consistent design specifications.
 
-##### Default Design Attributes
+##### Default Design Tokens
 * Colors
 * Fonts
-* Global Spacing
+* Spacing
 * Iconography
+* Typography
+
+These are the core design assets that need to be controlled cross-platform variables. You can add more tokens as you need; simply include them in the 'styles.json' token, which includes all partials for an easy import file for your CSS stylesheets.
 
 ##### Targeted Languages & Platforms
-* Web / Less
-* Web / Sass
-* Web / Scss
-* Web / Stylus
-* Android / XML
-* iOS / Swift 
+* Less
+* Sass
+* Scss
+* Stylus
+* Android XML
+* iOS Swift 
 
 ### Example
 Default color.json file
@@ -78,29 +81,18 @@ extension UIColor {
 
 ```
 tokens/
-├── global/
 | ├── _colors
 | ├── _fonts
-├── components/
-| ├── component-1/
-| | ├── _light
-| | ├── _dark
-| | ├── _variables
-| | ├── _component-1
+| ├── _icons
+| ├── _spacing
+| ├── _styles
+| ├── _typography
 ```
-
-### Component Structure
-#### _(theme)
-Light and Dark themes allow abstraction of color mapping to generate multiple instances of a component based on theme.
-#### _variables
-Component-specific variables are mapped here as an added abstraction layer
-#### _(component-name)
-This file is where the actual CSS will be translated. If using specific properties that do not need to be mapped as a variable, they will be declared here.
-#### docs-(component-name).md
-Markdown file for modular documentation. 
 
 ### Future Goals
 Ultimately, I would like this tool to be able to read shareable design sourcefiles and perform the translations from those. For example, this input could be:
 * Craft (by InVision) Libraries
 * Adobe Libraries
 * System color palettes (.clr files)
+* Incorporate documentation as tokens
+* Configure a version to work with Fabricator

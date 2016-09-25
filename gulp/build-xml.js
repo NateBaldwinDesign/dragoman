@@ -10,9 +10,9 @@ var jsonCss       = require('gulp-json-css'),
 
 //===========================================//
 // Convert JSON to Android XML
-gulp.task('json-android-dimensions', ['json-stylus-component', 'clean-build'], function() {
+gulp.task('json-android-dimensions', ['json-stylus-stylesheet', 'clean-build'], function() {
   return gulp
-    .src( paths.tokens + '/global/spacing.json')
+    .src( paths.tokens + '/**/spacing.json')
     .pipe(jsonTransform(function(data) {
       return {
         base: data.spacing,
@@ -30,12 +30,12 @@ gulp.task('json-android-dimensions', ['json-stylus-component', 'clean-build'], f
     .pipe(replace('$', '    <dimen name="'))
     .pipe(replace(': ', '">'))
     .pipe(replace(';', '</dimen>'))
-    .pipe(rename('spacing-android.xml'))
-    .pipe(gulp.dest( paths.dist + '/global'));
+    .pipe(rename('spacing.xml'))
+    .pipe(gulp.dest( paths.dist + '/android'));
 });
 gulp.task('json-android-color', ['json-android-dimensions', 'clean-build'], function() {
   return gulp
-    .src( paths.tokens + '/global/color.json')
+    .src( paths.tokens + '/**/color.json')
     .pipe(jsonCss({
       targetPre: "scss",
       delim: "-"
@@ -47,6 +47,6 @@ gulp.task('json-android-color', ['json-android-dimensions', 'clean-build'], func
     .pipe(replace('$', '    <color name="'))
     .pipe(replace(': ', '">'))
     .pipe(replace(';', '</color>'))
-    .pipe(rename('colors-android.xml'))
-    .pipe(gulp.dest( paths.dist + '/global'));
+    .pipe(rename('colors.xml'))
+    .pipe(gulp.dest( paths.dist + '/android'));
 });

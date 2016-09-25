@@ -10,10 +10,11 @@ var jsonCss       = require('gulp-json-css'),
 
 //===========================================//
 // Convert JSON to Less variables
-gulp.task('json-sass-global', ['json-scss-component', 'clean-build'], function() {
+gulp.task('json-sass-global', ['json-scss-stylesheet', 'clean-build'], function() {
   return gulp
     .src([
-      paths.tokens + '/global/**/*.json'
+      paths.tokens + '/**/*.json',
+      '!' + paths.tokens + 'styles.json'
     ])
     .pipe(jsonCss({
       targetPre: "sass",
@@ -23,7 +24,7 @@ gulp.task('json-sass-global', ['json-scss-component', 'clean-build'], function()
       prefix: "_"
     }))
     .pipe(replace('%', '$'))
-    .pipe(gulp.dest( paths.dist + '/global'));
+    .pipe(gulp.dest( paths.dist + '/sass'));
 });
 gulp.task('json-sass-stylesheet', ['json-sass-global', 'clean-build'], function() {
   return gulp
@@ -43,44 +44,6 @@ gulp.task('json-sass-stylesheet', ['json-sass-global', 'clean-build'], function(
     .pipe(replace(': ', '/_'))
     .pipe(replace('import', 'import '))
     .pipe(replace('version/_', ' Version: '))
-    .pipe(regexReplace({regex: '/[0-9]/', replace: '/'}))
-    .pipe(gulp.dest( paths.dist ));
-});
-gulp.task('json-sass', ['json-sass-stylesheet', 'clean-build'], function() {
-  return gulp
-    .src([
-      paths.tokens + '/components/**/theme-*.json',
-      paths.tokens + '/components/**/variables.json'
-    ])
-    .pipe(jsonCss({
-      targetPre: "sass",
-      delim: "-"
-    }))
-    .pipe(rename({
-      prefix: "_"
-    }))
-    .pipe(replace('%', '$'))
-    .pipe(gulp.dest( paths.dist + '/components'));
-});
-gulp.task('json-sass-component', ['json-sass', 'clean-build'], function() {
-  return gulp
-    .src([paths.tokens + '/components/**/*.json', 
-      '!' + paths.tokens + '/components/**/theme-*.json',
-      '!' + paths.tokens + '/components/**/variables.json'
-      ])
-    .pipe(rename({
-      prefix: "_",
-      extname: ".sass"
-    }))
-    .pipe(replace('%', '$'))
-    .pipe(replace('"', ''))
-    .pipe(replace(',', ';'))
-    .pipe(replace('{\n\tname: ', '.'))
-    .pipe(replace(';\n\tproperties: ', ' '))
-    .pipe(replace('}\n}', ''))
-    .pipe(replace('\n\t', '\n'))
-    .pipe(replace('{', ''))
-    .pipe(replace('}', ''))
-    .pipe(replace(';', ''))
-    .pipe(gulp.dest( paths.dist + '/components'));
+    .pipe(regexReplace({regex: '[0-9]/', replace: 'sass/'}))
+    .pipe(gulp.dest( paths.dist + '/sass'));
 });

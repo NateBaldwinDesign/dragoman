@@ -12,10 +12,10 @@ var jsonCss       = require('gulp-json-css'),
 
 //===========================================//
 // Convert custom written JSON to ios JSON format
-gulp.task('json-ios-color', ['json-stylus-component', 'clean-build'], function() {
+gulp.task('json-ios-color', ['json-stylus-stylesheet', 'clean-build'], function() {
   return gulp
     // Convert JSON to Scss
-    .src( paths.tokens + '/global/color.json')
+    .src( paths.tokens + '/**/color.json')
     .pipe(jsonCss({
       targetPre: "scss",
       delim: "-"
@@ -41,6 +41,6 @@ gulp.task('json-ios-color', ['json-stylus-component', 'clean-build'], function()
       header: 'import UIKit\nextension UIColor {\n',
       footer: '}\n'
     }))
-    .pipe(rename('colors-ios.swift'))
-    .pipe(gulp.dest( paths.dist + '/global'));
+    .pipe(rename('colors.swift'))
+    .pipe(gulp.dest( paths.dist + '/ios'));
 });
