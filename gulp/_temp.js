@@ -12,25 +12,15 @@ var gulp          = require('gulp'),
     beautify      = require('gulp-beautify'),
     flatten       = require('gulp-flatten'),
     regexReplace  = require('gulp-regex-replace'),
-    gutil         = require('gulp-util'),
-    config        = require('./config.json'),
-    paths         = {
-      tokens: config.path.tokens,
-      dist: config.path.dist,
-      temp: config.path.temp,
-      assets: config.path.assets
-    };
+    gutil         = require('gulp-util');
+    
+// gulp.task('test', function() {
+//   console.log(paths.tokens + '/**/*.*')
+// });
 
-require('require-dir')('./gulp');
-
-// Clean Build
-gulp.task('clean-build', function() {
-  gulp.src( paths.dist ).pipe(clean());
+gulp.task('test2', function() {
+  return gulp
+    .src(paths.tokens + '/**/color.json')
+    .pipe(flatten())
+    .pipe(gulp.dest(paths.dist + '/color'));
 });
-
-gulp.task('default', [
-  'clean-build', 
-  'json-stylus-stylesheet',
-  'json-ios-color', 
-  'iconography'
-]);

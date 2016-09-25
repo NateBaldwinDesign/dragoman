@@ -6,7 +6,13 @@ var jsonCss       = require('gulp-json-css'),
     rename        = require('gulp-rename'),
     replace       = require('gulp-replace'),
     regexReplace  = require('gulp-regex-replace'),
-    paths         = require('../config.json');
+    config        = require('../config.json'),
+    paths         = {
+      tokens: config.path.tokens,
+      dist: config.path.dist,
+      temp: config.path.temp,
+      assets: config.path.assets
+    };
 
 //===========================================//
 // Convert JSON to Less variables
@@ -29,7 +35,7 @@ gulp.task('json-less-global', ['json-sass-stylesheet', 'clean-build'], function(
 gulp.task('json-less-stylesheet', ['json-less-global', 'clean-build'], function() {
   return gulp
     .src([
-      paths.tokens + 'styles.json'
+      paths.tokens + '/styles.json'
     ])
     .pipe(jsonCss({
       targetPre: "less",

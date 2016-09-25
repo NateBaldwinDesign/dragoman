@@ -8,7 +8,13 @@ var jsonCss       = require('gulp-json-css'),
     wrapper       = require('gulp-wrapper'),
     replace       = require('gulp-replace'),
     regexReplace  = require('gulp-regex-replace'),
-    paths         = require('../config.json');
+    config        = require('../config.json'),
+    paths         = {
+      tokens: config.path.tokens,
+      dist: config.path.dist,
+      temp: config.path.temp,
+      assets: config.path.assets
+    };
 
 //===========================================//
 // Convert custom written JSON to ios JSON format

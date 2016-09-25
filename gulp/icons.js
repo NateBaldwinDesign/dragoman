@@ -12,7 +12,13 @@ var gulp          = require('gulp'),
     svgmin        = require('gulp-svgmin'),
     cheerio       = require('gulp-cheerio'),
     flatten       = require('gulp-flatten'),
-    paths         = require('../config.json');
+    config        = require('../config.json'),
+    paths         = {
+      tokens: config.path.tokens,
+      dist: config.path.dist,
+      temp: config.path.temp,
+      assets: config.path.assets
+    };
 
 //===========================================//
 // Create SVG symbol sprite
@@ -37,7 +43,7 @@ gulp.task('svg-optimize', function() {
         }]
       }))
     .pipe(flatten())
-    .pipe(gulp.dest( paths.dist + 'icons/svg'))
+    .pipe(gulp.dest( paths.dist + '/icons/svg'))
 });
 
 gulp.task('svg-sprite', ['svg-optimize'], function() {
@@ -60,7 +66,7 @@ gulp.task('svg-sprite', ['svg-optimize'], function() {
       }
     }))
     .pipe(rename('_icon-sprite.svg'))
-    .pipe(gulp.dest( paths.dist + 'icons/svg'))
+    .pipe(gulp.dest( paths.dist + '/icons/svg'))
 });
 
 //===========================================//
@@ -72,28 +78,28 @@ gulp.task('ios-resize', ['svg-optimize'], function() {
     // Use Gulp replace to add styles to SVG
     .pipe(replace('<svg ', '<svg fill="#ffffff" width="18px" height="18px" '))
     .pipe(flatten())
-    .pipe(gulp.dest(paths.temp + '18px'));
+    .pipe(gulp.dest(paths.temp + '/18px'));
 });
 // convert at 1x
 gulp.task('svg2png-1x', ['ios-resize'], function() {
-  return gulp.src(paths.temp + '18px/**/*.svg')
+  return gulp.src(paths.temp + '/18px/**/*.svg')
     .pipe(svg2png(1, false, 20))
     .pipe(flatten())
     .pipe(gulp.dest( paths.dist + '/icons/ios/1x'));
 });
 // convert at 2x
 gulp.task('svg2png-2x', ['ios-resize'], function() {
-  return gulp.src(paths.temp + '18px/**/*.svg')
+  return gulp.src(paths.temp + '/18px/**/*.svg')
     .pipe(svg2png(2, false, 20))
     .pipe(flatten())
-    .pipe(gulp.dest( paths.dist + 'icons/ios/2x'));
+    .pipe(gulp.dest( paths.dist + '/icons/ios/2x'));
 });
 // convert at 3x
 gulp.task('svg2png-3x', ['ios-resize'], function() {
-  return gulp.src(paths.temp + '18px/**/*.svg')
+  return gulp.src(paths.temp + '/18px/**/*.svg')
     .pipe(svg2png(3, false, 20))
     .pipe(flatten())
-    .pipe(gulp.dest( paths.dist + 'icons/ios/3x'));
+    .pipe(gulp.dest( paths.dist + '/icons/ios/3x'));
 });
 // Clean Build directory
 gulp.task('ios-icons-resize', ['svg2png-1x', 'svg2png-2x', 'svg2png-3x'], function() {
@@ -103,9 +109,9 @@ gulp.task('ios-icons-resize', ['svg2png-1x', 'svg2png-2x', 'svg2png-3x'], functi
 gulp.task('ios-icons', ['ios-icons-resize'], function() {
   return gulp
     .src([ 
-      paths.dist + 'icons/ios/1x',  
-      paths.dist + 'icons/ios/2x',
-      paths.dist + 'icons/ios/3x'])
+      paths.dist + '/icons/ios/1x',  
+      paths.dist + '/icons/ios/2x',
+      paths.dist + '/icons/ios/3x'])
     .pipe(imagemin({
       optimizationLevel: 6,
       use: [pngquant()]

@@ -6,7 +6,13 @@ var jsonCss       = require('gulp-json-css'),
     rename        = require('gulp-rename'),
     replace       = require('gulp-replace'),
     regexReplace  = require('gulp-regex-replace'),
-    paths         = require('../config.json');
+    config        = require('../config.json'),
+    paths         = {
+      tokens: config.path.tokens,
+      dist: config.path.dist,
+      temp: config.path.temp,
+      assets: config.path.assets
+    };
 
 //===========================================//
 // Convert JSON to Stylus variables
@@ -32,7 +38,7 @@ gulp.task('json-stylus-global', ['json-less-stylesheet', 'clean-build'], functio
 gulp.task('json-stylus-stylesheet', ['json-stylus-global', 'clean-build'], function() {
   return gulp
     .src([
-      paths.tokens + 'styles.json'
+      paths.tokens + '/styles.json'
     ])
     .pipe(jsonCss({
       targetPre: "scss",
