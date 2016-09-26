@@ -1,6 +1,7 @@
 'use strict';
 
 var jsonCss       = require('gulp-json-css'),
+    fs            = require('fs'),
     gulp          = require('gulp'),
     sass          = require('gulp-sass'),
     clean         = require('gulp-rimraf'),
@@ -38,10 +39,12 @@ gulp.task('json-ios-color', ['clean-build'], function() {
     .pipe(replace('div#', '  class func '))
     .pipe(replace(' {', '() -> UIColor {'))
     .pipe(replace('}', '\n  }'))
-    .pipe(replace('  background-color: rgba(', '    return UIColor('))
-    .pipe(replace('1)', 'alpha: 1)'))
-    .pipe(replace(',', '.0/255.0,'))
+    .pipe(replace('  background-color: rgba(', '    return UIColor(red: '))
+    .pipe(replace(',', '/255.0, green:'))
+    .pipe(replace('green: 1)', 'alpha: 1.0)'))
     .pipe(replace('; }', ');\n}'))
+    // .pipe(regexReplace({regex: 'green.*?(green)', replace: 'blue'})) // replaces all instances of 'green'
+    // .pipe(regexReplace({regex: '/(?:.*?(green)+){2}.*?((green)+)/g', replace: 'blue'}))  
     // Add wrapper with UIKit declarations
     .pipe(wrapper({
       header: 'import UIKit\nextension UIColor {\n',

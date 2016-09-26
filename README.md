@@ -73,12 +73,12 @@ color:
   purple: "#783084"
   light-green: "#52ff7a"
 ```
-Output as Sass:
+Output as Scss:
 
 ```sass
-$color-orange: #f26322
-$color-purple: #783084
-$color-light-green: #52ff7a
+$color-orange: #f26322;
+$color-purple: #783084;
+$color-light-green: #52ff7a;
 ```
 Output as Android XML:
 
@@ -114,5 +114,4 @@ Ultimately, I would like this tool to be able to read shareable design sourcefil
 * Craft (by InVision) Libraries
 * Adobe Libraries
 * System color palettes (.clr files)
-* Incorporate documentation as tokens
-* Configure a version to work with Fabricator
+* Incorporate documentation in tokens
