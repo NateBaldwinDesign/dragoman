@@ -16,7 +16,7 @@ var jsonCss       = require('gulp-json-css'),
 
 //===========================================//
 // Convert JSON to Less variables
-gulp.task('json-sass-global', ['json-scss-stylesheet', 'clean-build'], function() {
+gulp.task('json-sass-global', ['clean-build'], function() {
   return gulp
     .src([
       paths.tokens + '/**/*.json',

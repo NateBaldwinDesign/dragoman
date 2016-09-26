@@ -3,7 +3,7 @@
 
 _[drag-uh-muh n]_
 noun
-*1. a professional interpreter.*
+1. a professional interpreter.
 
 Translate your web & mobile product suite into a consistent experience with universal design tokens.
 

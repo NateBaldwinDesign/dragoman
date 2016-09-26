@@ -13,6 +13,7 @@ var gulp          = require('gulp'),
     flatten       = require('gulp-flatten'),
     regexReplace  = require('gulp-regex-replace'),
     gutil         = require('gulp-util'),
+    minimist      = require('minimist'),
     config        = require('./config.json'),
     paths         = {
       tokens: config.path.tokens,
@@ -23,14 +24,60 @@ var gulp          = require('gulp'),
 
 require('require-dir')('./gulp');
 
-// Clean Build
 gulp.task('clean-build', function() {
   gulp.src( paths.dist ).pipe(clean());
 });
 
-gulp.task('default', [
+// Default task
+gulp.task('dragoman', [
   'clean-build', 
+  'json-scss-stylesheet',
+  'json-sass-stylesheet',
+  'json-less-stylesheet',
   'json-stylus-stylesheet',
+  'json-android-color',
   'json-ios-color', 
   'iconography'
+]);
+// Only Styles
+gulp.task('dragoman-scss', ['clean-build', 'json-scss-stylesheet']);
+
+gulp.task('dragoman-sass', ['clean-build', 'json-sass-stylesheet']);
+
+gulp.task('dragoman-less', ['clean-build', 'json-less-stylesheet']);
+
+gulp.task('dragoman-stylus', ['clean-build', 'json-stylus-stylesheet']);
+
+gulp.task('dragoman-android', ['clean-build', 'json-android-color']);
+
+gulp.task('dragoman-ios', ['clean-build', 'json-ios-color']);
+
+// Styles and Icons
+gulp.task('dragoman-scss-icons', ['clean-build', 'json-scss-stylesheet', 'icons-web']);
+
+gulp.task('dragoman-sass-icons', ['clean-build', 'json-sass-stylesheet', 'icons-web']);
+
+gulp.task('dragoman-less-icons', ['clean-build', 'json-less-stylesheet', 'icons-web']);
+
+gulp.task('dragoman-stylus-icons', ['clean-build', 'json-stylus-stylesheet', 'icons-web']);
+
+gulp.task('dragoman-android', ['clean-build', 'json-android-color', 'icons-android']);
+
+gulp.task('dragoman-ios', ['clean-build', 'json-ios-color']); // Need to add 'icons-ios' when svg2png works
+
+// Platforms
+gulp.task('dragoman-web', [
+  'clean-build', 
+  'json-scss-stylesheet',
+  'json-sass-stylesheet',
+  'json-less-stylesheet',
+  'json-stylus-stylesheet', 
+  'icons-web'
+]);
+gulp.task('dragoman-mobile', [
+  'clean-build', 
+  'json-android-color',
+  'json-ios-color',
+  'icons-android'
+  // 'icons-ios' wait to add this until svg2png working again
 ]);
