@@ -8,7 +8,7 @@ noun
 Translate your web & mobile product suite into a consistent experience with universal design tokens.
 
 ## What is it?
-Dragoman is a starter toolkit for creating applications from a token-based design systems approach. Using gulp and JSON "tokens", Dragoman generates multi-platform assets for core design attributes.
+Dragoman is a starter toolkit for creating applications from a token-based design systems approach. Using gulp with yaml "tokens", Dragoman generates multi-platform assets for core design attributes.
 
 This allows you to aggregate disparate cross-platform applications to follow consistent design specifications.
 
@@ -54,29 +54,24 @@ $ gulp dragoman-less-icons
 * Iconography
 * Typography
 
-These are the core design assets that need to be controlled cross-platform variables. You can add more tokens as you need; simply include them in the 'styles.json' token, which includes all partials for an easy import file for your CSS stylesheets.
+These are the core design assets that need to be controlled cross-platform variables. You can add more tokens as you need; simply include them in the 'styles.yml' token, which includes all partials for an easy import file for your CSS stylesheets.
 
 #### Writing Variables in Tokens:
 When using a variable as a value, use `%` prefix. Defining a variable (as the key), no prefix is necessary.
 
-```json
-{
-  "my-color": "%color-primary"
-}
+```yaml
+my-color: "%color-primary"
 ```
 
 
 ### Example
-Default color.json file
+Default color.yml file
 
-```json
-{
-  "color": {
-    "orange": "#f26322",
-    "purple": "#783084",
-    "light-green": "#52ff7a"
-  }
-}
+```yaml
+color:
+  orange: "#f26322"
+  purple: "#783084"
+  light-green: "#52ff7a"
 ```
 Output as Sass:
 
