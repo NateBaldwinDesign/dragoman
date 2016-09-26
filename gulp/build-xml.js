@@ -6,6 +6,8 @@ var jsonCss       = require('gulp-json-css'),
     rename        = require('gulp-rename'),
     replace       = require('gulp-replace'),
     regexReplace  = require('gulp-regex-replace'),
+    jsonTransform = require('gulp-json-transform'),
+    wrapper       = require('gulp-wrapper'),
     config        = require('../config.json'),
     paths         = {
       tokens: config.path.tokens,
@@ -16,7 +18,7 @@ var jsonCss       = require('gulp-json-css'),
 
 //===========================================//
 // Convert JSON to Android XML
-gulp.task('json-android-dimensions', ['json-stylus-stylesheet', 'clean-build'], function() {
+gulp.task('json-android-dimensions', ['clean-build'], function() {
   return gulp
     .src( paths.tokens + '/**/spacing.json')
     .pipe(jsonTransform(function(data) {

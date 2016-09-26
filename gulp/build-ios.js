@@ -18,7 +18,7 @@ var jsonCss       = require('gulp-json-css'),
 
 //===========================================//
 // Convert custom written JSON to ios JSON format
-gulp.task('json-ios-color', ['json-stylus-stylesheet', 'clean-build'], function() {
+gulp.task('json-ios-color', ['clean-build'], function() {
   return gulp
     // Convert JSON to Scss
     .src( paths.tokens + '/**/color.json')

@@ -16,7 +16,7 @@ var jsonCss       = require('gulp-json-css'),
 
 //===========================================//
 // Convert JSON to Stylus variables
-gulp.task('json-stylus-global', ['json-less-stylesheet', 'clean-build'], function() {
+gulp.task('json-stylus-global', ['clean-build'], function() {
   return gulp
     .src([
       paths.tokens + '/**/*.json',
@@ -28,6 +28,7 @@ gulp.task('json-stylus-global', ['json-less-stylesheet', 'clean-build'], functio
     }))
     .pipe(replace('$', ''))
     .pipe(replace(':', ' ='))
+    .pipe(replace('%', ''))
     .pipe(rename({
       prefix: "_",
       extname: ".styl"

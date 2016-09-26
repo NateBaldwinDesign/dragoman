@@ -7,6 +7,6 @@ install:
 - npm install
 before_script:
   - npm install -g gulp
-script: gulp generate-tokens
+script: gulp dragoman
 notifications:
   slack: aggregatordevops:UUiFolRCiY5JuwOU6l7TjPoY
