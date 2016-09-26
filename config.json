@@ -1,17 +1,8 @@
 {
-
 	"path":	{
 		"tokens": "_tokens",
 		"assets": "_assets",
 		"dist": "_dist", 
 		"temp": "_temp"
-	},
-	"languages": {
-		"scss": true,
-		"sass": true,
-		"less": true,
-		"stylus": true,
-		"ios": true,
-		"android": true
 	}
 }

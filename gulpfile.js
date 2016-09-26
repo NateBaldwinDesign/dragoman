@@ -13,7 +13,7 @@ var gulp          = require('gulp'),
     flatten       = require('gulp-flatten'),
     regexReplace  = require('gulp-regex-replace'),
     gutil         = require('gulp-util'),
-    minimist      = require('minimist'),
+    yaml          = require('gulp-yaml'),
     config        = require('./config.json'),
     paths         = {
       tokens: config.path.tokens,
@@ -24,47 +24,59 @@ var gulp          = require('gulp'),
 
 require('require-dir')('./gulp');
 
-gulp.task('clean-build', function() {
+gulp.task('clean-build', ['yaml-json'], function() {
   gulp.src( paths.dist ).pipe(clean());
+});
+
+//Temp 
+gulp.task('yaml-json', function(){
+  return gulp
+    .src(paths.tokens + "/**/*.yml")
+    .pipe(yaml({ safe: true }))
+    .pipe(gulp.dest(paths.tokens));
+});
+
+gulp.task('clean-json', function() {
+  gulp.src(paths.tokens + '/**/*.json').pipe(clean());
 });
 
 // Default task
 gulp.task('dragoman', [
-  'clean-build', 
+  'clean-build',
   'json-scss-stylesheet',
   'json-sass-stylesheet',
   'json-less-stylesheet',
   'json-stylus-stylesheet',
   'json-android-color',
-  'json-ios-color', 
+  'json-ios-color',
   'icons-web'
   // 'icons-ios' when this works
-]);
+], function() {gulp.src(paths.tokens + '/**/*.json').pipe(clean());});
 // Only Styles
-gulp.task('dragoman-scss', ['clean-build', 'json-scss-stylesheet']);
+gulp.task('dragoman-scss', ['clean-build', 'json-scss-stylesheet'], function() {gulp.src(paths.tokens + '/**/*.json').pipe(clean());});
 
-gulp.task('dragoman-sass', ['clean-build', 'json-sass-stylesheet']);
+gulp.task('dragoman-sass', ['clean-build', 'json-sass-stylesheet'], function() {gulp.src(paths.tokens + '/**/*.json').pipe(clean());});
 
-gulp.task('dragoman-less', ['clean-build', 'json-less-stylesheet']);
+gulp.task('dragoman-less', ['clean-build', 'json-less-stylesheet'], function() {gulp.src(paths.tokens + '/**/*.json').pipe(clean());});
 
-gulp.task('dragoman-stylus', ['clean-build', 'json-stylus-stylesheet']);
+gulp.task('dragoman-stylus', ['clean-build', 'json-stylus-stylesheet'], function() {gulp.src(paths.tokens + '/**/*.json').pipe(clean());});
 
-gulp.task('dragoman-android', ['clean-build', 'json-android-color']);
+gulp.task('dragoman-android', ['clean-build', 'json-android-color'], function() {gulp.src(paths.tokens + '/**/*.json').pipe(clean());});
 
-gulp.task('dragoman-ios', ['clean-build', 'json-ios-color']);
+gulp.task('dragoman-ios', ['clean-build', 'json-ios-color'], function() {gulp.src(paths.tokens + '/**/*.json').pipe(clean());});
 
 // Styles and Icons
-gulp.task('dragoman-scss-icons', ['clean-build', 'json-scss-stylesheet', 'icons-web']);
+gulp.task('dragoman-scss-icons', ['clean-build', 'json-scss-stylesheet', 'icons-web'], function() {gulp.src(paths.tokens + '/**/*.json').pipe(clean());});
 
-gulp.task('dragoman-sass-icons', ['clean-build', 'json-sass-stylesheet', 'icons-web']);
+gulp.task('dragoman-sass-icons', ['clean-build', 'json-sass-stylesheet', 'icons-web'], function() {gulp.src(paths.tokens + '/**/*.json').pipe(clean());});
 
-gulp.task('dragoman-less-icons', ['clean-build', 'json-less-stylesheet', 'icons-web']);
+gulp.task('dragoman-less-icons', ['clean-build', 'json-less-stylesheet', 'icons-web'], function() {gulp.src(paths.tokens + '/**/*.json').pipe(clean());});
 
-gulp.task('dragoman-stylus-icons', ['clean-build', 'json-stylus-stylesheet', 'icons-web']);
+gulp.task('dragoman-stylus-icons', ['clean-build', 'json-stylus-stylesheet', 'icons-web'], function() {gulp.src(paths.tokens + '/**/*.json').pipe(clean());});
 
-gulp.task('dragoman-android-icons', ['clean-build', 'json-android-color', 'icons-android']);
+gulp.task('dragoman-android-icons', ['clean-build', 'json-android-color', 'icons-android'], function() {gulp.src(paths.tokens + '/**/*.json').pipe(clean());});
 
-gulp.task('dragoman-ios-icons', ['clean-build', 'json-ios-color']); // Need to add 'icons-ios' when svg2png works
+gulp.task('dragoman-ios-icons', ['clean-build', 'json-ios-color'], function() {gulp.src(paths.tokens + '/**/*.json').pipe(clean());}); // Need to add 'icons-ios' when svg2png works
 
 // Platforms
 gulp.task('dragoman-web', [
@@ -74,11 +86,11 @@ gulp.task('dragoman-web', [
   'json-less-stylesheet',
   'json-stylus-stylesheet', 
   'icons-web'
-]);
+], function() {gulp.src(paths.tokens + '/**/*.json').pipe(clean());});
 gulp.task('dragoman-mobile', [
   'clean-build', 
   'json-android-color',
   'json-ios-color',
   'icons-android'
   // 'icons-ios' wait to add this until svg2png working again
-]);
+], function() {gulp.src(paths.tokens + '/**/*.json').pipe(clean());});
