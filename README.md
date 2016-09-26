@@ -8,9 +8,9 @@ noun
 Translate your web & mobile product suite into a consistent experience with universal design tokens.
 
 ## What is it?
-Dragoman is a starter toolkit for creating applications from a token-based design systems approach. Using gulp with yaml "tokens", Dragoman generates multi-platform assets for core design attributes.
+Dragoman is a plugin for creating applications with a token-based design systems approach. Using gulp with yaml "tokens", Dragoman generates multi-platform assets for core design attributes.
 
-This allows you to aggregate disparate cross-platform applications to follow consistent design specifications.
+This allows you build unified & consistent applications with a core set of *cross-platform variables*
 
 #### Targeted Languages & Platforms
 * Less
