@@ -61,9 +61,9 @@ gulp.task('dragoman-less-icons', ['clean-build', 'json-less-stylesheet', 'icons-
 
 gulp.task('dragoman-stylus-icons', ['clean-build', 'json-stylus-stylesheet', 'icons-web']);
 
-gulp.task('dragoman-android', ['clean-build', 'json-android-color', 'icons-android']);
+gulp.task('dragoman-android-icons', ['clean-build', 'json-android-color', 'icons-android']);
 
-gulp.task('dragoman-ios', ['clean-build', 'json-ios-color']); // Need to add 'icons-ios' when svg2png works
+gulp.task('dragoman-ios-icons', ['clean-build', 'json-ios-color']); // Need to add 'icons-ios' when svg2png works
 
 // Platforms
 gulp.task('dragoman-web', [

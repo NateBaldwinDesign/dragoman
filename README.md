@@ -16,6 +16,29 @@ This allows you to aggregate disparate cross-platform applications to follow con
 
 Define your paths, and the languages you intend to build your applications in the ./config.json file (_language selection in progress_). 
 
+``` bash
+$ gulp dragoman-[options]
+```
+
+##### Options:
+* [default] - translates tokens to all languages
+* scss
+* sass
+* less
+* stylus
+* android (xml)
+* ios (swift)
+* [option]-icons - generates icons along with language translation
+* web - translates all web languages & generates icons
+* mobile - translates android, ios, & generates icons for both
+
+eg. If you want to translate tokens into .less along with web iconography, run:
+
+``` bash
+$ gulp dragoman-less-icons
+```
+----
+
 ##### Default Design Tokens
 * Colors
 * Fonts
@@ -79,18 +102,6 @@ extension UIColor {
     return UIColor(82.0/255.0, 255.0/255.0, 122.0/255.0, alpha: 1; 
   }
 }
-```
-
-### Directory Structure
-
-```
-tokens/
-| ├── _colors
-| ├── _fonts
-| ├── _icons
-| ├── _spacing
-| ├── _styles
-| ├── _typography
 ```
 
 ### Future Goals
