@@ -37,7 +37,8 @@ gulp.task('dragoman', [
   'json-stylus-stylesheet',
   'json-android-color',
   'json-ios-color', 
-  'iconography'
+  'icons-web'
+  // 'icons-ios' when this works
 ]);
 // Only Styles
 gulp.task('dragoman-scss', ['clean-build', 'json-scss-stylesheet']);
