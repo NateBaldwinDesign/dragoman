@@ -96,15 +96,15 @@ Output as iOS Swift: _(in progress)_
 import UIKit
 extension UIColor {
   class func color-orange() -> UIColor {
-    return UIColor(242.0/255.0, 99.0/255.0, 34.0/255.0, alpha: 1; 
+    return UIColor(red: 242/255.0, green: 99/255.0, blue: 34/255.0, alpha: 1.0; 
   }
 
   class func color-purple() -> UIColor {
-    return UIColor(120.0/255.0, 48.0/255.0, 132.0/255.0, alpha: 1; 
+    return UIColor(red: 120/255.0, green: 48/255.0, blue: 132/255.0, alpha: 1.0; 
   }
 
   class func color-light-green() -> UIColor {
-    return UIColor(82.0/255.0, 255.0/255.0, 122.0/255.0, alpha: 1; 
+    return UIColor(red: 82/255.0, green: 255/255.0, blue: 122/255.0, alpha: 1.0; 
   }
 }
 ```
