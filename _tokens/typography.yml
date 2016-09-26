@@ -1,0 +1,3 @@
+base:
+  font-size: "%spacing-medium"
+  line-height: "%spacing-large"
