@@ -12,6 +12,14 @@ Dragoman is a starter toolkit for creating applications from a token-based desig
 
 This allows you to aggregate disparate cross-platform applications to follow consistent design specifications.
 
+##### Targeted Languages & Platforms
+* Less
+* Sass
+* Scss
+* Stylus
+* Android XML
+* iOS Swift 
+
 ## Getting Started
 
 Define your paths, and the languages you intend to build your applications in the ./config.json file (_language selection in progress_). 
@@ -48,13 +56,15 @@ $ gulp dragoman-less-icons
 
 These are the core design assets that need to be controlled cross-platform variables. You can add more tokens as you need; simply include them in the 'styles.json' token, which includes all partials for an easy import file for your CSS stylesheets.
 
-##### Targeted Languages & Platforms
-* Less
-* Sass
-* Scss
-* Stylus
-* Android XML
-* iOS Swift 
+##### Writing Variables in Tokens:
+When using a variable as a value, use `%` prefix. Defining a variable (as the key), no prefix is necessary.
+
+```json
+{
+  "my-color": "%color-primary"
+}
+```
+
 
 ### Example
 Default color.json file
