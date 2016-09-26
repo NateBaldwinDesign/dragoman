@@ -6,7 +6,7 @@
 		"dist": "_dist", 
 		"temp": "_temp"
 	},
-	"language": {
+	"languages": {
 		"scss": true,
 		"sass": true,
 		"less": true,
