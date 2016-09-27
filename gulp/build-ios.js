@@ -43,9 +43,8 @@ gulp.task('json-ios-color', ['clean-build'], function() {
     .pipe(replace(',', '/255.0, green:'))
     .pipe(replace('green: 1)', 'alpha: 1.0)'))
     .pipe(replace('; }', ');\n}'))
-    // .pipe(regexReplace({regex: 'green.*?(green)', replace: 'blue'})) // replaces all instances of 'green'
-    // .pipe(regexReplace({regex: '/(?:.*?(green)+){2}.*?((green)+)/g', replace: 'blue'}))  
-    // Add wrapper with UIKit declarations
+    .pipe(replace(/(green.*?)(\s+green)/g, '$1blue'))
+    .pipe(replace('blue', ' blue')) // add a space
     .pipe(wrapper({
       header: 'import UIKit\nextension UIColor {\n',
       footer: '}\n'
