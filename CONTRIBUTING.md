@@ -1,4 +1,5 @@
 # Contributing
+To make communication easier, please join [dragoman-devops.slack.com](https://dragoman-devops.slack.com). Sign up and introduce yourself in the #intro channel. 
 
 ## Dragoman Tool
 * Install Node
