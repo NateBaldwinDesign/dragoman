@@ -54,17 +54,13 @@ gulp.task('dragoman', [
   'icons-web'
   // 'icons-ios' when this works
 ], function () { gulp.src(paths.tokens + '/**/*.json'); });
-// Only Styles
 
 for (var key in config.compileStyles) {
+  // Only Styles
   gulp.task('dragoman-'+ key, ['clean-build', config.compileStyles[key][0]], function () { 
     gulp.src(paths.tokens + '/**/*.json'); 
   });
-}
-
-// Styles and Icons
-
-for (var key in config.compileStyles) {
+  // Styles and Icons
   gulp.task('dragoman-'+ key + '-icons', ['clean-build', config.compileStyles[key][0], config.compileStyles[key][1]], function () { 
     gulp.src(paths.tokens + '/**/*.json'); 
   }); // Need to add 'icons-ios' to config.json when svg2png works
