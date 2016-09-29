@@ -3,3 +3,6 @@
 node_modules
 _dist
 _temp
+_site
+.sass-cache
+assets
