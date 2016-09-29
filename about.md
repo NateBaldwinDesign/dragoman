@@ -1,15 +1,23 @@
 ---
-layout: page
-title: About
-permalink: /about/
+layout: default
+title: Dragoman
 ---
 
-This is the base Jekyll theme. You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](http://jekyllrb.com/)
+<div class="post">
+<!-- 	<h1 class="pageTitle">What is it?</h1>
+ --><!-- 	<img src="{{ '/assets/img/touring.jpg' | prepend: site.baseurl }}" alt=""> 
+ -->	
+  <p class="intro">Dragoman is a plugin for creating applications with a token-based design systems approach. Using gulp with yaml "tokens", Dragoman generates multi-platform assets for core design attributes.</p>
+	<p>Product development is complex. Token-based design systems are a logical evolution in the way we design and build cross-platform applications. Dragoman can help kick-start your use of global, cross-platform design variables in the form of yaml tokens.</p>
+  
 
-You can find the source code for the Jekyll new theme at:
-{% include icon-github.html username="jekyll" %} /
-[minima](https://github.com/jekyll/minima)
-
-You can find the source code for Jekyll at
-{% include icon-github.html username="jekyll" %} /
-[jekyll](https://github.com/jekyll/jekyll)
+	<h2>Targeted Languages &amp; Platforms</h2>
+	<ul>
+		<li>Less</li>
+    <li>Sass</li>
+    <li>Scss</li>
+    <li>Stylus</li>
+    <li>Android XML</li>
+    <li>iOS Swift</li>
+  	</ul>
+</div>

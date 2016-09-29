@@ -1,23 +1,25 @@
 ---
 layout: default
+title: Dragoman
 ---
 
-<div class="home">
 
-  <h1 class="page-heading">Posts</h1>
+<div class="post">
+<!--  <h1 class="pageTitle">What is it?</h1>
+ --><!--  <img src="{{ '/assets/img/touring.jpg' | prepend: site.baseurl }}" alt=""> 
+ -->  
+  <p class="intro">Dragoman is a plugin for creating applications with a token-based design systems approach. Using gulp with yaml "tokens", Dragoman generates multi-platform assets for core design attributes.</p>
+  <p>Product development is complex. Token-based design systems are a logical evolution in the way we design and build cross-platform applications. Dragoman can help kick-start your use of global, cross-platform design variables in the form of yaml tokens.</p>
+  
 
-  <ul class="post-list">
-    {% for post in site.posts %}
-      <li>
-        <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
-
-        <h2>
-          <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title | escape }}</a>
-        </h2>
-      </li>
-    {% endfor %}
-  </ul>
-
-  <p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | prepend: site.baseurl }}">via RSS</a></p>
-
+  <h2>Targeted Languages &amp; Platforms</h2>
+  <ul>
+    <li>Less</li>
+    <li>Sass</li>
+    <li>Scss</li>
+    <li>Stylus</li>
+    <li>Android XML</li>
+    <li>iOS Swift</li>
+    </ul>
 </div>
+

@@ -1,7 +1,20 @@
 GEM
-  remote: https://rubygems.org/
+  remote: http://rubygems.org/
   specs:
+    chunky_png (1.3.6)
     colorator (1.1.0)
+    compass (1.0.3)
+      chunky_png (~> 1.2)
+      compass-core (~> 1.0.2)
+      compass-import-once (~> 1.0.5)
+      rb-fsevent (>= 0.9.3)
+      rb-inotify (>= 0.9)
+      sass (>= 3.3.13, < 3.5)
+    compass-core (1.0.3)
+      multi_json (~> 1.0)
+      sass (>= 3.3.0, < 3.5)
+    compass-import-once (1.0.5)
+      sass (>= 3.2, < 3.5)
     ffi (1.9.14)
     forwardable-extended (2.6.0)
     jekyll (3.2.1)
@@ -14,17 +27,20 @@ GEM
       pathutil (~> 0.9)
       rouge (~> 1.7)
       safe_yaml (~> 1.0)
-    jekyll-sass-converter (1.3.0)
-      sass (~> 3.2)
+    jekyll-paginate (1.1.0)
+    jekyll-sass-converter (1.4.0)
+      sass (~> 3.4)
     jekyll-watch (1.5.0)
       listen (~> 3.0, < 3.1)
     kramdown (1.11.1)
     liquid (3.0.6)
-    listen (3.0.6)
-      rb-fsevent (>= 0.9.3)
-      rb-inotify (>= 0.9.7)
+    listen (3.0.8)
+      rb-fsevent (~> 0.9, >= 0.9.4)
+      rb-inotify (~> 0.9, >= 0.9.7)
     mercenary (0.3.6)
-    minima (1.2.0)
+    multi_json (1.12.1)
+    normalize-scss (5.0.3)
+      sass (~> 3.3)
     pathutil (0.14.0)
       forwardable-extended (~> 2.6)
     rb-fsevent (0.9.7)
@@ -33,16 +49,22 @@ GEM
     rouge (1.11.1)
     safe_yaml (1.0.4)
     sass (3.4.22)
+    support-for (1.0.6)
+      sass (~> 3.3)
+    susy (2.2.12)
+      sass (>= 3.3.0, < 3.5)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
-  jekyll (= 3.2.1)
-  minima
-
-RUBY VERSION
-   ruby 2.3.1p112
+  compass
+  jekyll
+  jekyll-paginate
+  normalize-scss
+  sass
+  support-for
+  susy
 
 BUNDLED WITH
-   1.13.1
+   1.12.5
