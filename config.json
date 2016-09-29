@@ -1,8 +1,0 @@
-{
-	"path":	{
-		"tokens": "_tokens",
-		"assets": "_assets",
-		"dist": "_dist", 
-		"temp": "_temp"
-	}
-}
