@@ -1,12 +1,12 @@
 language: node_js
 node_js:
-- "4.2.2"
+- "4.5.0"
 before_install:
   - npm config set registry http://registry.npmjs.org/
 install:
 - npm install
 before_script:
   - npm install -g gulp
-script: gulp
+script: gulp dragoman
 notifications:
   slack: aggregatordevops:UUiFolRCiY5JuwOU6l7TjPoY

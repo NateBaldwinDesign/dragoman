@@ -1,6 +1,7 @@
 'use strict';
 
 var jsonCss       = require('gulp-json-css'),
+    fs            = require('fs'),
     gulp          = require('gulp'),
     sass          = require('gulp-sass'),
     clean         = require('gulp-rimraf'),
@@ -8,14 +9,20 @@ var jsonCss       = require('gulp-json-css'),
     wrapper       = require('gulp-wrapper'),
     replace       = require('gulp-replace'),
     regexReplace  = require('gulp-regex-replace'),
-    paths         = require('../config.json');
+    config        = require('../config.json'),
+    paths         = {
+      tokens: config.path.tokens,
+      dist: config.path.dist,
+      temp: config.path.temp,
+      assets: config.path.assets
+    };
 
 //===========================================//
 // Convert custom written JSON to ios JSON format
-gulp.task('json-ios-color', ['json-stylus-component', 'clean-build'], function() {
+gulp.task('json-ios-color', ['clean-build'], function() {
   return gulp
     // Convert JSON to Scss
-    .src( paths.tokens + '/global/color.json')
+    .src( paths.tokens + '/**/color.json')
     .pipe(jsonCss({
       targetPre: "scss",
       delim: "-"
@@ -32,15 +39,16 @@ gulp.task('json-ios-color', ['json-stylus-component', 'clean-build'], function()
     .pipe(replace('div#', '  class func '))
     .pipe(replace(' {', '() -> UIColor {'))
     .pipe(replace('}', '\n  }'))
-    .pipe(replace('  background-color: rgba(', '    return UIColor('))
-    .pipe(replace('1)', 'alpha: 1)'))
-    .pipe(replace(',', '.0/255.0,'))
+    .pipe(replace('  background-color: rgba(', '    return UIColor(red: '))
+    .pipe(replace(',', '/255.0, green:'))
+    .pipe(replace('green: 1)', 'alpha: 1.0)'))
     .pipe(replace('; }', ');\n}'))
-    // Add wrapper with UIKit declarations
+    .pipe(replace(/(green:.*?)(\s+green:)/g, '$1blue:'))
+    .pipe(replace('blue', ' blue')) // add a space
     .pipe(wrapper({
       header: 'import UIKit\nextension UIColor {\n',
       footer: '}\n'
     }))
-    .pipe(rename('colors-ios.swift'))
-    .pipe(gulp.dest( paths.dist + '/global'));
+    .pipe(rename('colors.swift'))
+    .pipe(gulp.dest( paths.dist + '/ios'));
 });

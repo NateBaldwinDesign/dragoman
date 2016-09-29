@@ -1,6 +1,8 @@
 .npm
 *.log
 node_modules
-dest
-dist
-temp
+_dist
+_temp
+_site
+.sass-cache
+assets
