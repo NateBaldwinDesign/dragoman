@@ -4,5 +4,13 @@
 		"assets": "_assets",
 		"dist": "_dist", 
 		"temp": "_temp"
+	},
+	"compileStyles": {
+		"scss": ["json-scss-stylesheet", "icons-web"],
+		"sass":["json-sass-stylesheet", "icons-web"],
+		"less": ["json-less-stylesheet", "icons-web"],
+		"stylus": ["json-stylus-stylesheet", "icons-web"],
+		"android": ["json-android-color", "icons-android"],
+		"ios": ["json-ios-color", ""]
 	}
 }
