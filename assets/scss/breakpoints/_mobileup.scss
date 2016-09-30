@@ -61,7 +61,7 @@ a {
 	color: $link-color;
 
 	&:hover {
-		color: darken($link-color, 15%);
+		color: lighten($link-color, 15%);
 	}
 }
 
