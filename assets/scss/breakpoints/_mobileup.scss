@@ -47,7 +47,8 @@ img,video,audio,iframe,object{
 }
 
 hr {
-	border-top: 1px solid $grey;
+	border-top: 1px solid darken($grey, 5%);
+	border-bottom: 0;
 	margin-top: 60px;
 	margin-bottom: 60px;
 }
