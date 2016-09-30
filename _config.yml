@@ -1,7 +1,7 @@
 title: Dragoman
 description: Github page for Dragoman tool
 
-url: https://github.com/NateBaldwinDesign/Dragoman
+url: "https://NateBaldwinDesign.github.io/"
 baseurl: "Dragoman"
 paginate_path: "blog/page:num/"
 permalink: blog/:title/
