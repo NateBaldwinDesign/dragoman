@@ -5,7 +5,7 @@
 3. Clone it
 4. [Install Bundler](http://bundler.io/)
 5. Run `bundle install`
-6. Run Jekyll `jekyll serve -w`
+6. Run Jekyll `bundle exec jekyll serve`
 7. Run `compass watch`
 8. Customize!
 

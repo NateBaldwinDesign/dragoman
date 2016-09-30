@@ -3,10 +3,10 @@
   <channel>
     <title>Dragoman</title>
     <description>Github page for Dragoman tool</description>
-    <link>https://github.com/NateBaldwinDesign/Dragoman/</link>
-    <atom:link href="https://github.com/NateBaldwinDesign/Dragoman/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 29 Sep 2016 12:34:38 -0600</pubDate>
-    <lastBuildDate>Thu, 29 Sep 2016 12:34:38 -0600</lastBuildDate>
+    <link>https://NateBaldwinDesign.github.io//Dragoman/</link>
+    <atom:link href="https://NateBaldwinDesign.github.io//Dragoman/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Fri, 30 Sep 2016 12:05:40 -0600</pubDate>
+    <lastBuildDate>Fri, 30 Sep 2016 12:05:40 -0600</lastBuildDate>
     <generator>Jekyll v3.2.1</generator>
     
       
@@ -78,8 +78,8 @@
 </description>
         
         <pubDate>Mon, 15 Dec 2014 00:00:00 -0700</pubDate>
-        <link>https://github.com/NateBaldwinDesign/Dragoman/blog/example-post-formatting/</link>
-        <guid isPermaLink="true">https://github.com/NateBaldwinDesign/Dragoman/blog/example-post-formatting/</guid>
+        <link>https://NateBaldwinDesign.github.io//Dragoman/blog/example-post-formatting/</link>
+        <guid isPermaLink="true">https://NateBaldwinDesign.github.io//Dragoman/blog/example-post-formatting/</guid>
         
         
       </item>
@@ -106,8 +106,8 @@
 </description>
         
         <pubDate>Sun, 14 Dec 2014 00:00:00 -0700</pubDate>
-        <link>https://github.com/NateBaldwinDesign/Dragoman/blog/featured-image/</link>
-        <guid isPermaLink="true">https://github.com/NateBaldwinDesign/Dragoman/blog/featured-image/</guid>
+        <link>https://NateBaldwinDesign.github.io//Dragoman/blog/featured-image/</link>
+        <guid isPermaLink="true">https://NateBaldwinDesign.github.io//Dragoman/blog/featured-image/</guid>
         
         
       </item>
@@ -135,8 +135,8 @@
 </description>
         
         <pubDate>Sat, 13 Dec 2014 00:00:00 -0700</pubDate>
-        <link>https://github.com/NateBaldwinDesign/Dragoman/blog/code-snippet/</link>
-        <guid isPermaLink="true">https://github.com/NateBaldwinDesign/Dragoman/blog/code-snippet/</guid>
+        <link>https://NateBaldwinDesign.github.io//Dragoman/blog/code-snippet/</link>
+        <guid isPermaLink="true">https://NateBaldwinDesign.github.io//Dragoman/blog/code-snippet/</guid>
         
         
       </item>
@@ -150,12 +150,12 @@
 &lt;p&gt;Bahamontes lanterne rouge normandie belgium. Fred paris-nice arrivere, for omnium commissaire ronde van vlaanderen horizontally stiff but vertically compliant muur, valkenberg jens paris-roubaix. Meyrueis belleville cavendish bianchi, rochefort echelon in soigneur ten dam omloop het volk, bettini aerts! Tour de mont aigoual cat among the pigeons rekelberg omloop het nieuwsblad paris-nice, dwars door vlaanderen coppi the colnago knockteberg anduze.&lt;/p&gt;
 
 &lt;figure&gt;
-	&lt;img src=&quot;/assets/img/touring.jpg&quot; alt=&quot;&quot; /&gt; 
+	&lt;img src=&quot;/Dragoman/assets/img/touring.jpg&quot; alt=&quot;&quot; /&gt; 
 	&lt;figcaption&gt;Fig1. - This is an example figcaption&lt;/figcaption&gt;
 &lt;/figure&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-html&quot; data-lang=&quot;html&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;figure&amp;gt;&lt;/span&gt;
-	&lt;span class=&quot;nt&quot;&gt;&amp;lt;img&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;src=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;/assets/img/touring.jpg&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;alt=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt; 
+	&lt;span class=&quot;nt&quot;&gt;&amp;lt;img&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;src=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;/Dragoman/assets/img/touring.jpg&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;alt=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt; 
 	&lt;span class=&quot;nt&quot;&gt;&amp;lt;figcaption&amp;gt;&lt;/span&gt;Fig1. - This is an example figcaption&lt;span class=&quot;nt&quot;&gt;&amp;lt;/figcaption&amp;gt;&lt;/span&gt;
 &lt;span class=&quot;nt&quot;&gt;&amp;lt;/figure&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
@@ -173,8 +173,8 @@
 </description>
         
         <pubDate>Fri, 12 Dec 2014 00:00:00 -0700</pubDate>
-        <link>https://github.com/NateBaldwinDesign/Dragoman/blog/figure-with-caption/</link>
-        <guid isPermaLink="true">https://github.com/NateBaldwinDesign/Dragoman/blog/figure-with-caption/</guid>
+        <link>https://NateBaldwinDesign.github.io//Dragoman/blog/figure-with-caption/</link>
+        <guid isPermaLink="true">https://NateBaldwinDesign.github.io//Dragoman/blog/figure-with-caption/</guid>
         
         
       </item>
@@ -187,7 +187,7 @@
 
 &lt;p&gt;Bahamontes lanterne rouge normandie belgium. Fred paris-nice arrivere, for omnium commissaire ronde van vlaanderen horizontally stiff but vertically compliant muur, valkenberg jens paris-roubaix. Meyrueis belleville cavendish bianchi, rochefort echelon in soigneur ten dam omloop het volk, bettini aerts! Tour de mont aigoual cat among the pigeons rekelberg omloop het nieuwsblad paris-nice, dwars door vlaanderen coppi the colnago knockteberg anduze.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/touring.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/Dragoman/assets/img/touring.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Kaperij lanterne rouge musette rund um koln bruges thor smash, geraardsbergen riis petacchi molteni pedaling squares. Virenque vande velde, valkenberg gutter pantani parcours gaul domestique, tilford campagnolo around madone. Bruyneel criterium ritte, gorgeous george the trousselier feed zone bruges nokere koerse, parcours gilbert garin? Anquetil valkenberg bettini cat among the pigeons.&lt;/p&gt;
 
@@ -203,8 +203,8 @@
 </description>
         
         <pubDate>Thu, 11 Dec 2014 00:00:00 -0700</pubDate>
-        <link>https://github.com/NateBaldwinDesign/Dragoman/blog/image-in-post/</link>
-        <guid isPermaLink="true">https://github.com/NateBaldwinDesign/Dragoman/blog/image-in-post/</guid>
+        <link>https://NateBaldwinDesign.github.io//Dragoman/blog/image-in-post/</link>
+        <guid isPermaLink="true">https://NateBaldwinDesign.github.io//Dragoman/blog/image-in-post/</guid>
         
         
       </item>
@@ -231,8 +231,8 @@
 </description>
         
         <pubDate>Wed, 10 Dec 2014 00:00:00 -0700</pubDate>
-        <link>https://github.com/NateBaldwinDesign/Dragoman/blog/test-post/</link>
-        <guid isPermaLink="true">https://github.com/NateBaldwinDesign/Dragoman/blog/test-post/</guid>
+        <link>https://NateBaldwinDesign.github.io//Dragoman/blog/test-post/</link>
+        <guid isPermaLink="true">https://NateBaldwinDesign.github.io//Dragoman/blog/test-post/</guid>
         
         
       </item>
