@@ -8,7 +8,7 @@ $aqua:  #7FDBFF;
 $blue:  #0074D9;
 $navy:  #001F3F;
 $teal:  #39CCCC;
-$green: #2ECC40;
+$green: #0e7b27;
 $olive: #3D9970;
 $lime:  #01FF70;
 // Warm
@@ -26,11 +26,11 @@ $darkgrey: #333;
 $black:  #111;
 
 // Color variables
-$primary-color: seagreen;
+$primary-color: $green;
 $secondary-color: #233E5B;
 $tertiary-color: #aaa;
 $link-color: $primary-color;
-$background-color: seagreen;
+$background-color: $green;
 
 $bad-color: $red; // Bad color for errors, validation etc.
 $good-color: $green; // Good color for success etc.
