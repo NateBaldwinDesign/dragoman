@@ -9,7 +9,7 @@ GLOBAL STYLES
 
 	&:after {
 		z-index: -1; 
-		background: white;
+		background: $darkgrey;
 		content: ""; 
 		display: block;
 		width: 100%;
