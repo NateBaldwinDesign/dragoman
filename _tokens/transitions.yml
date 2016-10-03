@@ -1,0 +1,4 @@
+transition:
+  slow: ".5s"
+  normal: ".3s"
+  fast: ".1s5"
