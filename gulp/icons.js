@@ -13,9 +13,11 @@ var gulp          = require('gulp'),
     cheerio       = require('gulp-cheerio'),
     flatten       = require('gulp-flatten'),
     config        = require('../config.json'),
-    paths         = {
+    paths = {
       tokens: config.path.tokens,
       dist: config.path.dist,
+      css: config.path.css,
+      js: config.path.js,
       temp: config.path.temp,
       assets: config.path.assets
     };

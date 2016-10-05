@@ -10,9 +10,11 @@ var jsonCss       = require('gulp-json-css'),
     replace       = require('gulp-replace'),
     regexReplace  = require('gulp-regex-replace'),
     config        = require('../config.json'),
-    paths         = {
+    paths = {
       tokens: config.path.tokens,
       dist: config.path.dist,
+      css: config.path.css,
+      js: config.path.js,
       temp: config.path.temp,
       assets: config.path.assets
     };

@@ -9,9 +9,11 @@ var jsonCss       = require('gulp-json-css'),
     jsonTransform = require('gulp-json-transform'),
     wrapper       = require('gulp-wrapper'),
     config        = require('../config.json'),
-    paths         = {
+    paths = {
       tokens: config.path.tokens,
       dist: config.path.dist,
+      css: config.path.css,
+      js: config.path.js,
       temp: config.path.temp,
       assets: config.path.assets
     };

@@ -19,6 +19,8 @@ var gulp = require('gulp'),
   paths = {
     tokens: config.path.tokens,
     dist: config.path.dist,
+    css: config.path.css,
+    js: config.path.js,
     temp: config.path.temp,
     assets: config.path.assets
   };
@@ -27,7 +29,7 @@ require('require-dir')('./gulp');
 
 // deletes all items in the ./dist folder  
 gulp.task('clean-build', function () {
-  return del(paths.dist + '/*');
+  // return del(paths.dist + paths.css + '/*');
 });
 
 //Temp 

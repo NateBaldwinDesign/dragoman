@@ -2,7 +2,9 @@
 	"path":	{
 		"tokens": "_tokens",
 		"assets": "_assets",
-		"dist": "_dist", 
+		"dist": "../src/", 
+		"css": "/assets/toolkit/styles/",
+		"js": "/assets/toolkit/scripts/",
 		"temp": "_temp"
 	},
 	"compileStyles": {

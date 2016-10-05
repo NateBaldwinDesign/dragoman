@@ -7,9 +7,11 @@ var jsonCss       = require('gulp-json-css'),
     replace       = require('gulp-replace'),
     regexReplace  = require('gulp-regex-replace'),
     config        = require('../config.json'),
-    paths         = {
+    paths = {
       tokens: config.path.tokens,
       dist: config.path.dist,
+      css: config.path.css,
+      js: config.path.js,
       temp: config.path.temp,
       assets: config.path.assets
     };
@@ -34,7 +36,7 @@ gulp.task('json-stylus-global', ['clean-build'], function() {
       extname: ".styl"
     }))
     // .pipe(replace('%', '@'))
-    .pipe(gulp.dest( paths.dist + '/stylus'));
+    .pipe(gulp.dest( paths.dist + paths.css + 'stylus'));
 });
 gulp.task('json-stylus-stylesheet', ['json-stylus-global', 'clean-build'], function() {
   return gulp
@@ -46,18 +48,19 @@ gulp.task('json-stylus-stylesheet', ['json-stylus-global', 'clean-build'], funct
       delim: "/"
     }))
     .pipe(rename({
-      prefix: ""
+      prefix: "",
+      basename: "tokens"
     }))
     .pipe(replace('$', '@'))
     .pipe(replace('@meta', '/'))
     .pipe(replace('name:', ''))
     .pipe(replace(': ', '/_'))
-    .pipe(replace('import', 'import "'))
+    .pipe(replace('import/', 'import "'))
     .pipe(replace(';', '"'))
     .pipe(replace('version/_', ' Version: '))
     .pipe(regexReplace({regex: '[0-9]/', replace: 'stylus/'}))
     .pipe(rename({
       extname: ".styl"
     }))
-    .pipe(gulp.dest( paths.dist + '/stylus'));
+    .pipe(gulp.dest( paths.dist + paths.css + 'stylus'));
 });
