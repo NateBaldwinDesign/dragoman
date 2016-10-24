@@ -8,5 +8,3 @@ install:
 before_script:
   - npm install -g gulp
 script: gulp dragoman
-notifications:
-  slack: aggregatordevops:UUiFolRCiY5JuwOU6l7TjPoY

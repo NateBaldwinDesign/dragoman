@@ -1,5 +1,5 @@
 # Dragoman 
-[![GitHub version](https://badge.fury.io/gh/NateBaldwinDesign%2FDragoman.svg)](https://badge.fury.io/gh/NateBaldwinDesign%2FDragoman) [![Build Status](https://travis-ci.org/NateBaldwinDesign/Dragoman.svg?branch=master)](https://travis-ci.org/NateBaldwinDesign/Dragoman) [![Dependency Status](https://gemnasium.com/badges/github.com/NateBaldwinDesign/Dragoman.svg)](https://gemnasium.com/github.com/NateBaldwinDesign/Dragoman)
+[![GitHub version](https://badge.fury.io/gh/NateBaldwinDesign%2FDragoman.svg)](https://badge.fury.io/gh/NateBaldwinDesign%2FDragoman) [![Build Status](https://travis-ci.org/NateBaldwinDesign/dragoman.svg?branch=master)](https://travis-ci.org/NateBaldwinDesign/Dragoman) [![Dependency Status](https://gemnasium.com/badges/github.com/NateBaldwinDesign/Dragoman.svg)](https://gemnasium.com/github.com/NateBaldwinDesign/Dragoman)
  [![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)]()
 
 _[drag-uh-muh n]_
