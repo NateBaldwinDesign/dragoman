@@ -1,3 +1,5 @@
+name: spacing
+description: Global units of measurement, which are used throughout the UI in order to maintain harmony and consistency.
 spacing:
   xsmall: 8px
   small: 12px

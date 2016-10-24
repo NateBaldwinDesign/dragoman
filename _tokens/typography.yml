@@ -1,3 +1,5 @@
+name: typography
+description: Measurements and specifications for typography throughout the UI.
 base:
   font-size: "%spacing-medium"
   line-height: "%spacing-large"

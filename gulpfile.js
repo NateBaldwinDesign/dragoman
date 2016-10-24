@@ -26,7 +26,7 @@ var gulp = require('gulp'),
 require('require-dir')('./gulp');
 
 // deletes all items in the ./dist folder  
-gulp.task('clean-build', function () {
+gulp.task('clean-build', ['yaml-json'], function () {
   return del(paths.dist + '/*');
 });
 
@@ -35,6 +35,7 @@ gulp.task('yaml-json', function () {
   return gulp
     .src(paths.tokens + "/**/*.yml")
     .pipe(yaml({ safe: true }))
+    .pipe(beautify({indentSize: 2}))
     .pipe(gulp.dest(paths.tokens));
 });
 
@@ -58,12 +59,12 @@ gulp.task('dragoman', [
 for (var key in config.compileStyles) {
   // Only Styles
   gulp.task('dragoman-'+ key, ['clean-build', config.compileStyles[key][0]], function () { 
-    gulp.src(paths.tokens + '/**/*.json'); 
+    gulp.src(paths.tokens + '/**/*.json').pipe(clean()); 
   });
   // Styles and Icons
   gulp.task('dragoman-'+ key + '-icons', ['clean-build', config.compileStyles[key][0], config.compileStyles[key][1]], function () { 
-    gulp.src(paths.tokens + '/**/*.json'); 
-  }); // Need to add 'icons-ios' to config.json when svg2png works
+    gulp.src(paths.tokens + '/**/*.json').pipe(clean()); 
+  }); 
 }
 
 // Platforms

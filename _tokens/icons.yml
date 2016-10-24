@@ -1,2 +1,4 @@
+name: icons
+description: Sizing and spacing for global instances of iconography in the UI.
 icon:
   size: "%spacing-medium"

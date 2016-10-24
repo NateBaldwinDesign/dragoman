@@ -1,3 +1,5 @@
+name: fonts
+description: Default font stacks to be used throughout the UI.
 font:
   primary: "Times New Roman, Georgia, serif"
   secondary: "Helvetica, Arial, sans-serif"

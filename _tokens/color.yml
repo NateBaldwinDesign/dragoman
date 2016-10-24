@@ -1,3 +1,5 @@
+name: color
+description: Color palette used throughout the interface.
 color:
   orange: "#f26322"
   purple: "#783084"

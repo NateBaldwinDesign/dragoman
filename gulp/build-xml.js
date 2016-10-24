@@ -27,6 +27,8 @@ gulp.task('json-android-dimensions', ['clean-build'], function() {
         whitespace: data.whitespace
       };
     }))
+    .pipe(replace (/(\s*"name".*)/g, ''))
+    .pipe(replace (/(\s*"description".*)/g, ''))
     .pipe(jsonCss({
       targetPre: "scss",
       delim: "-"
@@ -44,6 +46,8 @@ gulp.task('json-android-dimensions', ['clean-build'], function() {
 gulp.task('json-android-color', ['json-android-dimensions', 'clean-build'], function() {
   return gulp
     .src( paths.tokens + '/**/color.json')
+    .pipe(replace (/(\s*"name".*)/g, ''))
+    .pipe(replace (/(\s*"description".*)/g, ''))
     .pipe(jsonCss({
       targetPre: "scss",
       delim: "-"

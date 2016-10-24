@@ -1,3 +1,5 @@
+name: styles
+description: This is the configuration file determining which tokens to include when generating cross-platform stylesheets.
 import:
 - color
 - fonts

@@ -22,6 +22,8 @@ gulp.task('json-scss-global', ['clean-build'], function() {
       paths.tokens + '/**/*.json',
       '!' + paths.tokens + '/**/styles.json'
     ])
+    .pipe(replace (/(\s*"name".*)/g, ''))
+    .pipe(replace (/(\s*"description".*)/g, ''))
     .pipe(jsonCss({
       targetPre: "scss",
       delim: "-"
@@ -37,6 +39,8 @@ gulp.task('json-scss-stylesheet', ['json-scss-global', 'clean-build'], function(
     .src([
       paths.tokens + '/styles.json'
     ])
+    .pipe(replace (/(\s*"name".*)/g, ''))
+    .pipe(replace (/(\s*"description".*)/g, ''))
     .pipe(jsonCss({
       targetPre: "scss",
       delim: "/"

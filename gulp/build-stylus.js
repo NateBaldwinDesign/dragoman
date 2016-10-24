@@ -22,6 +22,8 @@ gulp.task('json-stylus-global', ['clean-build'], function() {
       paths.tokens + '/**/*.json',
       '!' + paths.tokens + '/**/styles.json'
     ])
+    .pipe(replace (/(\s*"name".*)/g, ''))
+    .pipe(replace (/(\s*"description".*)/g, ''))
     .pipe(jsonCss({
       targetPre: "sass",
       delim: "-"
@@ -41,6 +43,8 @@ gulp.task('json-stylus-stylesheet', ['json-stylus-global', 'clean-build'], funct
     .src([
       paths.tokens + '/styles.json'
     ])
+    .pipe(replace (/(\s*"name".*)/g, ''))
+    .pipe(replace (/(\s*"description".*)/g, ''))
     .pipe(jsonCss({
       targetPre: "scss",
       delim: "/"

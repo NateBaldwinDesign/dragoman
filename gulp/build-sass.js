@@ -22,6 +22,8 @@ gulp.task('json-sass-global', ['clean-build'], function() {
       paths.tokens + '/**/*.json',
       '!' + paths.tokens + '/styles.json'
     ])
+    .pipe(replace (/(\s*"name".*)/g, ''))
+    .pipe(replace (/(\s*"description".*)/g, ''))
     .pipe(jsonCss({
       targetPre: "sass",
       delim: "-"
@@ -37,8 +39,10 @@ gulp.task('json-sass-stylesheet', ['json-sass-global', 'clean-build'], function(
     .src([
       paths.tokens + '/styles.json'
     ])
+    .pipe(replace (/(\s*"name".*)/g, ''))
+    .pipe(replace (/(\s*"description".*)/g, ''))
     .pipe(jsonCss({
-      targetPre: "sass",
+      targetPre: "scss",
       delim: "/"
     }))
     .pipe(rename({
@@ -48,7 +52,8 @@ gulp.task('json-sass-stylesheet', ['json-sass-global', 'clean-build'], function(
     .pipe(replace('@meta', '/'))
     .pipe(replace('name:', ''))
     .pipe(replace(': ', '/_'))
-    .pipe(replace('import', 'import '))
+    .pipe(replace('import', 'import "'))
+    .pipe(replace(';', '"'))
     .pipe(replace('version/_', ' Version: '))
     .pipe(regexReplace({regex: '[0-9]/', replace: 'sass/'}))
     .pipe(gulp.dest( paths.dist + '/sass'));

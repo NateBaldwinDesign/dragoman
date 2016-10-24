@@ -6,3 +6,4 @@ _temp
 _site
 .sass-cache
 assets
+.DS_Store
