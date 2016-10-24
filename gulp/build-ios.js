@@ -23,6 +23,8 @@ gulp.task('json-ios-color', ['clean-build'], function() {
   return gulp
     // Convert JSON to Scss
     .src( paths.tokens + '/**/color.json')
+    .pipe(replace (/(\s*"name".*)/g, ''))
+    .pipe(replace (/(\s*"description".*)/g, ''))
     .pipe(jsonCss({
       targetPre: "scss",
       delim: "-"
