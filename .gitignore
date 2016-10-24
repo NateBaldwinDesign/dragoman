@@ -7,3 +7,4 @@ _site
 .sass-cache
 assets
 .DS_Store
+_tokens/*.json
