@@ -1,5 +1,5 @@
 {
-  "name": "Dragoman",
+  "name": "dragoman",
   "version": "0.1.0",
   "description": "Translate core design variables across web and mobile platforms",
   "main": "gulpfile.js",
