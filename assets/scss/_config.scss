@@ -8,8 +8,9 @@ $aqua:  #7FDBFF;
 $blue:  #0074D9;
 $navy:  #001F3F;
 $teal:  #39CCCC;
-$red: #905e66;
-$red-light: #d8b9bc;
+$green: #38bf38;
+$salmon: #905e66;
+$salmon-light: #d8b9bc;
 $olive: #3D9970;
 $lime:  #01FF70;
 // Warm
@@ -27,11 +28,11 @@ $darkgrey: #333;
 $black:  #000;
 
 // Color variables
-$primary-color: $red-light;
+$primary-color: $salmon-light;
 $secondary-color: #233E5B;
 $tertiary-color: #aaa;
 $link-color: $primary-color;
-$background-color: $red;
+$background-color: $salmon;
 
 $bad-color: $red; // Bad color for errors, validation etc.
 $good-color: $green; // Good color for success etc.
