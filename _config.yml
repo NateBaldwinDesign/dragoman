@@ -6,6 +6,7 @@ baseurl: "/dragoman"
 paginate_path: "blog/page:num/"
 permalink: blog/:title/
 
+exclude: ["node_modules", "config.rb", "Gemfile", "Gemfile.lock"]
 markdown: kramdown
 highlighter: rouge
 gems: [jekyll-paginate]
