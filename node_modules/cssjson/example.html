@@ -1,0 +1,67 @@
+<body>
+<style>
+    body {
+        font-family: arial, sans-serif;
+        font-size: 18px;
+    }
+    pre {
+        background: #eee;
+        padding: 10px;
+        width: 800px;
+        white-space: pre-wrap;
+        word-break: break-all;
+    }
+</style>
+
+<!-- Add this if you're supporting IE 7, 8 -->
+<script type="text/javascript" src="json2.js"></script>
+<script type="text/javascript" src="cssjson.js"></script>
+<script type="text/javascript">
+
+    // Dummy CSS
+    var css = '\
+    @media (max-width: 800px) {\n\
+    	#main #comments {\n\
+    		margin: 0px;\n\
+    		width: auto;\n\
+    		background: red;\n\
+            background: img("example.png");\n\
+    	}\n\
+    	#main #buttons {\n\
+    		padding: 5px 10px;\n\
+    		color: blue;\n\
+    	}\n\
+    }\n\
+\n\
+    #main #content {\n\
+    	margin: 0 7.6%;\n\
+    	width: auto;\n\
+    }\n\
+    #nav-below {\n\
+    	border-bottom: 1px solid #ddd;\n\
+    	margin-bottom: 1.625em;\n\
+    	background-image: url(http://www.example.com/images/im.jpg);\n\
+    }\n\
+    ';
+
+    exampleCSSJSON(css);
+    
+    function exampleCSSJSON(cssString) {
+		var json = CSSJSON.toJSON(cssString);
+    	if (typeof console != 'undefined') {
+    	    console.log('JSON:\n');
+    	    console.dir(json);
+    	    console.log('\n\n');
+	    }
+        document.write('<strong>JSON</strong><br/><pre>'+JSON.stringify(json, undefined, 2)+'</pre>');
+    	
+    	var css = CSSJSON.toCSS(json);
+    	if (typeof console != 'undefined') {
+    	    console.log('CSS:\n');
+    	    console.log(css + '\n\n');
+	    }
+        document.write('<br/><strong>CSS</strong><br/><pre>'+css+'</pre>');
+    }
+    
+</script>
+</body>

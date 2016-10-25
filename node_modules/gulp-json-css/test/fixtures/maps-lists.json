@@ -1,0 +1,21 @@
+{
+	"aString": "3px",
+	"anArray": [
+		1,
+		2,
+		3,
+		4
+	],
+	"anObject": {
+		"aSubObject": {
+			"key1": "value1",
+			"key2": "value2"
+		},
+		"aSubArray": [
+			5,
+			6,
+			7,
+			8
+		]
+	}
+}

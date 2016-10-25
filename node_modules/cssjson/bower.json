@@ -1,0 +1,22 @@
+{
+  "name": "cssjson",
+  "main": "cssjson.js",
+  "version": "2.1.3",
+  "homepage": "https://github.com/aramk/CSSJSON",
+  "authors": [
+    "Aram Kocharyan https://github.com/aramk"
+  ],
+  "license": "MIT",
+  "description": "Converts CSS to JSON and back.",
+  "keywords": [
+    "css",
+    "json"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

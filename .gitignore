@@ -1,4 +1,6 @@
 _site
+_dist
+_tokens
 .sass-cache
 .DS_Store
 .ruby-version

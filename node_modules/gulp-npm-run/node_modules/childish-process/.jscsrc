@@ -1,0 +1,5 @@
+{
+  "requirePaddingNewLinesBeforeLineComments": {
+    "allExcept": "firstAfterCurly"
+  }
+}

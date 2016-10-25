@@ -1,0 +1,13 @@
+.DS_Store
+*~
+.#*
+.hgignore
+.hg/*
+.svn/*
+._*
+*.swp
+tmp
+
+# Node
+node_modules
+npm-debug.log

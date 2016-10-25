@@ -1,0 +1,5 @@
+--compilers coffee:coffee-script/register
+--require test/mocha
+--reporter tap
+--ui bdd
+--colors
