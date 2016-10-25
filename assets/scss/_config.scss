@@ -4,11 +4,12 @@ COLOR VARIABLES
 
 // Better default colors
 // Cool
+
 $aqua:  #7FDBFF;
 $blue:  #0074D9;
 $navy:  #001F3F;
 $teal:  #39CCCC;
-$green: #38bf38;
+$greener: #38bf38;
 $salmon: #905e66;
 $salmon-light: #d8b9bc;
 $olive: #3D9970;
@@ -35,7 +36,7 @@ $link-color: $primary-color;
 $background-color: $salmon;
 
 $bad-color: $red; // Bad color for errors, validation etc.
-$good-color: $green; // Good color for success etc.
+$good-color: $greener; // Good color for success etc.
 $info-color: $blue; // Good color for success etc.
 $warning-color: $orange; // Good color for success etc.
 $subtle-color: $grey; // Subtle color for subtle text
