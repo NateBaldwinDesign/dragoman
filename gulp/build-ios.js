@@ -22,7 +22,7 @@ var jsonCss       = require('gulp-json-css'),
 gulp.task('json-ios-color', ['clean-build'], function() {
   return gulp
     // Convert JSON to Scss
-    .src( paths.tokens + '/**/color.json')
+    .src( paths.tokens + '/**/colors.json')
     .pipe(replace (/(\s*"name".*)/g, ''))
     .pipe(replace (/(\s*"description".*)/g, ''))
     .pipe(jsonCss({

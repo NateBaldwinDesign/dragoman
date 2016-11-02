@@ -53,8 +53,10 @@ gulp.task('dragoman', [
   'json-android-color',
   'json-ios-color',
   'icons-web'
-  // 'icons-ios' when this works
-], function () { gulp.src(paths.tokens + '/**/*.json'); });
+  // 'icons-ios' Still getting phantomJSArgs error
+], function () { 
+  gulp.src(paths.tokens + '/**/*.json').pipe(clean()); 
+});
 
 for (var key in config.compileStyles) {
   // Only Styles

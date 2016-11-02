@@ -1,0 +1,7 @@
+name: button
+description: Buttons are used to indicate clickable elements and perform an action.
+button:
+  background-color: "%color-orange"
+  border-color: "%color-orange"
+  border-width: "%stroke-xsmall"
+  font: "%font-secondary"

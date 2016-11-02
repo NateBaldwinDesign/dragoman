@@ -1,0 +1,8 @@
+name: strokes
+description: Strokes refer to common border widths used throughout the interface.
+stroke:
+  xsmall: 1px 
+  small: 2px
+  medium: 4px
+  large: 6px
+  xlarge: 8px
