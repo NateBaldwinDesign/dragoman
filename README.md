@@ -29,14 +29,16 @@ This allows you build unified & consistent applications with a core set of *cros
 
 Define your paths, and the languages you intend to build your applications in the ./config.json file (_language selection in progress_). 
 
-``` bash
-$ gulp dragoman-[options]
-```
-
-If you wish to convert to every possible language in this tool, simply run dragoman without any options:
+To translate every language in the tool, run dragoman without any options:
 
 ```bash
 $ gulp dragoman
+```
+
+To translate only one language, run dragoman with options:
+
+``` bash
+$ gulp dragoman-[options]
 ```
 
 #### Options:
