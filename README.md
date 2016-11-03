@@ -33,6 +33,12 @@ Define your paths, and the languages you intend to build your applications in th
 $ gulp dragoman-[options]
 ```
 
+If you wish to convert to every possible language in this tool, simply run dragoman without any options:
+
+```bash
+$ gulp dragoman
+```
+
 #### Options:
 * [default] - translates tokens to all languages
 * scss
